@@ -34,7 +34,7 @@ $listado = Usuario::obtenerTodos();
 				-
 				<a href="modificar.php?id=<?php echo $usuario->getIdPersona(); ?>">Modificar</a>
 				-
-				<a href="">Borrar</a>
+				<a href="eliminar.php?id=<?php echo $usuario->getIdPersona(); ?>">Borrar</a>
 			</td>
 		</tr>
 
@@ -44,7 +44,3 @@ $listado = Usuario::obtenerTodos();
 
 </body>
 </html>
-				<!-- - 
-				<a href="modificar.php?id=<?php echo $cliente->getIdCliente(); ?>"></a>
-				-
-				<a href="eliminar.php?id=<?php echo $cliente->getIdPersona(); ?>"onclick="return confirm('Seguro quiere eliminar este Cliente?');"></a> -->

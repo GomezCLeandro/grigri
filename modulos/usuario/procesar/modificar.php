@@ -10,7 +10,6 @@ $fechaNacimiento = $_POST['txtFechaNacimiento'];
 $numeroDocumento = $_POST['txtNumeroDocumento'];
 $sexo = $_POST['txtSexo'];
 
-
 if (empty(trim($nombre))) {
 	echo "ERROR NOMBRE VACIO";
 	exit;

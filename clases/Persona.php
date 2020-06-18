@@ -188,6 +188,12 @@ class Persona {
         $mysql->desconectar();
     }
 
+    public static function eliminar($id) {
+        $sql = "DELETE FROM usuario WHERE id_persona=".$id;
+
+        $mysql = new MySQL();
+        $mysql->eliminar($sql);
+    }
 
 }
 ?> 

@@ -139,7 +139,7 @@ class Usuario extends Persona{
     public function guardar() {
     	parent::guardar();
 
-        $sql = "INSERT INTO Usuario (id_usuario, usearname, contrasena) VALUES (NULL, '$this->_username', '$this->_password')";
+        $sql = "INSERT INTO Usuario (id_usuario, usearname, password) VALUES (NULL, '$this->_username', '$this->_password')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
@@ -151,13 +151,21 @@ class Usuario extends Persona{
     public function actualizar() {
         parent::actualizar();
 
-        $sql = "UPDATE usuario SET username = '$this->_username', contrasena = '$this->_password' WHERE id_usuario ='$this->_idUsuario'";
+        $sql = "UPDATE usuario SET username = '$this->_username', password = '$this->_password' WHERE id_usuario ='$this->_idUsuario'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
         $mysql->desconectar();
     }
 
+    public static function eliminar($id) {
+        parent::eliminar($id);
+
+        $sql = "DELETE FROM usuario WHERE id_persona=".$id;
+
+        $mysql = new MySQL();
+        $mysql->eliminar($sql);
+    }
 
 }
 
