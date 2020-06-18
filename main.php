@@ -5,6 +5,7 @@ require_once "clases/Usuario.php";
 require_once "clases/Barrio.php";
 require_once "clases/Contacto.php";
 
-highlight_string(var_export($usuario, true));
+$usuario =new Usuario('lean','lean');
+$usuario->obtenerPorId(1);
 
 ?>

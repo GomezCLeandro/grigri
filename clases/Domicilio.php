@@ -11,6 +11,8 @@ class Domicilio {
 	private $_calle;
 	private $_altura;	
     private $_descripcion;
+
+    public $barrio;
 	
     /**
      * @return mixed
@@ -168,6 +170,32 @@ class Domicilio {
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);        
+    }
+
+    public static function obtenerPorIdPersona($id) {
+
+        $sql = "SELECT * FROM domicilio WHERE id_persona =".$id;
+        var_dump($sql);
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $data = $datos->fetch_assoc();
+
+        $domicilio = new Domicilio();
+
+        if ($datos->num_rows > 0) {        
+
+        $domicilio->_idDomicilio = $data['id_domicilio'];
+        $domicilio->_idBarrio = $data['id_barrio'];
+        $domicilio->_manzana = $data['manzana'];
+        $domicilio->_calle = $data['calle'];
+        $domicilio->_altura = $data['altura'];
+        $domicilio->_descripcion = $data['descripcion'];
+        //$domicilio->setBarrio();        
+        }
+        highlight_string(var_export($data,true));
+        //return $domicilio; 
     }
 
 }

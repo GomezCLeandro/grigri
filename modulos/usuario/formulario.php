@@ -4,6 +4,7 @@ require_once '../../clases/Usuario.php';
 
 $listado = Usuario::obtenerTodos();
 
+//highlight_string(var_export($listado,true));
 ?>
 
 <!DOCTYPE html>

@@ -1,7 +1,7 @@
 <?php
 require_once 'MySQL.php';
 require_once 'Domicilio.php';
-require_once "Contacto.php";
+//require_once "Contacto.php";
 
 class Persona {
 	private $_idPersona;
@@ -15,6 +15,8 @@ class Persona {
 	private $_numeroDocumento;
 	private $_estado;
 
+    public $domicilio;
+
     const ACTIVO = 1;
 
     public function __construct($nombre, $apellido) {
@@ -26,25 +28,13 @@ class Persona {
     public function __toString() {
         return $this->_nombre . ", " . $this->_apellido;
     }
-
+    
     /**
      * @return mixed
      */
     public function getIdPersona()
     {
         return $this->_idPersona;
-    }
-
-    public function setIdTipoDocumento($_idTipoDocumento)
-    {
-        $this->_idTipoDocumento = $_idTipoDocumento;
-
-        return $this;
-    }
-
-    public function getIdTipoDocumento()
-    {
-        return $this->_idTipoDocumento;
     }
 
     /**
@@ -90,26 +80,6 @@ class Persona {
     /**
      * @return mixed
      */
-    public function getSexo()
-    {
-        return $this->_sexo;
-    }
-
-    /**
-     * @param mixed $_sexo
-     *
-     * @return self
-     */
-    public function setSexo($_sexo)
-    {
-        $this->_sexo = $_sexo;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getFechaNacimiento()
     {
         return $this->_fechaNacimiento;
@@ -123,6 +93,46 @@ class Persona {
     public function setFechaNacimiento($_fechaNacimiento)
     {
         $this->_fechaNacimiento = $_fechaNacimiento;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdTipoDocumento()
+    {
+        return $this->_idTipoDocumento;
+    }
+
+    /**
+     * @param mixed $_idTipoDocumento
+     *
+     * @return self
+     */
+    public function setIdTipoDocumento($_idTipoDocumento)
+    {
+        $this->_idTipoDocumento = $_idTipoDocumento;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEstado()
+    {
+        return $this->_estado;
+    }
+
+    /**
+     * @param mixed $_estado
+     *
+     * @return self
+     */
+    public function setEstado($_estado)
+    {
+        $this->_estado = $_estado;
 
         return $this;
     }
@@ -147,24 +157,24 @@ class Persona {
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getEstado()
-    {
-        return $this->_estado;
-    }
+    public static function obtenerId($id) {
 
-    /**
-     * @param mixed $_estado
-     *
-     * @return self
-     */
-    public function setEstado($_estado)
-    {
-        $this->_estado = $_estado;
+        $sql = "SELECT * FROM persona WHERE id_persona =" . $id;
+        //var_dump($sql);
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
 
-        return $this;
+        $registro = $datos->fetch_assoc();
+
+        $persona = new Persona($registro['nombre'], $registro['apellido']);
+        $persona->_idPersona = $registro['id_persona'];
+        $persona->_sexo = $registro['sexo'];
+        $persona->_numeroDocumento = $registro['numero_documento'];
+        $persona->_fechaNacimiento = $registro['fecha_nacimiento'];
+        
+        //highlight_string(var_export($persona,true));
+        return $persona;
     }
 
     public function guardar () {
@@ -195,5 +205,28 @@ class Persona {
         $mysql->eliminar($sql);
     }
 
+    public function setDomicilio() {
+        $this->domicilio = Domicilio::obtenerPorIdPersona($this->_idPersona);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSexo()
+    {
+        return $this->_sexo;
+    }
+
+    /**
+     * @param mixed $_sexo
+     *
+     * @return self
+     */
+    public function setSexo($_sexo)
+    {
+        $this->_sexo = $_sexo;
+
+        return $this;
+    }
 }
 ?> 

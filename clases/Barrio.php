@@ -70,6 +70,24 @@ class Barrio {
         $mysql = new MySQL();
         $mysql->eliminar($sql);
     }
+
+    public static function setBarrio($idBarrio) {
+        
+        $sql = "SELECT * FROM barrio WHERE id_barrio =". $idBarrio;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $data = $datos->fetch_assoc();
+        $barrio = new Barrio();
+
+        $barrio->_idBarrio = $data['id_barrio'];
+        $barrio->_nombre = $data['nombre'];
+
+        return $domicilio;
+    }
+
 }
 
 ?>
