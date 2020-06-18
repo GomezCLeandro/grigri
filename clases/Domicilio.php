@@ -5,7 +5,7 @@ require_once "Barrio.php";
 
 class Domicilio {
 	private $_idDomicilio;
-    private $_barrio;
+    private $_idBarrio;
 	private $_casa;
 	private $_manzana;
 	private $_calle;
@@ -132,6 +132,26 @@ class Domicilio {
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdBarrio()
+    {
+        return $this->_idBarrio;
+    }
+
+    /**
+     * @param mixed $_idBarrio
+     *
+     * @return self
+     */
+    public function setIdBarrio($_idBarrio)
+    {
+        $this->_idBarrio = $_idBarrio;
+
+        return $this;
+    }
+
     public function guardar() {
     	
         $sql = "INSERT INTO Domicilio (id_domicilio, casa, manzana, calle, altura, descripcion) VALUES "
@@ -149,6 +169,7 @@ class Domicilio {
         $mysql = new MySQL();
         $mysql->actualizar($sql);        
     }
+
 }
 
 ?>

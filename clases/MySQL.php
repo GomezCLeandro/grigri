@@ -8,6 +8,11 @@ class MySQL {
 		$this->_mysqli = new mysqli('localhost', 'root', '', 'grigri');
 	}
 
+	public function consulta($sql) {
+		$datos = $this->_mysqli->query($sql);
+		return $datos;
+	}
+
 	public function insertar($sql) {
 		$this->_mysqli->query($sql);
 		return $this->_mysqli->insert_id;

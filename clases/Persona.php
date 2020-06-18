@@ -15,6 +15,18 @@ class Persona {
 	private $_numeroDocumento;
 	private $_estado;
 
+    const ACTIVO = 1;
+
+    public function __construct($nombre, $apellido) {
+        $this->_nombre = $nombre;
+        $this->_apellido = $apellido;
+        $this->_estado = self::ACTIVO;
+    }
+
+    public function __toString() {
+        return $this->_nombre . ", " . $this->_apellido;
+    }
+
     /**
      * @return mixed
      */
@@ -154,11 +166,6 @@ class Persona {
 
         return $this;
     }
-    
-    public function __construct($nombre,$apellido) {
-        $this->_nombre = $nombre;
-        $this->_apellido = $apellido;
-    }
 
     public function guardar () {
     	
@@ -167,6 +174,7 @@ class Persona {
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
+        $mysql->desconectar();
 
         $this->_idPersona = $idInsertado;
     }
@@ -177,6 +185,7 @@ class Persona {
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
+        $mysql->desconectar();
     }
 
 

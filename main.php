@@ -7,11 +7,15 @@ require_once "clases/Contacto.php";
 
 // guardar
 
-//
-
-
-
 /*
+$barrio = new Barrio();
+
+$barrio->setNombre('2 de abril');
+
+$barrio->actualizar(2);
+$barrio->guardar();
+$barrio->eliminar(1);
+
 $usuario = new Usuario('jose','gomez');
 $usuario->setUsername('josgo');
 $usuario->setPassword('555');
@@ -24,13 +28,6 @@ $usuario->setSexo('m');
 $usuario->actualizar(20);
 
 
-$barrio = new Barrio();
-
-$barrio->setNombre('2 de abril');
-
-$barrio->actualizar(2);
-$barrio->guardar();
-$barrio->eliminar(1);
 
 $contacto = new contacto();
 
