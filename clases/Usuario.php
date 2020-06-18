@@ -91,7 +91,7 @@ class Usuario extends Persona{
     public static function obtenerId($id) {
 
         $sql = "SELECT * FROM usuario AS u INNER JOIN persona AS p ON u.id_persona = p.id_persona WHERE id_usuario =" . $id;
-        //var_dump($sql);
+        var_dump($sql);
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
@@ -99,7 +99,7 @@ class Usuario extends Persona{
         $registro = $datos->fetch_assoc();
 
         $usuario = self::_ordenarUsuario($registro);
-        //highlight_string(var_export($usuario,true));
+        highlight_string(var_export($usuario,true));
         return $usuario;
     }
 
@@ -112,8 +112,9 @@ class Usuario extends Persona{
         $usuario->_sexo = $registro['sexo'];
         $usuario->_numeroDocumento = $registro['numero_documento'];
         $usuario->_fechaNacimiento = $registro['fecha_nacimiento'];
+        //var_dump($usuario);
         //$usuario->setDomicilio();
-                
+
         return $usuario;
     }
 

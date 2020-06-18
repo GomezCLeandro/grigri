@@ -194,8 +194,8 @@ class Domicilio {
         $domicilio->_descripcion = $data['descripcion'];
         //$domicilio->setBarrio();        
         }
-        highlight_string(var_export($data,true));
-        //return $domicilio; 
+        //highlight_string(var_export($datos,true));
+        return $domicilio; 
     }
 
 }

@@ -80,6 +80,7 @@ class Barrio {
         $mysql->desconectar();
 
         $data = $datos->fetch_assoc();
+        
         $barrio = new Barrio();
 
         $barrio->_idBarrio = $data['id_barrio'];
