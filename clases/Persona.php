@@ -157,25 +157,7 @@ class Persona {
         return $this;
     }
 
-    public static function obtenerId($id) {
 
-        $sql = "SELECT * FROM persona WHERE id_persona =" . $id;
-        //var_dump($sql);
-        $mysql = new MySQL();
-        $datos = $mysql->consulta($sql);
-        $mysql->desconectar();
-
-        $registro = $datos->fetch_assoc();
-
-        $persona = new Persona($registro['nombre'], $registro['apellido']);
-        $persona->_idPersona = $registro['id_persona'];
-        $persona->_sexo = $registro['sexo'];
-        $persona->_numeroDocumento = $registro['numero_documento'];
-        $persona->_fechaNacimiento = $registro['fecha_nacimiento'];
-        
-        //highlight_string(var_export($persona,true));
-        return $persona;
-    }
 
     public function guardar () {
     	
@@ -206,7 +188,9 @@ class Persona {
     }
 
     public function setDomicilio() {
+        var_dump($this->_idPersona);
         $this->domicilio = Domicilio::obtenerPorIdPersona($this->_idPersona);
+        
     }
 
     /**

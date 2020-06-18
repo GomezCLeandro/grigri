@@ -5,7 +5,6 @@ require_once 'MySQL.php';
 class Usuario extends Persona{
 	
 	private $_idUsuario;
-    private $_idPersona;
 	private $_username;
 	private $_password;
 
@@ -15,11 +14,6 @@ class Usuario extends Persona{
     public function getIdUsuario()
     {
         return $this->_idUsuario;
-    }
-
-    public function getIdPersona()
-    {
-        return $this->_idPersona;
     }
 
     /**
