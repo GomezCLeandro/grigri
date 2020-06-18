@@ -32,7 +32,7 @@ $listado = Usuario::obtenerTodos();
 			<td>
 				<a href="procesar/buscarId.php?id=<?php echo $usuario->getIdPersona(); ?>">Detalle</a>
 				-
-				<a href="">Modificar</a>
+				<a href="modificar.php?id=<?php echo $usuario->getIdPersona(); ?>">Modificar</a>
 				-
 				<a href="">Borrar</a>
 			</td>

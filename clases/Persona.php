@@ -179,9 +179,9 @@ class Persona {
         $this->_idPersona = $idInsertado;
     }
 
-    public function actualizar($id) {
+    public function actualizar() {
 
-        $sql = "UPDATE persona SET nombre ='$this->_nombre', apellido ='$this->_apellido', numero_documento ='$this->_numeroDocumento',fecha_nacimiento ='$this->_fechaNacimiento', sexo='$this->_sexo' WHERE id_persona =".$id;
+        $sql = "UPDATE persona SET nombre ='$this->_nombre', apellido ='$this->_apellido', numero_documento ='$this->_numeroDocumento',fecha_nacimiento ='$this->_fechaNacimiento', sexo='$this->_sexo' WHERE id_persona ='$this->_idPersona'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);

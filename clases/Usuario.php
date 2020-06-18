@@ -114,7 +114,7 @@ class Usuario extends Persona{
         return $listado;
     }
 
-    public function obtenerId($id) {
+    public static function obtenerId($id) {
 
         $sql = "SELECT * FROM usuario AS u JOIN persona AS p ON u.id_persona = p.id_persona WHERE id_usuario =" . $id;
 
@@ -148,10 +148,10 @@ class Usuario extends Persona{
         $this->_idUsuario = $idInsertado;
     }
 
-    public function actualizar($id) {
-        parent::actualizar($id);
+    public function actualizar() {
+        parent::actualizar();
 
-        $sql = "UPDATE usuario SET username = '$this->_username', contrasena = '$this->_password' WHERE id_usuario =" . $id;
+        $sql = "UPDATE usuario SET username = '$this->_username', contrasena = '$this->_password' WHERE id_usuario ='$this->_idUsuario'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
