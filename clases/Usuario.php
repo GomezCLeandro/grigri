@@ -113,10 +113,8 @@ class Usuario extends Persona{
         $usuario->_numeroDocumento = $registro['numero_documento'];
         $usuario->_fechaNacimiento = $registro['fecha_nacimiento'];
         //$usuario->setDomicilio();
-
-        
+                
         return $usuario;
-    
     }
 
     public function guardar() {
