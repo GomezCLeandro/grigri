@@ -4,13 +4,15 @@ require_once "MySQL.php";
 require_once "Barrio.php";
 
 class Domicilio {
+
 	private $_idDomicilio;
-    private $_idBarrio;
 	private $_casa;
 	private $_manzana;
 	private $_calle;
 	private $_altura;	
     private $_descripcion;
+
+    public $barrio;
 	
     /**
      * @return mixed
@@ -170,6 +172,33 @@ class Domicilio {
         $mysql->actualizar($sql);        
     }
 
+    public static function obtenerPorIdPersona($idPersona) {
+        $sql = "SELECT * FROM domicilio WHERE id_persona = " . $idPersona;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $data = $datos->fetch_assoc();
+
+        $domicilio = null;
+
+        if ($datos->num_rows > 0) {
+
+            $domicilio = new Domicilio();
+            $domicilio->_idDomicilio = $data['id_domicilio'];
+            $domicilio->_calle = $data['calle'];
+            $domicilio->_altura = $data['altura'];
+            $domicilio->_manzana = $data['manzana'];
+            $domicilio->_descripcion = $data['descripcion'];
+        }
+
+        return $domicilio;
+    }
+
+    public function __toString() {
+        return $this->_calle . " " . $this->_altura;
+    }
 }
 
 ?>
