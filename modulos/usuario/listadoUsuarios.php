@@ -4,6 +4,7 @@ require_once '../../clases/Usuario.php';
 
 $listado = Usuario::obtenerTodos();
 
+//highlight_string(var_export($listado,true));
 ?>
 
 <!DOCTYPE html>
@@ -30,11 +31,11 @@ $listado = Usuario::obtenerTodos();
 			<td> <?php echo $usuario->getUsername(); ?> </td>
 			<td> <?php echo $usuario->getPassword(); ?> </td>
 			<td>
-				<a href="procesar/buscarId.php?id=<?php echo $usuario->getIdPersona(); ?>">Detalle</a>
+				<a href="procesar/buscarPorId.php?id=<?php echo $usuario->getIdPersona(); ?>">Detalle</a>
 				-
-				<a href="">Modificar</a>
+				<a href="modificar.php?id=<?php echo $usuario->getIdPersona(); ?>">Modificar</a>
 				-
-				<a href="">Borrar</a>
+				<a href="eliminar.php?id=<?php echo $usuario->getIdPersona(); ?>">Borrar</a>
 			</td>
 		</tr>
 
@@ -44,7 +45,3 @@ $listado = Usuario::obtenerTodos();
 
 </body>
 </html>
-				<!-- - 
-				<a href="modificar.php?id=<?php echo $cliente->getIdCliente(); ?>"></a>
-				-
-				<a href="eliminar.php?id=<?php echo $cliente->getIdPersona(); ?>"onclick="return confirm('Seguro quiere eliminar este Cliente?');"></a> -->

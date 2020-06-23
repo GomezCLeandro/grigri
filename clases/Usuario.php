@@ -5,7 +5,6 @@ require_once 'MySQL.php';
 class Usuario extends Persona{
 	
 	private $_idUsuario;
-    private $_idPersona;
 	private $_username;
 	private $_password;
 
@@ -15,18 +14,6 @@ class Usuario extends Persona{
     public function getIdUsuario()
     {
         return $this->_idUsuario;
-    }
-
-    /**
-     * @param mixed $_idUsuario
-     *
-     * @return self
-     */
-    public function setIdUsuario($_idUsuario)
-    {
-        $this->_idUsuario = $_idUsuario;
-
-        return $this;
     }
 
     /**
@@ -69,29 +56,10 @@ class Usuario extends Persona{
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getIdPersona()
-    {
-        return $this->_idPersona;
-    }
-
-    /**
-     * @param mixed $_idPersona
-     *
-     * @return self
-     */
-    public function setIdPersona($_idPersona)
-    {
-        $this->_idPersona = $_idPersona;
-
-        return $this;
-    }    
-
     public static function obtenerTodos() {
-        $sql = "SELECT * FROM usuario INNER JOIN persona on usuario.id_persona = persona.id_persona";
-
+        $sql = "SELECT usuario.id_usuario, persona.id_persona, usuario.username, usuario.password, persona.nombre, persona.apellido"
+        ." FROM persona INNER JOIN usuario on usuario.id_persona = persona.id_persona";
+        
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
@@ -114,32 +82,36 @@ class Usuario extends Persona{
         return $listado;
     }
 
-    public function obtenerId($id) {
+    public static function obtenerPorId($id) {
 
-        $sql = "SELECT * FROM usuario AS u JOIN persona AS p ON u.id_persona = p.id_persona WHERE id_usuario =" . $id;
-
-        $mysql = new MySQL;
+        $sql = "SELECT * FROM usuario AS u INNER JOIN persona AS p ON u.id_persona = p.id_persona WHERE id_usuario =" . $id;
+        $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
 
         $registro = $datos->fetch_assoc();
 
+        $usuario = self::_generarUsuario($registro);
+        return $usuario;
+    }
+
+    private function _generarUsuario($registro) {
+
         $usuario = new Usuario($registro['nombre'], $registro['apellido']);
-        $usuario->_idUsuario = $registro['id_usuario'];
         $usuario->_idPersona = $registro['id_persona'];
+        $usuario->_idUsuario = $registro['id_usuario'];
         $usuario->_username = $registro['username'];
-        $usuario->_password = $registro['password'];
+        $usuario->_sexo = $registro['sexo'];
         $usuario->_numeroDocumento = $registro['numero_documento'];
         $usuario->_fechaNacimiento = $registro['fecha_nacimiento'];
-        $usuario->_sexo = $registro['sexo'];
-        
-        return $usuario;        
+
+        return $usuario;
     }
 
     public function guardar() {
     	parent::guardar();
 
-        $sql = "INSERT INTO Usuario (id_usuario, usearname, contrasena) VALUES (NULL, '$this->_username', '$this->_password')";
+        $sql = "INSERT INTO Usuario (id_usuario, usearname, password) VALUES (NULL, '$this->_username', '$this->_password')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
@@ -148,16 +120,24 @@ class Usuario extends Persona{
         $this->_idUsuario = $idInsertado;
     }
 
-    public function actualizar($id) {
-        parent::actualizar($id);
+    public function actualizar() {
+        parent::actualizar();
 
-        $sql = "UPDATE usuario SET username = '$this->_username', contrasena = '$this->_password' WHERE id_usuario =" . $id;
+        $sql = "UPDATE usuario SET username = '$this->_username' WHERE id_usuario ='$this->_idUsuario'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
         $mysql->desconectar();
     }
 
+    public static function eliminar($id) {
+        parent::eliminar($id);
+
+        $sql = "DELETE FROM usuario WHERE id_persona=".$id;
+
+        $mysql = new MySQL();
+        $mysql->eliminar($sql);
+    }
 
 }
 

@@ -1,19 +1,18 @@
 <?php
 require_once 'MySQL.php';
 require_once 'Domicilio.php';
-require_once "Contacto.php";
+//require_once "Contacto.php";
 
 class Persona {
-	private $_idPersona;
-    private $_idBarrio;
-    private $_idContacto;
-	private $_idTipoDocumento;
-	private $_nombre;
-	private $_apellido;
-	private $_sexo;
-	private $_fechaNacimiento;
-	private $_numeroDocumento;
-	private $_estado;
+	protected $_idPersona;
+	protected $_nombre;
+	protected $_apellido;
+	protected $_sexo;
+	protected $_fechaNacimiento;
+	protected $_numeroDocumento;
+	protected $_estado;
+
+    public $domicilio;
 
     const ACTIVO = 1;
 
@@ -26,25 +25,13 @@ class Persona {
     public function __toString() {
         return $this->_nombre . ", " . $this->_apellido;
     }
-
+    
     /**
      * @return mixed
      */
     public function getIdPersona()
     {
         return $this->_idPersona;
-    }
-
-    public function setIdTipoDocumento($_idTipoDocumento)
-    {
-        $this->_idTipoDocumento = $_idTipoDocumento;
-
-        return $this;
-    }
-
-    public function getIdTipoDocumento()
-    {
-        return $this->_idTipoDocumento;
     }
 
     /**
@@ -90,26 +77,6 @@ class Persona {
     /**
      * @return mixed
      */
-    public function getSexo()
-    {
-        return $this->_sexo;
-    }
-
-    /**
-     * @param mixed $_sexo
-     *
-     * @return self
-     */
-    public function setSexo($_sexo)
-    {
-        $this->_sexo = $_sexo;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getFechaNacimiento()
     {
         return $this->_fechaNacimiento;
@@ -130,19 +97,19 @@ class Persona {
     /**
      * @return mixed
      */
-    public function getNumeroDocumento()
+    public function getIdTipoDocumento()
     {
-        return $this->_numeroDocumento;
+        return $this->_idTipoDocumento;
     }
 
     /**
-     * @param mixed $_numeroDocumento
+     * @param mixed $_idTipoDocumento
      *
      * @return self
      */
-    public function setNumeroDocumento($_numeroDocumento)
+    public function setIdTipoDocumento($_idTipoDocumento)
     {
-        $this->_numeroDocumento = $_numeroDocumento;
+        $this->_idTipoDocumento = $_idTipoDocumento;
 
         return $this;
     }
@@ -167,6 +134,28 @@ class Persona {
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getNumeroDocumento()
+    {
+        return $this->_numeroDocumento;
+    }
+
+    /**
+     * @param mixed $_numeroDocumento
+     *
+     * @return self
+     */
+    public function setNumeroDocumento($_numeroDocumento)
+    {
+        $this->_numeroDocumento = $_numeroDocumento;
+
+        return $this;
+    }
+
+
+
     public function guardar () {
     	
         $sql = "INSERT INTO Persona (id_persona, nombre, apellido, id_tipo_documento, numero_documento, fecha_nacimiento, sexo) VALUES"
@@ -179,15 +168,45 @@ class Persona {
         $this->_idPersona = $idInsertado;
     }
 
-    public function actualizar($id) {
+    public function actualizar() {
 
-        $sql = "UPDATE persona SET nombre ='$this->_nombre', apellido ='$this->_apellido', numero_documento ='$this->_numeroDocumento',fecha_nacimiento ='$this->_fechaNacimiento', sexo='$this->_sexo' WHERE id_persona =".$id;
+        $sql = "UPDATE persona SET nombre ='$this->_nombre', apellido ='$this->_apellido', numero_documento ='$this->_numeroDocumento',fecha_nacimiento ='$this->_fechaNacimiento', sexo='$this->_sexo' WHERE id_persona ='$this->_idPersona'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
         $mysql->desconectar();
     }
 
+    public static function eliminar($id) {
+        $sql = "DELETE FROM usuario WHERE id_persona=".$id;
 
+        $mysql = new MySQL();
+        $mysql->eliminar($sql);
+    }
+
+    public function setDomicilio() {
+        $this->domicilio = Domicilio::obtenerPorIdPersona($this->_idPersona);
+        
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSexo()
+    {
+        return $this->_sexo;
+    }
+
+    /**
+     * @param mixed $_sexo
+     *
+     * @return self
+     */
+    public function setSexo($_sexo)
+    {
+        $this->_sexo = $_sexo;
+
+        return $this;
+    }
 }
 ?> 
