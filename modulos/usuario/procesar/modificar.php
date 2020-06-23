@@ -25,6 +25,4 @@ $usuario->setSexo($sexo);
 
 $usuario->actualizar();
 
-highlight_string(var_export($usuario, true));
-
 ?>

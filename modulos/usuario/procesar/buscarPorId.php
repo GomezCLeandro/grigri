@@ -1,15 +1,11 @@
 <?php
 
 require_once "../../../clases/Usuario.php";
-//require_once "../../../clases/Domicilio.php";
 
 $id = $_GET['id'];
 
-$usuario = Usuario::obtenerId($id);
-//$domicilio = Domicilio::obtenerPorIdPersona($id);
+$usuario = Usuario::obtenerPorId($id);
 
-//highlight_string(var_export($usuario, true));
-//highlight_string(var_export($domicilio, true));
 ?>
 
 <!DOCTYPE html>

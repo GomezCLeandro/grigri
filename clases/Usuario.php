@@ -59,7 +59,7 @@ class Usuario extends Persona{
     public static function obtenerTodos() {
         $sql = "SELECT usuario.id_usuario, persona.id_persona, usuario.username, usuario.password, persona.nombre, persona.apellido"
         ." FROM persona INNER JOIN usuario on usuario.id_persona = persona.id_persona";
-        //var_dump($sql);
+        
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
@@ -82,22 +82,20 @@ class Usuario extends Persona{
         return $listado;
     }
 
-    public static function obtenerId($id) {
+    public static function obtenerPorId($id) {
 
         $sql = "SELECT * FROM usuario AS u INNER JOIN persona AS p ON u.id_persona = p.id_persona WHERE id_usuario =" . $id;
-        var_dump($sql);
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
 
         $registro = $datos->fetch_assoc();
 
-        $usuario = self::_ordenarUsuario($registro);
-        highlight_string(var_export($usuario,true));
+        $usuario = self::_generarUsuario($registro);
         return $usuario;
     }
 
-    private function _ordenarUsuario($registro) {
+    private function _generarUsuario($registro) {
 
         $usuario = new Usuario($registro['nombre'], $registro['apellido']);
         $usuario->_idPersona = $registro['id_persona'];
@@ -106,8 +104,6 @@ class Usuario extends Persona{
         $usuario->_sexo = $registro['sexo'];
         $usuario->_numeroDocumento = $registro['numero_documento'];
         $usuario->_fechaNacimiento = $registro['fecha_nacimiento'];
-        //var_dump($usuario);
-        //$usuario->setDomicilio();
 
         return $usuario;
     }

@@ -4,16 +4,13 @@ require_once 'Domicilio.php';
 //require_once "Contacto.php";
 
 class Persona {
-	private $_idPersona;
-    private $_idBarrio;
-    private $_idContacto;
-	private $_idTipoDocumento;
-	private $_nombre;
-	private $_apellido;
-	private $_sexo;
-	private $_fechaNacimiento;
-	private $_numeroDocumento;
-	private $_estado;
+	protected $_idPersona;
+	protected $_nombre;
+	protected $_apellido;
+	protected $_sexo;
+	protected $_fechaNacimiento;
+	protected $_numeroDocumento;
+	protected $_estado;
 
     public $domicilio;
 
@@ -188,7 +185,6 @@ class Persona {
     }
 
     public function setDomicilio() {
-        var_dump($this->_idPersona);
         $this->domicilio = Domicilio::obtenerPorIdPersona($this->_idPersona);
         
     }

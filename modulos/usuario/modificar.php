@@ -3,7 +3,7 @@
 require_once "../../clases/Usuario.php";
 
 $id = $_GET['id'];
-$usuario = Usuario::obtenerId($id);
+$usuario = Usuario::obtenerPorId($id);
 
 //highlight_string(var_export($usuario, true));
 ?>

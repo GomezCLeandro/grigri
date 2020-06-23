@@ -31,7 +31,7 @@ $listado = Usuario::obtenerTodos();
 			<td> <?php echo $usuario->getUsername(); ?> </td>
 			<td> <?php echo $usuario->getPassword(); ?> </td>
 			<td>
-				<a href="procesar/buscarId.php?id=<?php echo $usuario->getIdPersona(); ?>">Detalle</a>
+				<a href="procesar/buscarPorId.php?id=<?php echo $usuario->getIdPersona(); ?>">Detalle</a>
 				-
 				<a href="modificar.php?id=<?php echo $usuario->getIdPersona(); ?>">Modificar</a>
 				-
