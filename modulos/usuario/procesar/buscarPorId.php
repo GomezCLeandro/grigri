@@ -35,21 +35,5 @@ $usuario = Usuario::obtenerPorId($id);
 			<td> <?php echo $usuario->getSexo(); ?> </td>
 		</tr>
 
-	<table border="1" align="center">
-		<tr>
-			<th>Calle</th>
-			<th>altura</th>
-			<th>Casa</th>
-			<th>Manzana</th>
-			<th>Descripcion</th>
-		</tr>
-		<tr>
-			<td> <?php echo $usuario->getCalle(); ?> </td>
-			<td> <?php echo $usuario->getAltura(); ?> </td>
-			<td> <?php echo $usuario->getCasa(); ?> </td>
-			<td> <?php echo $usuario->getManzana(); ?> </td>
-			<td> <?php echo $usuario->getDescripcion(); ?> </td>
-		</tr>
-
 </body>
 </html>
