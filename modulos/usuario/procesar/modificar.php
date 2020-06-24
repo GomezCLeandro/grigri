@@ -15,7 +15,7 @@ if (empty(trim($nombre))) {
 	exit;
 }
 
-$usuario = Usuario::obtenerId($id);
+$usuario = Usuario::obtenerPorId($id);
 $usuario->setUsername($username);
 $usuario->setNombre($nombre);
 $usuario->setApellido($apellido);
