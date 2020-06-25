@@ -188,7 +188,6 @@ class Usuario extends Persona{
             $usuario->_idUsuario = $registro['id_usuario'];
             $usuario->_idPersona = $registro['id_persona'];
             $usuario->_username = $registro['username'];
-            //$usuario->_idPerfil = $registro['id_perfil'];
             $usuario->_fechaUltimoLogin = $registro['fecha_ultimo_login'];
             $usuario->_estaLogueado = true;
 

@@ -47,6 +47,9 @@ $usuario = Usuario::obtenerPorId($id);
 
 		</form>
 
+	<br>
+	<a href="/grigri/dashboard.php">Volver al Dashboard</a>
+
 </div>
 </body>
 </html>

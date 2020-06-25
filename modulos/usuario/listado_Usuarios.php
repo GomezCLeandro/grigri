@@ -43,5 +43,7 @@ $listado = Usuario::obtenerTodos();
 
 	</table>
 
+	<a href="/grigri/dashboard.php">Volver al Dashboard</a>
+
 </body>
 </html>

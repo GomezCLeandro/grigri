@@ -35,5 +35,7 @@ $usuario = Usuario::obtenerPorId($id);
 			<td> <?php echo $usuario->getSexo(); ?> </td>
 		</tr>
 
+	<br>
+	<a href="/grigri/dashboard.php">Volver al Dashboard</a>
 </body>
 </html>
