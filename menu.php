@@ -17,7 +17,17 @@ $usuario = $_SESSION['usuario'];
 </head>
 <body>
 
-	<a href="/grigri/modulos/usuario/listado_Usuarios.php">Usuarios</a>
+	<?php foreach ($usuario->perfil->getModulos() as $modulo): ?>
+
+		<a href="/grigri/modulos/<?php echo $modulo->getDirectorio()?>/listado.php">
+			<?php echo $modulo; ?>
+		</a>
+
+	<?php endforeach ?>
+
+	<? echo $usuario ?>
+
+	<a href="logout.php">Cerra Sesion</a>
 
 </body>
 </html>

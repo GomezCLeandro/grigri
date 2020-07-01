@@ -1,15 +1,17 @@
 <?php
 require_once "Persona.php";
 require_once 'MySQL.php';
+require_once 'Perfil.php';
 
 class Usuario extends Persona{
 	
 	private $_idUsuario;
 	private $_username;
 	private $_password;
-    private $_fechaUltimoLogin;
     private $_idPerfil;
     private $_estaLogueado;
+
+    public $perfil;
 
     /**
      * @return mixed
@@ -55,26 +57,6 @@ class Usuario extends Persona{
     public function setPassword($_password)
     {
         $this->_password = $_password;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFechaUltimoLogin()
-    {
-        return $this->_fechaUltimoLogin;
-    }
-
-    /**
-     * @param mixed $_fechaUltimoLogin
-     *
-     * @return self
-     */
-    public function setFechaUltimoLogin($_fechaUltimoLogin)
-    {
-        $this->_fechaUltimoLogin = $_fechaUltimoLogin;
 
         return $this;
     }
@@ -188,15 +170,16 @@ class Usuario extends Persona{
             $usuario->_idUsuario = $registro['id_usuario'];
             $usuario->_idPersona = $registro['id_persona'];
             $usuario->_username = $registro['username'];
-            $usuario->_fechaUltimoLogin = $registro['fecha_ultimo_login'];
+            $usuario->_idPerfil = $registro['id_perfil'];
             $usuario->_estaLogueado = true;
+
+            $usuario->perfil = Perfil::obtenerPorId($usuario->_idPerfil);
 
         } else {
             $usuario = new Usuario('', '');
             $usuario->_estaLogueado = false;
         }
-
-        return $usuario;
+        return $usuario; 
     }
 
 

@@ -21,10 +21,7 @@ $usuario = $_SESSION['usuario'];
 <body>
 	
 	<?php require_once 'menu.php'; ?>
-	<h1> Bienvenido <?php echo $usuario; ?> </h1>
-
-	<br><br>
-	<a href="logout.php">Cerra Sesion</a>
+	<h1> Dashboard </h1>
 
 </body>
 </html>
