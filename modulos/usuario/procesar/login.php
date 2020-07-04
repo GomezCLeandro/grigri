@@ -7,15 +7,15 @@ $password = $_POST['txtPassword'];
 
 $usuario = Usuario::login($username, $password);
 
-if ($usuario->estaLogueado()) {
+$idPerfil = $usuario->perfil->getIdPerfil();
 
-	$nivel_acceso = $usuario->perfil->getIdPerfil();
+if ($usuario->estaLogueado()) {
 	
 	session_start();
 	$_SESSION['usuario'] = $usuario;
 
-	if ($nivel_acceso == 1) {
-		header("location: ../../../dashboard.php");	
+	if ($idPerfil == 1) {
+		header("location: ../../../dashboard.php");
 	} else {
 		header("location: ../../../inicio.php");	
 	}

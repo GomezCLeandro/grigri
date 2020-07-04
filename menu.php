@@ -2,7 +2,7 @@
 
 require_once "clases/Usuario.php";
 
-//session_start();
+session_start();
 
 if (!isset($_SESSION['usuario'])) {
 	header('location: formulario_login.php');
