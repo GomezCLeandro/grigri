@@ -14,6 +14,8 @@ $listado = Usuario::obtenerTodos();
 </head>
 <body>
 
+	<?php require_once '../../dashboard.php'; ?>
+	
 	<table border="1" align="center">
 		<tr>
 			<th>Id Usuario</th>
@@ -43,7 +45,7 @@ $listado = Usuario::obtenerTodos();
 
 	</table>
 
-	<a href="/grigri/dashboard.php">Volver al Dashboard</a>
+	
 
 </body>
 </html>

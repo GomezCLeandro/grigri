@@ -1,5 +1,7 @@
 <html>
-    <head></head>
+    <head>
+        Iniciar Sesion
+    </head>
     <body>
         <form method="POST" action="modulos/usuario/procesar/login.php">
             <input type="text" name="txtUsuario">

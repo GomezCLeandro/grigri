@@ -149,6 +149,7 @@ class Usuario extends Persona{
         $usuario->_sexo = $registro['sexo'];
         $usuario->_numeroDocumento = $registro['numero_documento'];
         $usuario->_fechaNacimiento = $registro['fecha_nacimiento'];
+        $usuario->setDomicilio();
 
         return $usuario;
     }
@@ -181,7 +182,6 @@ class Usuario extends Persona{
         }
         return $usuario; 
     }
-
 
     public function guardar() {
     	parent::guardar();
