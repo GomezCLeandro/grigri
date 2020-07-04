@@ -1,10 +1,14 @@
 <?php
 
+require_once 'Localidad.php';
 require_once 'MySQL.php';
 
 class Barrio {
 	private $_idBarrio;
-	private $_nombre;	
+    private $_idLocalidad;
+	private $_nombre;
+
+    public $localidad;
 
     /**
      * @return mixed
@@ -52,6 +56,7 @@ class Barrio {
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
+        $mysql->desconectar();
 
         $this->_idBarrio = $idInsertado;
     }
@@ -62,6 +67,7 @@ class Barrio {
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
+        $mysql->desconectar();
     }
 
     public function eliminar($id) {
@@ -69,9 +75,10 @@ class Barrio {
 
         $mysql = new MySQL();
         $mysql->eliminar($sql);
+        $mysql->desconectar();
     }
 
-    public static function setBarrio($idBarrio) {
+    public static function obtenerPorIdBarrio($idBarrio) {
         
         $sql = "SELECT * FROM barrio WHERE id_barrio =". $idBarrio;
 
@@ -84,11 +91,40 @@ class Barrio {
         $barrio = new Barrio();
 
         $barrio->_idBarrio = $data['id_barrio'];
+        $barrio->_idLocalidad = $data['id_localidad'];
         $barrio->_nombre = $data['nombre'];
+        $barrio->setLocalidad();
 
-        return $domicilio;
+        return $barrio;
     }
 
+    private function setLocalidad() {
+        $this->localidad = Localidad::obtenerPorIdLocalidad($this->_idLocalidad);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdLocalidad()
+    {
+        return $this->_idLocalidad;
+    }
+
+    /**
+     * @param mixed $_idLocalidad
+     *
+     * @return self
+     */
+    public function setIdLocalidad($_idLocalidad)
+    {
+        $this->_idLocalidad = $_idLocalidad;
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->_nombre;
+    }
 }
 
 ?>

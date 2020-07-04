@@ -6,6 +6,9 @@ $id = $_GET['id'];
 
 $usuario = Usuario::obtenerPorId($id);
 
+//highlight_string(var_export($usuario,true));
+//exit;
+
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +17,12 @@ $usuario = Usuario::obtenerPorId($id);
 	<title></title>
 </head>
 <body>
+	
+<?php 
+
+//require_once '../../../dashboard.php';
+
+ ?>
 
 	<table border="1" align="center">
 		<tr>
@@ -24,6 +33,7 @@ $usuario = Usuario::obtenerPorId($id);
 			<th>Numero Documento</th>
 			<th>Fecha de Nacimiento</th>
 			<th>Sexo</th>
+			<th>Accion</th>
 		</tr>
 		<tr>
 			<td> <?php echo $usuario->getIdUsuario(); ?> </td>
@@ -33,23 +43,42 @@ $usuario = Usuario::obtenerPorId($id);
 			<td> <?php echo $usuario->getNumeroDocumento(); ?> </td>
 			<td> <?php echo $usuario->getFechaNacimiento(); ?> </td>
 			<td> <?php echo $usuario->getSexo(); ?> </td>
+			<td>
+				<a href="modificar.php?id=<?php echo $usuario->getIdPersona(); ?>">Modificar</a>
+				-
+				<a href="eliminar.php?id=<?php echo $usuario->getIdPersona(); ?>">Borrar</a>
+			</td>
 		</tr>
 
 	<table border="1" align="center">
 		<tr>
-			<th>Calle</th>
-			<th>altura</th>
+			<th>Id Domicilio</th>
 			<th>Casa</th>
-			<th>Manzana</th>
+			<th>Calle</th>
+			<th>Altura</th>
 			<th>Descripcion</th>
+			<th>Barrio</th>
+			<th>Localidad</th>
+			<th>Accion</th>
 		</tr>
 		<tr>
-			<td> <?php echo $usuario->getCalle(); ?> </td>
-			<td> <?php echo $usuario->getAltura(); ?> </td>
-			<td> <?php echo $usuario->getCasa(); ?> </td>
-			<td> <?php echo $usuario->getManzana(); ?> </td>
-			<td> <?php echo $usuario->getDescripcion(); ?> </td>
+			<td> <?php echo $usuario->domicilio->getIdDomicilio(); ?> </td>
+			<td> <?php echo $usuario->domicilio->getCasa(); ?> </td>
+			<td> <?php echo $usuario->domicilio->getCalle(); ?> </td>
+			<td> <?php echo $usuario->domicilio->getAltura(); ?> </td>
+			<td> <?php echo $usuario->domicilio->getDescripcion(); ?> </td>
+			<td> <?php echo $usuario->domicilio->barrio->getNombre(); ?> </td>
+			<td> <?php echo $usuario->domicilio->barrio->localidad->getNombre(); ?> </td>
+			<td>
+				<a href="modificar.php?id=<?php echo $usuario->getIdPersona(); ?>">Modificar</a>
+				-
+				<a href="eliminar.php?id=<?php echo $usuario->getIdPersona(); ?>">Borrar</a>
+			</td>
+
 		</tr>
+	</table>
+
+
 
 </body>
 </html>

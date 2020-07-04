@@ -6,6 +6,7 @@ require_once "Barrio.php";
 class Domicilio {
 
 	private $_idDomicilio;
+    private $_idBarrio;
 	private $_casa;
 	private $_manzana;
 	private $_calle;
@@ -142,18 +143,6 @@ class Domicilio {
         return $this->_idBarrio;
     }
 
-    /**
-     * @param mixed $_idBarrio
-     *
-     * @return self
-     */
-    public function setIdBarrio($_idBarrio)
-    {
-        $this->_idBarrio = $_idBarrio;
-
-        return $this;
-    }
-
     public function guardar() {
     	
         $sql = "INSERT INTO Domicilio (id_domicilio, casa, manzana, calle, altura, descripcion) VALUES "
@@ -161,6 +150,7 @@ class Domicilio {
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
+        $mysql->desconectar();
 
         $this->_idDomicilio = $idInsertado;
     }
@@ -169,7 +159,8 @@ class Domicilio {
         $sql = "UPDATE Domicilio SET casa = '$this->_casa',manzana = '$this->manzana',calle = '$this->_calle', altura = '$this->_altura', descripcion = '$this->_descripcion' WHERE id_domicilio =" . $id;
 
         $mysql = new MySQL();
-        $mysql->actualizar($sql);        
+        $mysql->actualizar($sql);
+        $mysql->desconectar();        
     }
 
     public static function obtenerPorIdPersona($idPersona) {
@@ -187,17 +178,46 @@ class Domicilio {
 
             $domicilio = new Domicilio();
             $domicilio->_idDomicilio = $data['id_domicilio'];
+            $domicilio->_idBarrio = $data['id_barrio'];
+            $domicilio->_casa = $data['casa'];
             $domicilio->_calle = $data['calle'];
             $domicilio->_altura = $data['altura'];
             $domicilio->_manzana = $data['manzana'];
             $domicilio->_descripcion = $data['descripcion'];
+            
+            $domicilio->setBarrio();
         }
 
         return $domicilio;
+        
+    }
+
+    private function setBarrio() {
+        $this->barrio = Barrio::obtenerPorIdBarrio($this->_idBarrio);
     }
 
     public function __toString() {
         return $this->_calle . " " . $this->_altura;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBarrio()
+    {
+        return $this->barrio;
+    }
+
+    /**
+     * @param mixed $_idBarrio
+     *
+     * @return self
+     */
+    public function setIdBarrio($_idBarrio)
+    {
+        $this->_idBarrio = $_idBarrio;
+
+        return $this;
     }
 }
 
