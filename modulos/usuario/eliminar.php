@@ -6,4 +6,6 @@ $id = $_GET['id'];
 
 Usuario::eliminar($id);
 
+header("location: /grigri/modulos/usuario/listado.php");
+
 ?>

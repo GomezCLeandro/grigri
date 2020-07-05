@@ -5,7 +5,6 @@ require_once "../../clases/Usuario.php";
 $id = $_GET['id'];
 $usuario = Usuario::obtenerPorId($id);
 
-//highlight_string(var_export($usuario, true));
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,12 +13,14 @@ $usuario = Usuario::obtenerPorId($id);
 </head>
 <body>
 
+	<?php require_once '../../menu.php'; ?>
+	
 <div align="center">
 		<form name="frmDatos" method="POST" action="procesar/modificar.php">
 
 			<input type="hidden" name="txtId" value="<?php echo $usuario->getIdUsuario(); ?>">
 
-	        <label>Username</label>
+		    <label>Username</label>
 		    <input type="text" name="txtUsername" value="<?php echo $usuario->getUsername(); ?>">
 		    <br><br>
 
@@ -46,9 +47,6 @@ $usuario = Usuario::obtenerPorId($id);
 		    <input type="submit" name="btnGuardar" value="Actualizar">			
 
 		</form>
-
-	<br>
-	<a href="/grigri/dashboard.php">Volver al Dashboard</a>
 
 </div>
 </body>

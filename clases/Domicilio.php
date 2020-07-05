@@ -7,6 +7,7 @@ class Domicilio {
 
 	private $_idDomicilio;
     private $_idBarrio;
+    private $_idPersona;
 	private $_casa;
 	private $_manzana;
 	private $_calle;
@@ -135,18 +136,54 @@ class Domicilio {
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
+    public function setIdBarrio($_idBarrio)
+    {
+        $this->_idBarrio = $_idBarrio;
+
+        return $this;
+    }
+
     public function getIdBarrio()
     {
         return $this->_idBarrio;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getBarrio()
+    {
+        return $this->barrio;
+    }
+    
+    public function __toString() {
+        return $this->_calle . " " . $this->_altura;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdPersona()
+    {
+        return $this->_idPersona;
+    }
+
+    /**
+     * @param mixed $_idPersona
+     *
+     * @return self
+     */
+    public function setIdPersona($_idPersona)
+    {
+        $this->_idPersona = $_idPersona;
+
+        return $this;
+    }
+
     public function guardar() {
     	
-        $sql = "INSERT INTO Domicilio (id_domicilio, casa, manzana, calle, altura, descripcion) VALUES "
-        . "(NULL, '$this->_casa', '$this->_manzana','$this->_calle','$this->_altura','$this->_descripcion')";
+        $sql = "INSERT INTO Domicilio (id_domicilio, id_barrio, id_persona, casa, manzana, calle, altura, descripcion) VALUES "
+        . "(NULL,'$this->_idBarrio', '$this->_idPersona',  '$this->_casa', '$this->_manzana','$this->_calle','$this->_altura','$this->_descripcion' )";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
@@ -156,7 +193,7 @@ class Domicilio {
     }
 
     public function actualizar($id) {
-        $sql = "UPDATE Domicilio SET casa = '$this->_casa',manzana = '$this->manzana',calle = '$this->_calle', altura = '$this->_altura', descripcion = '$this->_descripcion' WHERE id_domicilio =" . $id;
+        $sql = "UPDATE Domicilio SET casa = '$this->_casa',manzana = '$this->_manzana',calle = '$this->_calle', altura = '$this->_altura', descripcion = '$this->_descripcion' WHERE id_domicilio =" . $id;
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
@@ -171,7 +208,6 @@ class Domicilio {
         $mysql->desconectar();
 
         $data = $datos->fetch_assoc();
-
         $domicilio = null;
 
         if ($datos->num_rows > 0) {
@@ -179,6 +215,7 @@ class Domicilio {
             $domicilio = new Domicilio();
             $domicilio->_idDomicilio = $data['id_domicilio'];
             $domicilio->_idBarrio = $data['id_barrio'];
+            $domicilio->_idPersona = $data['id_persona'];
             $domicilio->_casa = $data['casa'];
             $domicilio->_calle = $data['calle'];
             $domicilio->_altura = $data['altura'];
@@ -187,38 +224,13 @@ class Domicilio {
             
             $domicilio->setBarrio();
         }
-
-        return $domicilio;
-        
+        return $domicilio;   
     }
 
     private function setBarrio() {
         $this->barrio = Barrio::obtenerPorIdBarrio($this->_idBarrio);
     }
 
-    public function __toString() {
-        return $this->_calle . " " . $this->_altura;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBarrio()
-    {
-        return $this->barrio;
-    }
-
-    /**
-     * @param mixed $_idBarrio
-     *
-     * @return self
-     */
-    public function setIdBarrio($_idBarrio)
-    {
-        $this->_idBarrio = $_idBarrio;
-
-        return $this;
-    }
 }
 
 ?>

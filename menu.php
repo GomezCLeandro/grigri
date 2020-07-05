@@ -31,5 +31,7 @@ $usuario = $_SESSION['usuario'];
 
 	<a href="/grigri/logout.php">Cerra Sesion</a>
 
+	<br><br>
+
 </body>
 </html>

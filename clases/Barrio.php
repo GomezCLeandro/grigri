@@ -5,11 +5,13 @@ require_once 'MySQL.php';
 
 class Barrio {
 	private $_idBarrio;
-    private $_idLocalidad;
 	private $_nombre;
 
     public $localidad;
 
+    public function __construct($nombre) {
+        $this->_nombre = $nombre;
+    }
     /**
      * @return mixed
      */
@@ -78,6 +80,28 @@ class Barrio {
         $mysql->desconectar();
     }
 
+    public static function obtenerTodos() {
+        $sql = "SELECT * FROM barrio";
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $listado = self::_generarListado($datos);
+        return $listado;
+    }
+
+    private function _generarListado($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $barrio = new Barrio($registro['nombre']);
+            $barrio->_idBarrio = $registro['id_barrio'];
+            $barrio->_idLocalidad = $registro['id_localidad'];
+            $listado[] = $barrio;
+        }
+        return $listado;
+    }
+
     public static function obtenerPorIdBarrio($idBarrio) {
         
         $sql = "SELECT * FROM barrio WHERE id_barrio =". $idBarrio;
@@ -87,14 +111,15 @@ class Barrio {
         $mysql->desconectar();
 
         $data = $datos->fetch_assoc();
-        
-        $barrio = new Barrio();
+        $barrio = null;
 
+        if ($datos->num_rows > 0) {
+        
+        $barrio = new Barrio($data['nombre']);
         $barrio->_idBarrio = $data['id_barrio'];
         $barrio->_idLocalidad = $data['id_localidad'];
-        $barrio->_nombre = $data['nombre'];
         $barrio->setLocalidad();
-
+        }
         return $barrio;
     }
 

@@ -4,7 +4,6 @@ require_once '../../clases/Usuario.php';
 
 $listado = Usuario::obtenerTodos();
 
-//highlight_string(var_export($listado,true));
 ?>
 
 <!DOCTYPE html>
@@ -14,12 +13,10 @@ $listado = Usuario::obtenerTodos();
 </head>
 <body>
 
-	<?php require_once '../../dashboard.php'; ?>
+	<?php require_once '../../menu.php'; ?>
 	
 	<table border="1" align="center">
 		<tr>
-			<th>Id Usuario</th>
-			<th>Id Persona</th>
 			<th>Username</th>
 			<th>Password</th>
 			<th>Accion</th>
@@ -28,12 +25,10 @@ $listado = Usuario::obtenerTodos();
 		<?php foreach ($listado as $usuario): ?>
 
 		<tr>
-			<td> <?php echo $usuario->getIdUsuario(); ?> </td>
-			<td> <?php echo $usuario->getIdPersona(); ?> </td>
 			<td> <?php echo $usuario->getUsername(); ?> </td>
 			<td> <?php echo $usuario->getPassword(); ?> </td>
 			<td>
-				<a href="procesar/buscarPorId.php?id=<?php echo $usuario->getIdPersona(); ?>">Detalle</a>
+				<a href="detalle.php?id=<?php echo $usuario->getIdPersona(); ?>">Detalle</a>
 				-
 				<a href="modificar.php?id=<?php echo $usuario->getIdPersona(); ?>">Modificar</a>
 				-
@@ -45,7 +40,7 @@ $listado = Usuario::obtenerTodos();
 
 	</table>
 
-	
+	<a href="alta.php?id=<?php echo $usuario->getIdUsuario(); ?>">Agregar Nuevo Usuario</a>
 
 </body>
 </html>

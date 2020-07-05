@@ -185,8 +185,7 @@ class Persona {
     }
 
     public function setDomicilio() {
-        $this->domicilio = Domicilio::obtenerPorIdPersona($this->_idPersona);
-        
+        $this->domicilio = Domicilio::obtenerPorIdPersona($this->_idPersona);        
     }
 
     /**

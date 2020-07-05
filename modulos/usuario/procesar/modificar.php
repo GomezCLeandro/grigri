@@ -25,4 +25,5 @@ $usuario->setSexo($sexo);
 
 $usuario->actualizar();
 
+header("location: /grigri/modulos/usuario/procesar/buscarPorId.php?id=".$id);
 ?>

@@ -221,6 +221,26 @@ class Usuario extends Persona{
     public function __toString() {
         return $this->_username;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPerfil()
+    {
+        return $this->perfil;
+    }
+
+    /**
+     * @param mixed $perfil
+     *
+     * @return self
+     */
+    public function setPerfil($perfil)
+    {
+        $this->perfil = $perfil;
+
+        return $this;
+    }
 }
 
 ?>
