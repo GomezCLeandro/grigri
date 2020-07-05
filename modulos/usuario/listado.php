@@ -40,7 +40,7 @@ $listado = Usuario::obtenerTodos();
 
 	</table>
 
-	<a href="alta.php?id=<?php echo $usuario->getIdUsuario(); ?>">Agregar Nuevo Usuario</a>
+	<a href="alta.php">Agregar Nuevo Usuario</a>
 
 </body>
 </html>

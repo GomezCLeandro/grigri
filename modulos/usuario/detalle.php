@@ -67,7 +67,7 @@ $user = Usuario::obtenerPorId($id);
 				<td> <?php echo $user->domicilio->barrio->localidad->getNombre(); ?> </td>
 				<td> <?php echo $user->domicilio->getDescripcion(); ?> </td>
 				<td>
-					<a href="/grigri/modulos/domicilio/modificar.php?idPersona=<?php echo $user->getIdPersona(); ?>&idLlamada=<?php echo $user->getIdUsuario(); ?>">
+					<a href="/grigri/modulos/domicilio/modificar.php?idPersona=<?php echo $user->getIdPersona(); ?>">
 					Modificar Domicilio
 					</a>
 					-

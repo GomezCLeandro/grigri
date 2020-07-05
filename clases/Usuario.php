@@ -190,6 +190,8 @@ class Usuario extends Persona{
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
+        highlight_string(var_export($idInsertado,true));
+        exit;
         $mysql->desconectar();
 
         $this->_idUsuario = $idInsertado;
@@ -218,10 +220,6 @@ class Usuario extends Persona{
         return $this->_estaLogueado;
     }
 
-    public function __toString() {
-        return $this->_username;
-    }
-
     /**
      * @return mixed
      */
@@ -241,6 +239,10 @@ class Usuario extends Persona{
 
         return $this;
     }
+
+    public function __toString() {
+        return $this->_username;
+    }    
 }
 
 ?>

@@ -154,8 +154,6 @@ class Persona {
         return $this;
     }
 
-
-
     public function guardar () {
     	
         $sql = "INSERT INTO Persona (id_persona, nombre, apellido, id_tipo_documento, numero_documento, fecha_nacimiento, sexo) VALUES"
@@ -164,7 +162,7 @@ class Persona {
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
         $mysql->desconectar();
-
+        
         $this->_idPersona = $idInsertado;
     }
 

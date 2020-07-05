@@ -192,9 +192,11 @@ class Domicilio {
         $this->_idDomicilio = $idInsertado;
     }
 
-    public function actualizar($id) {
-        $sql = "UPDATE Domicilio SET casa = '$this->_casa',manzana = '$this->_manzana',calle = '$this->_calle', altura = '$this->_altura', descripcion = '$this->_descripcion' WHERE id_domicilio =" . $id;
-
+    public function actualizar($idDomicilio) {
+        $sql = "UPDATE Domicilio SET casa = '$this->_casa',manzana = '$this->_manzana',calle = '$this->_calle', "
+        . "altura = '$this->_altura', descripcion = '$this->_descripcion',id_barrio = '$this->_idBarrio' "
+        . " WHERE id_domicilio =" . $idDomicilio;
+        
         $mysql = new MySQL();
         $mysql->actualizar($sql);
         $mysql->desconectar();        

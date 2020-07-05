@@ -3,7 +3,6 @@
 require_once "../../clases/Domicilio.php";
 
 $idPersona = $_GET['idPersona'];
-$idLlamada = $_GET['idLlamada'];
 
 $domicilio = Domicilio::obtenerPorIdPersona($idPersona);
 $arrBarrios = $domicilio->barrio->obtenerTodos();
@@ -22,6 +21,7 @@ $arrBarrios = $domicilio->barrio->obtenerTodos();
 		<form name="frmDatos" method="POST" action="procesar/modificar.php">
 
 			<input type="hidden" name="idPersona" value="<?php echo $domicilio->getIdPersona(); ?>">
+			<input type="hidden" name="idDomicilio" value="<?php echo $domicilio->getIdDomicilio(); ?>">
 
 		    <label>Calle</label>
 		    <input type="text" name="txtCalle" value="<?php echo $domicilio->getCalle(); ?>">
