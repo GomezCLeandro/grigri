@@ -10,8 +10,6 @@ $manzana = $_POST['txtManzana'];
 $descripcion = $_POST['txtDescripcion'];
 $barrio = $_POST['cboBarrio'];
 
-
-
 if (empty(trim($calle))) {
 	echo "ERROR CAMPO CALLE VACIO";
 	exit;

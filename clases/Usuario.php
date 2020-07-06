@@ -104,7 +104,7 @@ class Usuario extends Persona{
     public static function obtenerTodos() {
         $sql = "SELECT usuario.id_usuario, persona.id_persona, usuario.username, usuario.password, persona.nombre, persona.apellido"
         ." FROM persona INNER JOIN usuario on usuario.id_persona = persona.id_persona";
-        
+  
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
@@ -130,6 +130,7 @@ class Usuario extends Persona{
     public static function obtenerPorId($id) {
 
         $sql = "SELECT * FROM usuario AS u INNER JOIN persona AS p ON u.id_persona = p.id_persona WHERE id_usuario =" . $id;
+
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
@@ -147,8 +148,10 @@ class Usuario extends Persona{
         $usuario->_idUsuario = $registro['id_usuario'];
         $usuario->_username = $registro['username'];
         $usuario->_sexo = $registro['sexo'];
+        $usuario->_idTipoDocumento = $registro['id_tipo_documento'];
         $usuario->_numeroDocumento = $registro['numero_documento'];
         $usuario->_fechaNacimiento = $registro['fecha_nacimiento'];
+
         $usuario->setDomicilio();
 
         return $usuario;
@@ -186,12 +189,10 @@ class Usuario extends Persona{
     public function guardar() {
     	parent::guardar();
 
-        $sql = "INSERT INTO Usuario (id_usuario, usearname, password) VALUES (NULL, '$this->_username', '$this->_password')";
+        $sql = "INSERT INTO Usuario (id_usuario,id_persona , username, password) VALUES (NULL,'$this->_idPersona', '$this->_username', '$this->_password')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
-        highlight_string(var_export($idInsertado,true));
-        exit;
         $mysql->desconectar();
 
         $this->_idUsuario = $idInsertado;

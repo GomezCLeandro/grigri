@@ -28,9 +28,9 @@ $listado = Usuario::obtenerTodos();
 			<td> <?php echo $usuario->getUsername(); ?> </td>
 			<td> <?php echo $usuario->getPassword(); ?> </td>
 			<td>
-				<a href="detalle.php?id=<?php echo $usuario->getIdPersona(); ?>">Detalle</a>
+				<a href="detalle.php?id=<?php echo $usuario->getIdUsuario(); ?>">Detalle</a>
 				-
-				<a href="modificar.php?id=<?php echo $usuario->getIdPersona(); ?>">Modificar</a>
+				<a href="modificar.php?id=<?php echo $usuario->getIdUsuario(); ?>">Modificar</a>
 				-
 				<a href="eliminar.php?id=<?php echo $usuario->getIdPersona(); ?>">Borrar</a>
 			</td>

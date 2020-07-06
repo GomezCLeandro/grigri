@@ -15,14 +15,16 @@ $usuario = $_SESSION['usuario'];
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title></title>
+	
 </head>
 <body>
 	
 	<?php foreach ($usuario->perfil->getModulos() as $modulo): ?>
 
 		<a href="/grigri/modulos/<?php echo $modulo->getDirectorio()?>/listado.php">
-			<?php echo $modulo; ?>
+			<?php echo utf8_encode($modulo); ?>
 		</a>
 		|
 	<?php endforeach ?>

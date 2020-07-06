@@ -54,7 +54,7 @@ $arrBarrios = $domicilio->barrio->obtenerTodos();
 						$selected = "SELECTED";
 					}
 				?>
-					<option value="<?php echo $domicilio->getIdBarrio(); ?>" <?php echo $selected; ?> >
+					<option value="<?php echo $cboBarrios->getIdBarrio(); ?>" <?php echo $selected; ?> >
 					    <?php echo $cboBarrios; ?>
 					</option>
 

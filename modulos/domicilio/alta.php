@@ -1,6 +1,5 @@
 <?php
 
-require_once '../../clases/Localidad.php';
 require_once '../../clases/Barrio.php';
 
 $listadoBarrio = Barrio::obtenerTodos();

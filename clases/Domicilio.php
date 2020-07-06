@@ -185,6 +185,7 @@ class Domicilio {
         $sql = "INSERT INTO Domicilio (id_domicilio, id_barrio, id_persona, casa, manzana, calle, altura, descripcion) VALUES "
         . "(NULL,'$this->_idBarrio', '$this->_idPersona',  '$this->_casa', '$this->_manzana','$this->_calle','$this->_altura','$this->_descripcion' )";
 
+
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
         $mysql->desconectar();

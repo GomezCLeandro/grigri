@@ -36,6 +36,7 @@ if (empty(trim($descripcion))) {
 }
 
 $domicilio = Domicilio::obtenerPorIdPersona($idPersona);
+$domicilio->setIdBarrio($idBarrio);
 $domicilio->setCalle($calle);
 $domicilio->setAltura($altura);
 $domicilio->setCasa($casa);

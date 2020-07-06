@@ -6,10 +6,10 @@ require_once 'MySQL.php';
 class TipoDocumento {
 
 	private $_idTipoDocumento;
-	private $_descripcion;
+	private $_nombre;
 
-	public function __construct($descripcion) {
-		$this->_descripcion = $descripcion;
+	public function __construct($nombre) {
+		$this->_nombre = $nombre;
 	}
 
     /**
@@ -37,26 +37,48 @@ class TipoDocumento {
      */
     public function getDescripcion()
     {
-        return $this->_descripcion;
+        return $this->_nombre;
     }
 
     /**
-     * @param mixed $_descripcion
+     * @param mixed $_nombre
      *
      * @return self
      */
-    public function setDescripcion($_descripcion)
+    public function setDescripcion($_nombre)
     {
-        $this->_descripcion = $_descripcion;
+        $this->_nombre = $_nombre;
 
         return $this;
+    }
+
+    public static function obtenerPorId($id) {
+
+        $sql = "SELECT * FROM tipodocumento WHERE id_tipo_documento =" . $id;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        $tipoDocumento = self::_generarTipoDocumento($registro);
+        return $tipoDocumento;
+    }
+
+    private function _generarTipoDocumento($registro) {
+
+        $tipoDocumento = new TipoDocumento($registro['nombre']);
+        $tipoDocumento->_idTipoDocumento = $registro['id_tipo_documento'];
+
+        return $tipoDocumento;
     }
 
     public static function obtenerTodos() {
     	$sql = "SELECT * FROM tipodocumento";
 
     	$mysql = new MySQL();
-    	$datos = $mysql->consultar($sql);
+    	$datos = $mysql->consulta($sql);
     	$mysql->desconectar();
 
     	$listado = self::_generarListado($datos);
@@ -66,7 +88,7 @@ class TipoDocumento {
     private function _generarListado($datos) {
     	$listado = array();
 		while ($registro = $datos->fetch_assoc()) {
-			$tipoDocumento = new TipoDocumento($registro['descripcion']);
+			$tipoDocumento = new TipoDocumento($registro['nombre']);
 			$tipoDocumento->_idTipoDocumento = $registro['id_tipo_documento'];
 			$listado[] = $tipoDocumento;
 		}
@@ -74,7 +96,7 @@ class TipoDocumento {
     }
 
     public function __toString() {
-    	return $this->_descripcion;
+    	return $this->_nombre;
     }
 }
 

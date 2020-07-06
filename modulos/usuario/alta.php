@@ -1,3 +1,11 @@
+<?php
+
+require_once '../../clases/TipoDocumento.php';
+
+$listadoTipoDocumento = TipoDocumento::obtenerTodos();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +37,21 @@
 		    <label>Sexo</label>
 		    <input type="text" name="txtSexo">
 		    <br><br>
+
+			<label>Tipo Documento: </label>
+			<select name="cboTipoDocumento">
+			    <option value="0">Seleccionar</option>
+
+				<?php foreach ($listadoTipoDocumento as $tipoDocumento): ?>
+
+					<option value="<?php echo $tipoDocumento->getIdTipoDocumento(); ?>">
+					    <?php echo $tipoDocumento; ?>
+					</option>
+
+				<?php endforeach ?>
+
+			</select>
+			<br><br>
 
 		    <label>Numero de documento</label>
 		    <input type="text" name="txtNumeroDocumento">

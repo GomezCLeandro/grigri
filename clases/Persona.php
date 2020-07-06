@@ -9,6 +9,7 @@ class Persona {
 	protected $_apellido;
 	protected $_sexo;
 	protected $_fechaNacimiento;
+    protected $_idTipoDocumento;
 	protected $_numeroDocumento;
 	protected $_estado;
 
@@ -157,7 +158,7 @@ class Persona {
     public function guardar () {
     	
         $sql = "INSERT INTO Persona (id_persona, nombre, apellido, id_tipo_documento, numero_documento, fecha_nacimiento, sexo) VALUES"
-        . "(NULL, '$this->_nombre', '$this->_apellido', NULL, '$this->_numeroDocumento', '$this->_fechaNacimiento', '$this->_sexo')";
+        . "(NULL, '$this->_nombre', '$this->_apellido', '$this->_idTipoDocumento', '$this->_numeroDocumento', '$this->_fechaNacimiento', '$this->_sexo')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
@@ -168,7 +169,7 @@ class Persona {
 
     public function actualizar() {
 
-        $sql = "UPDATE persona SET nombre ='$this->_nombre', apellido ='$this->_apellido', numero_documento ='$this->_numeroDocumento',fecha_nacimiento ='$this->_fechaNacimiento', sexo='$this->_sexo' WHERE id_persona ='$this->_idPersona'";
+        $sql = "UPDATE persona SET nombre ='$this->_nombre', apellido ='$this->_apellido',id_tipo_documento ='$this->_idTipoDocumento', numero_documento ='$this->_numeroDocumento',fecha_nacimiento ='$this->_fechaNacimiento', sexo='$this->_sexo' WHERE id_persona ='$this->_idPersona'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
@@ -183,7 +184,7 @@ class Persona {
     }
 
     public function setDomicilio() {
-        $this->domicilio = Domicilio::obtenerPorIdPersona($this->_idPersona);        
+        $this->domicilio = Domicilio::obtenerPorIdPersona($this->_idPersona);
     }
 
     /**

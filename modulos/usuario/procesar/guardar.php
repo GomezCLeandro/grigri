@@ -9,6 +9,8 @@ $apellido = $_POST['txtApellido'];
 $sexo = $_POST['txtSexo'];
 $numeroDocumento = $_POST['txtNumeroDocumento'];
 $fechaNacimiento = $_POST['txtFechaNacimiento'];
+$tipoDocumento = $_POST['cboTipoDocumento'];
+$idPerfil = 2;
 
 if (empty(trim($username))) {
 	echo "ERROR CAMPO USERNAME VACIO";
@@ -43,13 +45,10 @@ $usuario = new Usuario($nombre,$apellido);
 $usuario->setUsername($username);
 $usuario->setPassword($password);
 $usuario->setSexo($sexo);
+$usuario->setIdTipoDocumento($tipoDocumento)
 $usuario->setNumeroDocumento($numeroDocumento);
 $usuario->setFechaNacimiento($fechaNacimiento);
-
-/*
-highlight_string(var_export($usuario,true));
-exit;
-*/
+$usuario->setIdPerfil($idPerfil);
 
 $usuario->guardar();
 

@@ -1,10 +1,13 @@
 <?php
 
 require_once "../../clases/Usuario.php";
+require_once "../../clases/TipoDocumento.php";
 
 $id = $_GET['id'];
 
 $user = Usuario::obtenerPorId($id);
+
+$tipoDocumento = TipoDocumento::obtenerPorId($user->getIdTipoDocumento());
 
 ?>
 
@@ -21,6 +24,7 @@ $user = Usuario::obtenerPorId($id);
 		<tr>
 			<th>Nombre</th>
 			<th>Apellido</th>
+			<th>Tipo Documento</th>
 			<th>Numero Documento</th>
 			<th>Fecha de Nacimiento</th>
 			<th>Sexo</th>
@@ -29,11 +33,12 @@ $user = Usuario::obtenerPorId($id);
 		<tr>
 			<td> <?php echo $user->getNombre(); ?> </td>
 			<td> <?php echo $user->getApellido(); ?> </td>
+			<td> <?php echo $tipoDocumento; ?> </td>
 			<td> <?php echo $user->getNumeroDocumento(); ?> </td>
 			<td> <?php echo $user->getFechaNacimiento(); ?> </td>
 			<td> <?php echo $user->getSexo(); ?> </td>
 			<td>
-				<a href="modificar.php?id=<?php echo $user->getIdPersona(); ?>">Modificar</a>
+				<a href="modificar.php?id=<?php echo $user->getIdUsuario(); ?>">Modificar</a>
 				-
 				<a href="eliminar.php?id=<?php echo $user->getIdPersona(); ?>">Borrar</a>
 			</td>
@@ -63,8 +68,8 @@ $user = Usuario::obtenerPorId($id);
 				<td> <?php echo $user->domicilio->getAltura(); ?> </td>
 				<td> <?php echo $user->domicilio->getCasa(); ?> </td>
 				<td> <?php echo $user->domicilio->getManzana(); ?> </td>				
-				<td> <?php echo $user->domicilio->barrio->getNombre(); ?> </td>
-				<td> <?php echo $user->domicilio->barrio->localidad->getNombre(); ?> </td>
+				<td> <?php echo $user->domicilio->barrio; ?> </td>
+				<td> <?php echo $user->domicilio->barrio->localidad; ?> </td>
 				<td> <?php echo $user->domicilio->getDescripcion(); ?> </td>
 				<td>
 					<a href="/grigri/modulos/domicilio/modificar.php?idPersona=<?php echo $user->getIdPersona(); ?>">
