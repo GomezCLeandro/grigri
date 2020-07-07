@@ -87,9 +87,8 @@ class Disenio extends Item {
     private function _listadoDisenio($datos) {
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {
-            $disenio = new Disenio();
+            $disenio = new Disenio($registro['id_item']);
             $disenio->_idDisenio = $registro['id_disenio'];
-            $disenio->_idItem = $registro['id_item'];
             $disenio->_idSubCategoria = $registro['id_subCategoria'];
 
             $listado[] = $disenio;

@@ -18,6 +18,7 @@ $listado = Disenio::obtenerTodos();
 	<table border="1" align="center">
 		<tr>
 			<th>Diseños</th>
+			<th>Precio</th>
 			<th>Accion</th>
 		</tr>
 
@@ -25,6 +26,7 @@ $listado = Disenio::obtenerTodos();
 
 		<tr>
 			<td> <?php echo $disenio->getIdDisenio(); ?> </td>
+			<td> <?php echo $disenio->getPrecio(); ?></td>
 			<td>
 				<a href="modificar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Modificar</a>
 				-
