@@ -7,10 +7,10 @@ $password = $_POST['txtPassword'];
 
 $usuario = Usuario::login($username, $password);
 
-$idPerfil = $usuario->perfil->getIdPerfil();
+
 
 if ($usuario->estaLogueado()) {
-	
+	$idPerfil = $usuario->perfil->getIdPerfil();	
 	session_start();
 	$_SESSION['usuario'] = $usuario;
 
