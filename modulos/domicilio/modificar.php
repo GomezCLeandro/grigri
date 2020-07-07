@@ -3,6 +3,7 @@
 require_once "../../clases/Domicilio.php";
 
 $idPersona = $_GET['idPersona'];
+$idLlamada = $_GET['idLlamada'];
 
 $domicilio = Domicilio::obtenerPorIdPersona($idPersona);
 $arrBarrios = $domicilio->barrio->obtenerTodos();
@@ -11,7 +12,7 @@ $arrBarrios = $domicilio->barrio->obtenerTodos();
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Modificar Domicilio</title>
 </head>
 <body>
 
@@ -22,6 +23,7 @@ $arrBarrios = $domicilio->barrio->obtenerTodos();
 
 			<input type="hidden" name="idPersona" value="<?php echo $domicilio->getIdPersona(); ?>">
 			<input type="hidden" name="idDomicilio" value="<?php echo $domicilio->getIdDomicilio(); ?>">
+			<input type="hidden" name="txtIdLlamada" value='<?php echo $idLlamada ?>'>
 
 		    <label>Calle</label>
 		    <input type="text" name="txtCalle" value="<?php echo $domicilio->getCalle(); ?>">

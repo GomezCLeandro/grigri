@@ -4,6 +4,7 @@ require_once "../../../clases/Domicilio.php";;
 
 $idPersona = $_POST['idPersona'];
 $idDomicilio = $_POST['idDomicilio'];
+$idLlamada = $_POST['txtIdLlamada'];
 $calle = $_POST['txtCalle'];
 $altura = $_POST['txtAltura'];
 $casa = $_POST['txtCasa'];
@@ -43,11 +44,8 @@ $domicilio->setCasa($casa);
 $domicilio->setManzana($manzana);
 $domicilio->setDescripcion($descripcion);
 
-/*highlight_string(var_export($domicilio,true));
-exit;*/
-
 $domicilio->actualizar($idDomicilio);
 
-header("location: /grigri/modulos/usuario/detalle.php?id=$idPersona");
+header("location: /grigri/modulos/usuario/detalle.php?id=$idLlamada");
 
 ?>

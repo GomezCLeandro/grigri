@@ -72,7 +72,7 @@ $tipoDocumento = TipoDocumento::obtenerPorId($user->getIdTipoDocumento());
 				<td> <?php echo $user->domicilio->barrio->localidad; ?> </td>
 				<td> <?php echo $user->domicilio->getDescripcion(); ?> </td>
 				<td>
-					<a href="/grigri/modulos/domicilio/modificar.php?idPersona=<?php echo $user->getIdPersona(); ?>">
+					<a href="/grigri/modulos/domicilio/modificar.php?idPersona=<?php echo $user->getIdPersona(); ?>&idLlamada=<?php echo $user->getIdUsuario(); ?>">
 					Modificar Domicilio
 					</a>
 					-

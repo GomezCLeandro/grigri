@@ -1,8 +1,8 @@
 <?php
 
-require_once '../../clases/Usuario.php';
+require_once '../../clases/Categoria.php';
 
-$listado = Usuario::obtenerTodos();
+$listado = Categoria::obtenerTodos();
 ?>
 
 <!DOCTYPE html>
@@ -16,18 +16,16 @@ $listado = Usuario::obtenerTodos();
 	
 	<table border="1" align="center">
 		<tr>
-			<th>Username</th>
-			<th>Password</th>
+			<th>Categoria</th>
 			<th>Accion</th>
 		</tr>
 
-		<?php foreach ($listado as $usuario): ?>
+		<?php foreach ($listado as $categoria): ?>
 
 		<tr>
-			<td> <?php echo $usuario->getUsername(); ?> </td>
-			<td> <?php echo $usuario->getPassword(); ?> </td>
+			<td> <?php echo $categoria; ?> </td>
 			<td>
-				<a href="detalle.php?id=<?php echo $usuario->getIdUsuario(); ?>">Detalle</a>
+				<a href="detalle.php?id=<?php echo $usuario->getIdUsuario(); ?>">SubCategorias</a>
 				-
 				<a href="modificar.php?id=<?php echo $usuario->getIdUsuario(); ?>">Modificar</a>
 				-
@@ -39,7 +37,7 @@ $listado = Usuario::obtenerTodos();
 
 	</table>
 
-	<a href="alta.php">Agregar Nuevo Usuario</a>
+	<a href="alta.php">Agregar Nueva Categoria</a>
 
 </body>
 </html>

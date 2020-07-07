@@ -45,7 +45,7 @@ $usuario = new Usuario($nombre,$apellido);
 $usuario->setUsername($username);
 $usuario->setPassword($password);
 $usuario->setSexo($sexo);
-$usuario->setIdTipoDocumento($tipoDocumento)
+$usuario->setIdTipoDocumento($tipoDocumento);
 $usuario->setNumeroDocumento($numeroDocumento);
 $usuario->setFechaNacimiento($fechaNacimiento);
 $usuario->setIdPerfil($idPerfil);

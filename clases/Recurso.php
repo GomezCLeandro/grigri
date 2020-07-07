@@ -7,6 +7,10 @@ class recurso {
 	private $_idRecurso;
 	private $_descripcion;
 
+    public function __construct ($descripcion){
+        $this->_descripcion = $descripcion;
+    }
+
     /**
      * @return mixed
      */
@@ -47,6 +51,50 @@ class recurso {
         return $this;
     }
 
+    public static function obtenerTodos() {
+        $sql = "SELECT * FROM recurso";
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+        
+        $listado = self::_listadoRecursos($datos);
+
+        return $listado;
+    }
+
+    private function _listadoRecursos($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $recurso = new Recurso($registro['descripcion']);
+            $recurso->_idRecurso = $registro['id_recurso'];
+            $listado[] = $recurso;
+        }
+        return $listado;
+    }
+
+    public static function obtenerPorId($id) {
+
+        $sql = "SELECT * FROM recurso WHERE id_recurso =" . $id;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        $recurso = self::_generarRecurso($registro);
+        return $recurso;
+    }
+
+    private function _generarRecurso($registro) {
+
+        $recurso = new Recurso($registro['descripcion']);
+        $recurso->_idRecurso = $registro['id_recurso'];
+
+        return $recurso;
+    }
+
     public function guardar() {
 
         $sql = "INSERT INTO recurso (id_recurso, descripcion) VALUES (NULL, '$this->_descripcion')";
@@ -74,6 +122,10 @@ class recurso {
         $mysql = new MySQL();
         $mysql->eliminar($sql);
         $mysql->desconectar();
+    }
+
+    public function __toString (){
+        return $this->_descripcion;
     }
 
 }

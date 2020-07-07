@@ -1,7 +1,7 @@
 <?php
 
 require_once 'MySQL.php';
-require_once 'SubCategorira.php';
+//require_once 'SubCategorira.php';
 
 class categoria {
 
@@ -9,6 +9,10 @@ class categoria {
 	private $_categoria;
 
 	private $_arrSubCateogira;
+
+    public function __construct($categoria) {
+        $this->_categoria = $categoria;
+    }
 
     /**
      * @return mixed
@@ -49,6 +53,28 @@ class categoria {
         return $this;
     }
 
+    public static function obtenerTodos() {
+        $sql = "SELECT * FROM categoria";
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+        
+        $listado = self::_listadoCategoria($datos);
+
+        return $listado;
+    }
+
+    private function _listadoCategoria($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $categoria = new Categoria($registro['categoria']);
+            $categoria->_idCategoria = $registro['id_categoria'];
+            $listado[] = $categoria;
+        }
+        return $listado;
+    }
+
     public function guardar() {
 
         $sql = "INSERT INTO categoria (id_categoria,categoria) VALUES (NULL, '$this->_categoria')";
@@ -78,7 +104,9 @@ class categoria {
         $mysql->desconectar();
     }
 
-
+    public function __toString() {
+        return $this->_categoria;
+    }
 
 }
 

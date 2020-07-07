@@ -2,7 +2,7 @@
 
 require_once 'MySQL.php';
 require_once 'Recurso.php';
-require_once 'SubCategoria.php';
+//require_once 'SubCategoria.php';
 require_once 'Item.php';
 
 class Disenio extends Item {
@@ -71,6 +71,30 @@ class Disenio extends Item {
         $this->_idItem = $_idItem;
 
         return $this;
+    }
+
+    public static function obtenerTodos(){
+        $sql = "SELECT * FROM disenio";
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $disenio = self::_listadoDisenio($datos);
+        return $disenio;
+    }
+
+    private function _listadoDisenio($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $disenio = new Disenio();
+            $disenio->_idDisenio = $registro['id_disenio'];
+            $disenio->_idItem = $registro['id_item'];
+            $disenio->_idSubCategoria = $registro['id_subCategoria'];
+
+            $listado[] = $disenio;
+        }
+        return $listado;
     }
 
     public function guardar() {

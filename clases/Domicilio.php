@@ -155,10 +155,6 @@ class Domicilio {
     {
         return $this->barrio;
     }
-    
-    public function __toString() {
-        return $this->_calle . " " . $this->_altura;
-    }
 
     /**
      * @return mixed
@@ -234,6 +230,9 @@ class Domicilio {
         $this->barrio = Barrio::obtenerPorIdBarrio($this->_idBarrio);
     }
 
+    public function __toString() {
+        return $this->_calle . " " . $this->_altura;
+    }
 }
 
 ?>

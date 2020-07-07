@@ -118,7 +118,7 @@ class Usuario extends Persona{
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {
             $usuario = new Usuario($registro['nombre'],$registro['apellido']);
-            $usuario->_idUsuario = $registro['id_usuario'];         
+            $usuario->_idUsuario = $registro['id_usuario'];
             $usuario->_idPersona = $registro['id_persona'];
             $usuario->_username = $registro['username'];
             $usuario->_password = $registro['password'];

@@ -7,10 +7,14 @@ class Item {
 
 	private $_idItem;
 	private $_idImagen;
-	private $_descripcion;
+	private $_nombre;
 	private $_precio;
 
 	private $_arrImagen;
+
+    public function __construct($nombre) {
+        $this->_nombre = $nombre;
+    }
 
     /**
      * @return mixed
@@ -55,19 +59,19 @@ class Item {
     /**
      * @return mixed
      */
-    public function getDescripcion()
+    public function getNombre()
     {
-        return $this->_descripcion;
+        return $this->_nombre;
     }
 
     /**
-     * @param mixed $_descripcion
+     * @param mixed $_nombre
      *
      * @return self
      */
-    public function setDescripcion($_descripcion)
+    public function setNombren($_nombre)
     {
-        $this->_descripcion = $_descripcion;
+        $this->_nombre = $_nombre;
 
         return $this;
     }
@@ -94,7 +98,7 @@ class Item {
 
     public function guardar() {
 
-        $sql = "INSERT INTO item (id_item, descripcion, id_imagen, precio) VALUES (NULL, '$this->_descripcion' , '$this->_idImagen' , '$this->_precio')";
+        $sql = "INSERT INTO item (id_item, descripcion, precio) VALUES (NULL, '$this->_nombre', '$this->_precio')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
@@ -105,7 +109,7 @@ class Item {
 
     public function actualizar() {
 
-        $sql = "UPDATE item SET descripcion = '$this->_descripcion' , id_imagen = '$this->_idImagen' , precio = '$this->_precio' WHERE id_recurso ='$this->_idRecurso'";
+        $sql = "UPDATE item SET descripcion = '$this->_nombre' , id_imagen = '$this->_idImagen' , precio = '$this->_precio' WHERE id_item ='$this->_idItem'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
@@ -119,6 +123,10 @@ class Item {
         $mysql = new MySQL();
         $mysql->eliminar($sql);
         $mysql->desconectar();
+    }
+
+    public function __toString(){
+        return $this->_nombre;
     }
 }
 

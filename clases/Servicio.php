@@ -69,16 +69,41 @@ class Servicio extends Item {
         return $this;
     }
 
+    public static function obtenerTodos(){
+        $sql = "SELECT servicio.id_servicio, item.id_item, servicio.descripcion, item.descripcion, item.precio FROM servicio JOIN item ON item.id_item = servicio.id_item";
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $disenio = self::_listadoServicio($datos);
+        return $disenio;
+    }
+
+    private function _listadoServicio($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $servicio = new Servicio($registro['descripcion']);
+            $servicio->_idServicio = $registro['id_servicio'];
+            $servicio->_idItem = $registro['id_item'];
+            $servicio->_precio = $registro['precio'];
+
+            $listado[] = $servicio;
+        }
+        return $listado;
+    }
+
     public function guardar() {
         parent::guardar();
 
-        $sql = "INSERT INTO servicio (id_servicio ,id_item ,descripcion) VALUES (NULL, '$this->_idItem','$this->_descripcion')";
-
+        $sql = "INSERT INTO servicio (id_servicio ,id_item ,descripcion) VALUES (NULL ,'$this->_idItem' ,'$this->_descripcion')";
+   
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
         $mysql->desconectar();
 
         $this->_idServicio = $idInsertado;
+
     }
 
     public function actualizar() {
@@ -100,7 +125,6 @@ class Servicio extends Item {
         $mysql->eliminar($sql);
         $mysql->desconectar();
     }
-
 }
 
 ?>
