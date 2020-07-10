@@ -3,6 +3,7 @@
 require_once '../../clases/Categoria.php';
 
 $listado = Categoria::obtenerTodos();
+
 ?>
 
 <!DOCTYPE html>
@@ -25,9 +26,7 @@ $listado = Categoria::obtenerTodos();
 		<tr>
 			<td> <?php echo $categoria; ?> </td>
 			<td>
-				<a href="detalle.php?id=<?php echo $usuario->getIdUsuario(); ?>">SubCategorias</a>
-				-
-				<a href="modificar.php?id=<?php echo $usuario->getIdUsuario(); ?>">Modificar</a>
+				<a href="modificar.php?id=<?php echo $categoria->getIdCategoria(); ?>">Modificar</a>
 				-
 				<a href="eliminar.php?id=<?php echo $usuario->getIdPersona(); ?>">Borrar</a>
 			</td>

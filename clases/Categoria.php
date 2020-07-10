@@ -65,6 +65,28 @@ class categoria {
         return $listado;
     }
 
+    public static function obtenerPorId($id) {
+
+        $sql = "SELECT * FROM categoria WHERE id_categoria =" . $id;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        $categoria = self::_generarCategoria($registro);
+        return $categoria;
+    }
+
+    private function _generarCategoria($registro) {
+
+        $categoria = new Categoria($registro['categoria']);
+        $categoria->_idCategoria = $registro['id_categoria'];
+
+        return $categoria;
+    }
+
     private function _listadoCategoria($datos) {
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {
