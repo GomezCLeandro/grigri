@@ -2,6 +2,7 @@
 
 require_once "../../../clases/Domicilio.php";;
 
+$idLlamada = $_POST['idLlamada'];
 $idPersona = $_POST['idPersona'];
 $calle = $_POST['txtCalle'];
 $altura = $_POST['txtAltura'];
@@ -45,6 +46,6 @@ $domicilio->setDescripcion($descripcion);
 
 $domicilio->guardar();
 
-header("location: /grigri/modulos/usuario/detalle.php?id=$idPersona");
+header("location: /grigri/modulos/usuario/detalle.php?id=$idLlamada");
 
 ?>

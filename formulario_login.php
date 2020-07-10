@@ -1,10 +1,11 @@
 <html>
     <head>
-        Iniciar Sesion
+        <link href="/grigri/css/login.css" rel='stylesheet'/>
     </head>
-    <body>
-        <form method="POST" action="modulos/usuario/procesar/login.php">
-            <input type="text" name="txtUsuario">
+    <body id="login">
+        <h2 class="form-heading">login</h2>
+        <form class="formLogin" method="POST" action="modulos/usuario/procesar/login.php">
+            <input class="usuario" type="text" name="txtUsuario">
             <br><br>
             <input type="password" name="txtPassword">
             <br><br>

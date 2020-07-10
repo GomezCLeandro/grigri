@@ -74,7 +74,7 @@ class Disenio extends Item {
     }
 
     public static function obtenerTodos(){
-        $sql = "SELECT * FROM disenio";
+        $sql = "SELECT disenio.id_disenio, item.id_item, item.descripcion, item.precio FROM disenio JOIN item ON item.id_item = disenio.id_item";
 
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
@@ -89,7 +89,7 @@ class Disenio extends Item {
         while ($registro = $datos->fetch_assoc()) {
             $disenio = new Disenio($registro['id_item']);
             $disenio->_idDisenio = $registro['id_disenio'];
-            $disenio->_idSubCategoria = $registro['id_subCategoria'];
+            //$disenio->_idSubCategoria = $registro['id_subCategoria'];
 
             $listado[] = $disenio;
         }

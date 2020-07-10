@@ -5,6 +5,7 @@ require_once '../../clases/Barrio.php';
 $listadoBarrio = Barrio::obtenerTodos();
 
 $idPersona = $_GET['idPersona'];
+$idLlamada = $_GET['idLlamada'];
 
 ?>
 
@@ -22,7 +23,7 @@ $idPersona = $_GET['idPersona'];
 		<form name="frmDatos" method="POST" action="procesar/guardar.php">
 
 		    <input type="hidden" name="idPersona" value='<?php echo $idPersona ?>'>
-		    <!--<input type="hidden" name="IdLlamada" value='<?php echo $idLlamada ?>'>-->
+		    <input type="hidden" name="idLlamada" value='<?php echo $idLlamada ?>'>
 
 			<label>Barrio:</label>
 			<select name="cboBarrio">
