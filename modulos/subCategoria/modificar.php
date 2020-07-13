@@ -7,13 +7,13 @@ $id = $_GET['id'];
 
 $subCategoria = SubCategoria::obtenerPorId($id);
 $listadoCategoria = Categoria::obtenerTodos();
-//highlight_string(var_export($subCategoria,true));
-//exit;
+
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>Modificar Sub Categoria</title>
 </head>
 <body>
@@ -32,9 +32,14 @@ $listadoCategoria = Categoria::obtenerTodos();
 			<select name="idCategoria">
 			    <option value="0">Seleccionar</option>
 
-				<?php foreach ($listadoCategoria as $categoria): ?>
-
-					<option value="<?php echo $categoria->getIdCategoria(); ?>">
+				<?php
+				foreach ($listadoCategoria as $categoria):
+					$selected = '';
+					if ($subCategoria->getIdCategoria() == $categoria->getIdCategoria()) {
+						$selected = "SELECTED";
+					}
+				?>
+					<option value="<?php echo $categoria->getIdCategoria(); ?>" <?php echo $selected; ?> >
 					    <?php echo $categoria; ?>
 					</option>
 

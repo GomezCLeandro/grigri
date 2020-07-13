@@ -2,6 +2,7 @@
 
 require_once "../../../clases/Servicio.php";;
 
+$idServicio =$_POST['idServicio'];
 $item = $_POST['txtDescripcion'];
 $precio = $_POST['txtPrecio'];
 
@@ -14,13 +15,15 @@ if (empty(trim($precio))) {
 	exit;
 }
 
-$servicio = new Servicio($item);
+$servicio = Servicio::obtenerPorId($idServicio);
+$servicio->setNombre($item);
 $servicio->setDescripcion($item);
 $servicio->setPrecio($precio);
 
 //highlight_string(var_export($servicio,true));
 //exit;
-$servicio->guardar();
+
+$servicio->actualizar();
 
 header("location: /grigri/modulos/servicio/listado.php");
 

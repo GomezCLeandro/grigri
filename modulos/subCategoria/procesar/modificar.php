@@ -2,10 +2,9 @@
 
 require_once "../../../clases/SubCategoria.php";;
 
-$nombreSubCategoria = utf8_encode($_POST['txtSubCategoria']);
+$nombreSubCategoria = $_POST['txtSubCategoria'];
 
-highlight_string(var_export($nombreSubCategoria,true));
-exit;
+
 
 $idCategoria = $_POST['idCategoria'];
 $idSubCategoria = $_POST['idSubCategoria'];
@@ -19,7 +18,8 @@ $subCategoria = SubCategoria::obtenerPorId($idSubCategoria);
 $subCategoria->setSubCategoria($nombreSubCategoria);
 $subCategoria->setIdCategoria($idCategoria);
 
-/**/
+/*highlight_string(var_export($subCategoria,true));
+exit;*/
 $subCategoria->actualizar();
 header("location: /grigri/modulos/subcategoria/listado.php");
 

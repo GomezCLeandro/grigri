@@ -14,6 +14,10 @@
 		    <input type="number" name="txtDiseño">
 		    <br><br>
 
+		    <label>precio</label>
+		    <input type="number" name="txtPrecio">
+		    <br><br>
+
 		    <input type="submit" name="btnGuardar" value="Guardar">			
 
 		</form>

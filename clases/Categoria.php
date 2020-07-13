@@ -8,7 +8,7 @@ class categoria {
 	private $_idCategoria;
 	private $_categoria;
 
-	private $_arrSubCateogira;
+	//private $_arrSubCategoria;
 
     public function __construct($categoria) {
         $this->_categoria = $categoria;

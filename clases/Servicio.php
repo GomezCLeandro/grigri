@@ -6,8 +6,7 @@ require_once 'Item.php';
 class Servicio extends Item {
 
 	private $_idServicio;
-	private $_idItem;
-	private $_descripcion;	
+	private $_descripcion;
 
     /**
      * @return mixed
@@ -32,26 +31,6 @@ class Servicio extends Item {
     /**
      * @return mixed
      */
-    public function getIdItem()
-    {
-        return $this->_idItem;
-    }
-
-    /**
-     * @param mixed $_idItem
-     *
-     * @return self
-     */
-    public function setIdItem($_idItem)
-    {
-        $this->_idItem = $_idItem;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getDescripcion()
     {
         return $this->_descripcion;
@@ -69,21 +48,24 @@ class Servicio extends Item {
         return $this;
     }
 
+
     public static function obtenerTodos(){
-        $sql = "SELECT servicio.id_servicio, item.id_item, servicio.descripcion, item.descripcion, item.precio FROM servicio JOIN item ON item.id_item = servicio.id_item";
+        $sql = "SELECT * FROM servicio JOIN item ON item.id_item = servicio.id_item";
 
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
 
-        $disenio = self::_listadoServicio($datos);
-        return $disenio;
+        $servicio = self::_listadoServicio($datos);
+
+        return $servicio;
     }
 
     private function _listadoServicio($datos) {
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {
             $servicio = new Servicio($registro['descripcion']);
+            $servicio->_descripcion = $registro['descripcion'];
             $servicio->_idServicio = $registro['id_servicio'];
             $servicio->_idItem = $registro['id_item'];
             $servicio->_precio = $registro['precio'];
@@ -93,11 +75,35 @@ class Servicio extends Item {
         return $listado;
     }
 
+    public static function obtenerPorId($id) {
+
+        $sql = "SELECT * FROM servicio JOIN item ON item.id_item = servicio.id_item WHERE servicio.id_servicio= ".$id;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        $servicio = self::_generarServicio($registro);
+        return $servicio;
+    }
+
+    private function _generarServicio($registro) {
+
+        $servicio = new Servicio($registro['descripcion']);
+        $servicio->_descripcion = $registro['descripcion'];
+        $servicio->_idServicio = $registro['id_servicio'];
+        $servicio->_idItem = $registro['id_item'];
+        $servicio->_precio = $registro['precio'];
+        return $servicio;
+    }
+
     public function guardar() {
         parent::guardar();
 
         $sql = "INSERT INTO servicio (id_servicio ,id_item ,descripcion) VALUES (NULL ,'$this->_idItem' ,'$this->_descripcion')";
-   
+
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
         $mysql->desconectar();
@@ -109,7 +115,7 @@ class Servicio extends Item {
     public function actualizar() {
         parent::actualizar();
 
-        $sql = "UPDATE servicio SET id_item = '$this->_idItem , descripcion = '$this->_descripcion' WHERE id_servicio ='$this->_idServicio'";
+        $sql = "UPDATE servicio SET descripcion = '$this->_descripcion' WHERE id_servicio ='$this->_idServicio'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
@@ -125,6 +131,12 @@ class Servicio extends Item {
         $mysql->eliminar($sql);
         $mysql->desconectar();
     }
+ 
+    public function __toString(){
+        return $this->_descripcion;
+    }
+
+
 }
 
 ?>

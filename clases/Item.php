@@ -5,10 +5,10 @@ require_once 'Item.php';
 
 class Item {
 
-	private $_idItem;
-	private $_idImagen;
-	private $_nombre;
-	private $_precio;
+	protected $_idItem;
+	protected $_idImagen;
+	protected $_nombre;
+	protected $_precio;
 
 	private $_arrImagen;
 
@@ -69,7 +69,7 @@ class Item {
      *
      * @return self
      */
-    public function setNombren($_nombre)
+    public function setNombre($_nombre)
     {
         $this->_nombre = $_nombre;
 
@@ -109,8 +109,11 @@ class Item {
 
     public function actualizar() {
 
-        $sql = "UPDATE item SET descripcion = '$this->_nombre' , id_imagen = '$this->_idImagen' , precio = '$this->_precio' WHERE id_item ='$this->_idItem'";
-
+        $sql = "UPDATE item SET descripcion = '$this->_nombre', precio = '$this->_precio' WHERE id_item ='$this->_idItem'";
+        
+        //var_dump($sql);
+        //exit;
+        
         $mysql = new MySQL();
         $mysql->actualizar($sql);
         $mysql->desconectar();

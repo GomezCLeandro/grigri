@@ -90,6 +90,7 @@ class SubCategoria {
 
         $subcategoria = new SubCategoria($registro['subCategoria']);
         $subcategoria->_idSubCategoria = $registro['id_subCategoria'];
+        $subcategoria->_idCategoria = $registro['id_categoria'];
 
         return $subcategoria;
     }
@@ -131,6 +132,7 @@ class SubCategoria {
         while ($registro = $datos->fetch_assoc()) {
             $subcategoria = new SubCategoria($registro['subCategoria']);
             $subcategoria->_idSubCategoria = $registro['id_subCategoria'];
+            $subcategoria->_idCategoria = $registro['id_categoria'];
             $listado[] = $subcategoria;
         }
         return $listado;

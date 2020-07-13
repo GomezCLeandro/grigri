@@ -9,7 +9,6 @@ class Disenio extends Item {
 
     private $_idDisenio;
     private $_idSubCategoria;
-    private $_idItem;
 
     private $_arrRecurso;
 
@@ -53,28 +52,8 @@ class Disenio extends Item {
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getIdItem()
-    {
-        return $this->_idItem;
-    }
-
-    /**
-     * @param mixed $_idItem
-     *
-     * @return self
-     */
-    public function setIdItem($_idItem)
-    {
-        $this->_idItem = $_idItem;
-
-        return $this;
-    }
-
     public static function obtenerTodos(){
-        $sql = "SELECT disenio.id_disenio, item.id_item, item.descripcion, item.precio FROM disenio JOIN item ON item.id_item = disenio.id_item";
+        $sql = "SELECT * FROM disenio JOIN item ON item.id_item = disenio.id_item";
 
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
@@ -89,11 +68,36 @@ class Disenio extends Item {
         while ($registro = $datos->fetch_assoc()) {
             $disenio = new Disenio($registro['id_item']);
             $disenio->_idDisenio = $registro['id_disenio'];
+            $disenio->_precio = $registro['precio'];
             //$disenio->_idSubCategoria = $registro['id_subCategoria'];
 
             $listado[] = $disenio;
         }
         return $listado;
+    }
+
+    public static function obtenerPorId($id) {
+
+        $sql = "SELECT * FROM disenio JOIN item ON item.id_item = disenio.id_item WHERE disenio.id_disenio= ".$id;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+
+        $disenio = self::_generarServicio($registro);
+        return $disenio;
+    }
+
+    private function _generarServicio($registro) {
+
+        $disenio = new Disenio($registro['descripcion']);
+        $disenio->_descripcion = $registro['descripcion'];
+        $disenio->_idDisenio = $registro['id_disenio'];
+        $disenio->_idItem = $registro['id_item'];
+        $disenio->_precio = $registro['precio'];
+        return $disenio;
     }
 
     public function guardar() {
@@ -111,7 +115,7 @@ class Disenio extends Item {
     public function actualizar() {
         parent::actualizar();
 
-        $sql = "UPDATE disenio SET id_subCategoria = '$this->_idSubCategoria',id_item = '$this->_idItem'  WHERE id_disenio ='$this->_idRecurso'";
+        $sql = "UPDATE disenio SET id_item = '$this->_idItem'  WHERE id_disenio ='$this->_idDisenio'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
@@ -127,7 +131,6 @@ class Disenio extends Item {
         $mysql->eliminar($sql);
         $mysql->desconectar();
     }
-
 }
 
 ?>
