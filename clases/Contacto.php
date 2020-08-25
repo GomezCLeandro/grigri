@@ -5,36 +5,19 @@ require_once 'MySQL.php';
 class Contacto {
 	
     private $_idPersonaContacto;
-	private $_idContacto;
-	private $_tipoContacto;
+    private $_idPersona;
+	private $_idTipoContacto;
+    private $_valor;
+
 	private $_descripcion;
 
-    /**
-     * @return mixed
-     */
-    public function getIdContacto()
-    {
-        return $this->_idContacto;
-    }
-
-    /**
-     * @param mixed $_idContacto
-     *
-     * @return self
-     */
-    public function setIdContacto($_idContacto)
-    {
-        $this->_idContacto = $_idContacto;
-
-        return $this;
-    }
 
     /**
      * @return mixed
      */
-    public function getTipoContacto()
+    public function getIdTipoContacto()
     {
-        return $this->_tipoContacto;
+        return $this->_idTipoContacto;
     }
 
     /**
@@ -42,9 +25,9 @@ class Contacto {
      *
      * @return self
      */
-    public function setTipoContacto($_tipoContacto)
+    public function setTipoContacto($_idTipoContacto)
     {
-        $this->_tipoContacto = $_tipoContacto;
+        $this->_idTipoContacto = $_idTipoContacto;
 
         return $this;
     }
@@ -88,6 +71,46 @@ class Contacto {
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getValor()
+    {
+        return $this->_valor;
+    }
+
+    /**
+     * @param mixed $_valor
+     *
+     * @return self
+     */
+    public function setValor($_valor)
+    {
+        $this->_valor = $_valor;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdPersona()
+    {
+        return $this->_idPersona;
+    }
+
+    /**
+     * @param mixed $_idPersona
+     *
+     * @return self
+     */
+    public function setIdPersona($_idPersona)
+    {
+        $this->_idPersona = $_idPersona;
+
+        return $this;
+    }
     
     public static function obtenerPorIdPersona($idPersona) {
         $sql = "SELECT persona_contacto.id_persona_contacto, persona_contacto.id_persona, "
@@ -121,7 +144,8 @@ class Contacto {
 
     public function guardar() {
     	
-        $sql = "INSERT INTO Contacto (id_contacto, tipoContacto, descripcion) VALUES (NULL, '$this->_tipoContacto', '$this->_descripcion')";
+        $sql = "INSERT INTO persona_contacto (id_persona_contacto, id_tipo_contacto,id_persona, valor)"
+        ." VALUES (NULL, '$this->_idTipoContacto', '$this->_idPersona', '$this->_valor')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
@@ -138,9 +162,9 @@ class Contacto {
         $mysql->actualizar($sql);
     }
 
-    public function eliminar($id) {
+    public static function eliminar($idPersonaContacto) {
 
-        $sql = "DELETE FROM Contacto WHERE id_contacto =" . $id;
+        $sql = "DELETE FROM persona_contacto WHERE id_persona_contacto =" . $idPersonaContacto;
 
         $mysql = new MySQL();
         $mysql->eliminar($sql);
@@ -149,5 +173,6 @@ class Contacto {
     public function __toString() {
         return $this->_valor .  " - " .  $this->_descripcion;
     }
+
 }
 ?>
