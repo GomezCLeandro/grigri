@@ -17,16 +17,16 @@ $listado = Perfil::obtenerTodos();
 	
 	<table border="1" align="center">
 		<tr>
-			<th>Perfil</th>
+			<th>Perfiles</th>
 			<th>Accion</th>
 		</tr>
 
 		<?php foreach ($listado as $perfil): ?>
 
 		<tr>
-			<td> <?php echo $perfil->getIdPerfil(); ?> </td>
+			<td> <?php echo $perfil->getDescripcion(); ?> </td>
 			<td>
-				<a href="modificar.php?id=<?php echo $disenio->getIdPerfil(); ?>">Modificar</a>
+				<a href="modificar.php?id=<?php echo $perfil->getIdPerfil(); ?>">Modificar</a>
 				-
 				<a href="eliminar.php?id=<?php echo $usuario->getIdPersona(); ?>">Borrar</a>
 			</td>
@@ -36,7 +36,7 @@ $listado = Perfil::obtenerTodos();
 
 	</table>
 
-	<a href="alta.php">Agregar Nuevo Diseño</a>
+	<a href="alta.php">Agregar Nuevo Perfil</a>
 
 </body>
 </html>

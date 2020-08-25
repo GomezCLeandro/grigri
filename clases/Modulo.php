@@ -76,6 +76,18 @@ class modulo {
         return $this->_nombre;
     }
 
+    public static function obtenerTodos(){
+        $sql = "SELECT * FROM modulo";
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $listado = self::_generarListadoModulos($datos);
+
+        return $listado;
+    }
+
     public static function obtenerModulosPorIdPerfil($idPerfil) {
     	$sql = "SELECT modulo.id_modulo, modulo.nombre, modulo.directorio FROM modulo INNER JOIN perfil_modulo on perfil_modulo.id_modulo = modulo.id_modulo "
     	. "INNER JOIN perfil on perfil.id_perfil = perfil_modulo.id_perfil WHERE perfil.id_perfil = ".$idPerfil;

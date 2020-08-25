@@ -83,5 +83,25 @@ $tipoDocumento = TipoDocumento::obtenerPorId($user->getIdTipoDocumento());
 
 	<?php endif ?>
 
+	<br><br>
+
+		<a href="/grigri/modulos/contacto/alta.php?idPersonaContacto=<?php echo $contacto->getIdPersonaContacto(); ?>">
+		    Agregar Contacto
+		</a>
+
+	<br><br>
+
+	<?php foreach ($user->arrContactos as $contacto) : ?>
+
+		<?php echo $contacto; ?>
+
+		<a href="/programacion3/usuarios/modulos/contactos/eliminar.php?idPersonaContacto=<?php echo $contacto->getIdPersonaContacto(); ?>">
+		    Eliminar
+		</a>
+
+		<br>
+
+	<?php endforeach ?>
+
 </body>
 </html>

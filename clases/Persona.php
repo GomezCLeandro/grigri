@@ -1,7 +1,7 @@
 <?php
 require_once 'MySQL.php';
 require_once 'Domicilio.php';
-//require_once "Contacto.php";
+require_once "Contacto.php";
 
 class Persona {
 	protected $_idPersona;
@@ -14,6 +14,8 @@ class Persona {
 	protected $_estado;
 
     public $domicilio;
+
+    public $arrContactos;
 
     const ACTIVO = 1;
 
@@ -185,6 +187,10 @@ class Persona {
 
     public function setDomicilio() {
         $this->domicilio = Domicilio::obtenerPorIdPersona($this->_idPersona);
+    }
+
+    public function setContactos() {
+        $this->arrContactos = Contacto::obtenerPorIdPersona($this->_idPersona);
     }
 
     /**

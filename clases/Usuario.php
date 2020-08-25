@@ -153,6 +153,7 @@ class Usuario extends Persona{
         $usuario->_fechaNacimiento = $registro['fecha_nacimiento'];
 
         $usuario->setDomicilio();
+        $usuario->setContactos();
 
         return $usuario;
     }
