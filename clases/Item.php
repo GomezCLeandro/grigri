@@ -10,7 +10,7 @@ class Item {
 	protected $_nombre;
 	protected $_precio;
 
-	private $_arrImagen;
+	public $arrImagen;
 
     public function __construct($nombre) {
         $this->_nombre = $nombre;
@@ -128,9 +128,13 @@ class Item {
         $mysql->desconectar();
     }
 
+    public function setArrImagen() {
+        $this->arrImagen = Imagen::obtenerTodos();
+    }
+
     public function __toString(){
         return $this->_nombre;
-    }
+    }    
 }
 
 ?>

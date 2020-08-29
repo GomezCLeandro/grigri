@@ -9,6 +9,7 @@ class Disenio extends Item {
 
     private $_idDisenio;
     private $_idSubCategoria;
+    private $_descripcion;
 
     private $_arrRecurso;
 
@@ -69,7 +70,7 @@ class Disenio extends Item {
             $disenio = new Disenio($registro['id_item']);
             $disenio->_idDisenio = $registro['id_disenio'];
             $disenio->_precio = $registro['precio'];
-            //$disenio->_idSubCategoria = $registro['id_subCategoria'];
+            $disenio->_
 
             $listado[] = $disenio;
         }
@@ -86,11 +87,11 @@ class Disenio extends Item {
 
         $registro = $datos->fetch_assoc();
 
-        $disenio = self::_generarServicio($registro);
+        $disenio = self::_generarDisenio($registro);
         return $disenio;
     }
 
-    private function _generarServicio($registro) {
+    private function _generarDisenio($registro) {
 
         $disenio = new Disenio($registro['descripcion']);
         $disenio->_descripcion = $registro['descripcion'];

@@ -1,15 +1,17 @@
 <?php
 
-require_once '../../clases/Perfil.php';
+require_once '../../clases/Disenio.php';
+require_once '../../clases/Imagen.php';
 
-$listado = Perfil::obtenerTodos();
+$listado = Disenio::obtenerTodos();
+$imagenes = Imagen::obtenerTodos();
 
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Listado Perfil</title>
+	<title>Listado Dise&ntilde;o</title>
 </head>
 <body>
 
@@ -17,14 +19,16 @@ $listado = Perfil::obtenerTodos();
 	
 	<table border="1" align="center">
 		<tr>
-			<th>Perfil</th>
+			<th>Descripcion</th>
+			<th>Precio</th>
+			<th>Imagen</th>
 			<th>Accion</th>
 		</tr>
 
-		<?php foreach ($listado as $perfil): ?>
+		<?php foreach ($listado as $disenio): ?>
 
 		<tr>
-			<td> <?php echo $perfil->getIdPerfil(); ?> </td>
+			<td> <?php echo $disenio->getIdDisenio(); ?> </td>
 			<td>
 				<a href="modificar.php?id=<?php echo $disenio->getIdPerfil(); ?>">Modificar</a>
 				-
