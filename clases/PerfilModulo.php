@@ -67,6 +67,30 @@ class PerfilModulo {
         return $this;
     }
 
+    public static function obtenerTodos(){
+        $sql = "SELECT * FROM perfil_modulo";
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $listadoPerfilModulo = self::_listadoPerfilModulo($datos);
+
+        return $listadoPerfilModulo;
+    }
+
+    private function _listadoPerfilModulo($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $perfilModulo = new PerfilModulo();
+            $perfilModulo->_idModulo = $registro['id_modulo'];
+            $perfilModulo->_idPerfilModulo = $registro['id_perfil_modulo'];
+            $perfilModulo->_idPerfil = $registro['id_perfil'];
+            $listado[] = $perfilModulo;
+        }
+        return $listado;
+    }
+
     public function guardar() {
         $sql = "INSERT INTO perfil_modulo (id_perfil_modulo, id_perfil, id_modulo) VALUES (NULL, $this->_idPerfil, $this->_idModulo)";
 

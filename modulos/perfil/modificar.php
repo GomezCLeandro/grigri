@@ -2,17 +2,22 @@
 
 require_once "../../clases/Perfil.php";
 require_once "../../clases/Modulo.php";
-
-$listadoModulos = Modulo::obtenerTodos();
+require_once "../../clases/PerfilModulo.php";
 
 $id = $_GET['id'];
 
-$perfilModulos = Perfil::obtenerPorId($id);
-$arrModulos = $perfilModulos->getModulos();
+$perfil = Perfil::obtenerPorId($id);
+
+$listadoModulos = Modulo::obtenerTodos();
+
+$listadoPerfilModulo = Modulo::obtenerModulosPorIdPerfil($id);
+
 /*
-highlight_string(var_export($arrModulos, true));
+highlight_string(var_export($listadoPerfilModulo,true));
+echo $listadoPerfilModulo->modulo->getIdModulo();
 exit;
 */
+
 ?>
 
 <!DOCTYPE html>
@@ -24,33 +29,40 @@ exit;
 <?php require_once '../../menu.php'; ?>
 		<form name="frmDatos" method="POST" action="procesar/modificar.php">
 
-			<input type="hidden" name="idPerfil" value="<?php echo $perfilModulos->getIdPerfil(); ?>">
+			<input type="hidden" name="idPerfil" value="<?php echo $perfil->getIdPerfil(); ?>">
 
 	        <label>Descripcion:</label>
-		    <input type="text" name="txtDescripcion" value="<?php echo $perfilModulos->getDescripcion(); ?>">
+		    <input type="text" name="txtDescripcion" value="<?php echo $perfil->getDescripcion(); ?>">
 		    <br><br>
 
-		    <h7>
-		    	Este perfil ya tiene acceso a:
-		    	
-		    	<?php foreach ($arrModulos as $modulos) :?>
-		         	<?php echo utf8_encode($modulos); ?>
-		        <?php endforeach ?>		        
-		    </h7>
+			<label>Modulos:</label>
+			<select name="cboModulos[]" multiple style="width: 250px; height: 250px;">
+			    <option value="0">Seleccionar</option>
 
-		    </select>
-		    <br><br>
-		    <select name="cboModulos[]" multiple style="width: 250px; height: 250px;">
+			    <?php
+			    
+			    foreach ($listadoPerfilModulo as $listado) {
+			    	echo $listado->getIdModulo()
+			    	echo $perfil->getIdPerfil();
+			    }
+			    exit;
+			    ?>
 
-		         <?php foreach ($listadoModulos as $modulo) :?>
 
-		         	<option value="<?php echo $modulo->getIdModulo(); ?>">
-		         		<?php echo utf8_encode($modulo); ?>
-		         	</option>
+				<?php
+				foreach ($listadoPerfilModulo as $modulos):
+					$selected = '';
+					if ($listadoModulos->getIdModulo() == $modulos->getIdModulo()) {
+						$selected = "SELECTED";
+					}
+				?>
+					<option value="<?php echo $modulos->getIdModulo(); ?>" <?php echo $selected; ?> >
+					    <?php echo utf8_encode($modulos); ?>
+					</option>
 
-		         <?php endforeach ?>
+				<?php endforeach ?>
 
-		    </select>
+			</select>
 		    <br><br>
 
 		    <input type="submit" name="btnGuardar" value="Actualizar">			

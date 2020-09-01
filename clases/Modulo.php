@@ -72,8 +72,23 @@ class modulo {
         return $this;
     }
 
-    public function __toString() {
-        return $this->_nombre;
+    public function guardar() {
+        $sql = "INSERT INTO Modulo (id_modulo, nombre, directorio) VALUES (NULL, '$this->_nombre', '$this->_directorio')";
+
+        $mysql = new MySQL();
+        $idInsertado = $mysql->insertar($sql);
+        $mysql->desconectar();
+
+        $this->_idModulo = $idInsertado;
+    }
+
+    public function actualizar() {
+
+        $sql = "UPDATE modulo SET nombre = '$this->_nombre', directorio = '$this->_directorio' WHERE id_modulo ='$this->_idModulo'";
+
+        $mysql = new MySQL();
+        $mysql->actualizar($sql);
+        $mysql->desconectar();
     }
 
     public static function obtenerTodos(){
@@ -86,6 +101,19 @@ class modulo {
         $listado = self::_generarListadoModulos($datos);
 
         return $listado;
+    }
+
+    public static function obtenerPorId($idModulo) {
+        $sql = "SELECT * FROM modulo WHERE id_modulo = ".$idModulo;
+
+        $mysql = new MySQL();
+        $resultado = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $dato = $resultado->fetch_assoc();
+        $modulo = new Modulo($dato['nombre'],$dato['directorio']);
+        $modulo->_idModulo = $dato['id_modulo'];
+        return $modulo;
     }
 
     public static function obtenerModulosPorIdPerfil($idPerfil) {
@@ -101,7 +129,7 @@ class modulo {
     }
 
     private function _generarListadoModulos($datos) {
-    	$lsitado = array();
+    	$listado = array();
     	while ($registro = $datos->fetch_assoc()) {
     		$modulo = new Modulo($registro['nombre'],$registro['directorio']);
     		$modulo->_idModulo = $registro['id_modulo'];
@@ -110,5 +138,8 @@ class modulo {
     	return $listado;
     }
 
+    public function __toString() {
+        return $this->_nombre;
+    }
 }
 ?>

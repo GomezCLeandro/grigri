@@ -22,7 +22,7 @@ $disenio = Disenio::obtenerPorId($id);
 			<input type="hidden" name="idDisenio" value="<?php echo $disenio->getIdDisenio(); ?>">
 
 		    <label>Diseño</label>
-		    <input type="text" name="txtDescripcion" value="<?php echo $disenio->getIdDisenio(); ?>">
+		    <input type="text" name="txtDescripcion" value="<?php echo $disenio->getDescripcion(); ?>">
 		    <br><br>
 
 		    <label>precio</label>

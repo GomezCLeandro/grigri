@@ -100,6 +100,9 @@ class Item {
 
         $sql = "INSERT INTO item (id_item, descripcion, precio) VALUES (NULL, '$this->_nombre', '$this->_precio')";
 
+        //var_dump($sql);
+        //exit;
+
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
         $mysql->desconectar();

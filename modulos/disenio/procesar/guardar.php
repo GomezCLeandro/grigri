@@ -2,11 +2,11 @@
 
 require_once "../../../clases/Disenio.php";;
 
-$item = $_POST['txtDiseño'];
+$item = $_POST['txtDescripcion'];
 $precio = $_POST['txtPrecio'];
 
 if (empty(trim($item))) {
-	echo "ERROR CAMPO DISEÑO VACIO";
+	echo "ERROR CAMPO DESCRIPCION VACIO";
 	exit;
 }
 if (empty(trim($precio))) {
@@ -16,9 +16,8 @@ if (empty(trim($precio))) {
 
 
 $disenio = new Disenio($item);
-$disenio->setIdDisenio($item);
+$disenio->setDescripcion($item);
 $disenio->setPrecio($precio);
-
 
 $disenio->guardar();
 

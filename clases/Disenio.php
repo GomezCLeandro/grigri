@@ -11,7 +11,7 @@ class Disenio extends Item {
     private $_idSubCategoria;
     private $_descripcion;
 
-    private $_arrRecurso;
+    public $_arrRecurso;
 
     /**
      * @return mixed
@@ -53,6 +53,26 @@ class Disenio extends Item {
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDescripcion()
+    {
+        return $this->_descripcion;
+    }
+
+    /**
+     * @param mixed $_descripcion
+     *
+     * @return self
+     */
+    public function setDescripcion($_descripcion)
+    {
+        $this->_descripcion = $_descripcion;
+
+        return $this;
+    }
+
     public static function obtenerTodos(){
         $sql = "SELECT * FROM disenio JOIN item ON item.id_item = disenio.id_item";
 
@@ -67,10 +87,11 @@ class Disenio extends Item {
     private function _listadoDisenio($datos) {
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {
-            $disenio = new Disenio($registro['id_item']);
+            $disenio = new Disenio($registro['descripcion']);
+            $disenio->_descripcion = $registro['descripcion'];
             $disenio->_idDisenio = $registro['id_disenio'];
+            $disenio->_idItem = $registro['id_item'];
             $disenio->_precio = $registro['precio'];
-            $disenio->_
 
             $listado[] = $disenio;
         }
@@ -104,7 +125,8 @@ class Disenio extends Item {
     public function guardar() {
         parent::guardar();
 
-        $sql = "INSERT INTO disenio (id_disenio,id_subCategoria,id_item) VALUES (NULL, '$this->_idSubCategoria','$this->_idItem')";
+        $sql = "INSERT INTO disenio (id_disenio, id_subCategoria, id_item, descripcion) "
+        . " VALUES (NULL, '$this->_idSubCategoria', '$this->_idItem', '$this->_descripcion')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
@@ -131,6 +153,10 @@ class Disenio extends Item {
         $mysql = new MySQL();
         $mysql->eliminar($sql);
         $mysql->desconectar();
+    }
+
+    public function __toString() {
+        return $this->descripcion;
     }
 }
 

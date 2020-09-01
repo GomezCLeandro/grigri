@@ -4,7 +4,11 @@ require_once '../../clases/Disenio.php';
 require_once '../../clases/Imagen.php';
 
 $listado = Disenio::obtenerTodos();
-$imagenes = Imagen::obtenerTodos();
+
+//$imagenes = Imagen::obtenerTodos();
+
+//highlight_string(var_export($listado,true));
+//exit;
 
 ?>
 
@@ -21,18 +25,18 @@ $imagenes = Imagen::obtenerTodos();
 		<tr>
 			<th>Descripcion</th>
 			<th>Precio</th>
-			<th>Imagen</th>
 			<th>Accion</th>
 		</tr>
 
 		<?php foreach ($listado as $disenio): ?>
 
 		<tr>
-			<td> <?php echo $disenio->getIdDisenio(); ?> </td>
+			<td> <?php echo $disenio->getDescripcion(); ?> </td>
+			<td> <?php echo $disenio->getPrecio(); ?> </td>
 			<td>
-				<a href="modificar.php?id=<?php echo $disenio->getIdPerfil(); ?>">Modificar</a>
+				<a href="modificar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Modificar</a>
 				-
-				<a href="eliminar.php?id=<?php echo $usuario->getIdPersona(); ?>">Borrar</a>
+				<a href="eliminar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Borrar</a>
 			</td>
 		</tr>
 

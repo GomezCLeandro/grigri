@@ -7,7 +7,7 @@ class Perfil {
 	
 	private $_idPerfil;
 	private $_descripcion;
-	private $_arrModulos;
+	public $arrModulos;
 
 	public function __construct($descripcion)
 	{
@@ -80,12 +80,12 @@ class Perfil {
     	$dato = $resultado->fetch_assoc();
     	$perfil = new Perfil($dato['nombre']);
     	$perfil->_idPerfil = $dato['id_perfil'];
-    	$perfil->_arrModulos = Modulo::obtenerModulosPorIdPerfil($perfil->_idPerfil);
+    	$perfil->arrModulos = Modulo::obtenerModulosPorIdPerfil($perfil->_idPerfil);
     	return $perfil;
     }
 
     public function getModulos() {
-        return $this->_arrModulos;
+        return $this->arrModulos;
     }
 
     public function guardar() {

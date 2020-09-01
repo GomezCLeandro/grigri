@@ -11,13 +11,14 @@
 		<form name="frmDatos" method="POST" action="procesar/guardar.php" enctype="multipart/form-data">
 
 		    <label>Descripcion</label>
-		    <input type="number" name="txtDiseño">
+		    <input type="text" name="txtDescripcion">
 		    <br><br>
-
-		    Imagen: <input type="file" name="fileImagen">
 
 		    <label>precio</label>
 		    <input type="number" name="txtPrecio">
+		    <br><br>
+
+		    Imagen: <input type="file" name="fileImagen">
 		    <br><br>
 
 		    <input type="submit" name="btnGuardar" value="Guardar">			
