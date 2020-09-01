@@ -88,6 +88,18 @@ class Perfil {
         return $this->arrModulos;
     }
 
+    public function tieneModulo($idModulo){
+        $sql = "SELECT * FROM perfil_modulo "
+            . "WHERE id_modulo = $idModulo "
+            . "AND id_perfil = $this->_idPerfil";
+            
+        $mysql = new MySQL();
+        $result = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        return $result->num_rows > 0;
+    }
+
     public function guardar() {
         $sql="INSERT INTO Perfil (id_perfil, nombre) VALUES (null, '$this->_descripcion')";
 

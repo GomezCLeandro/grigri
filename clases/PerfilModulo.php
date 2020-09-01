@@ -83,12 +83,24 @@ class PerfilModulo {
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {
             $perfilModulo = new PerfilModulo();
-            $perfilModulo->_idModulo = $registro['id_modulo'];
             $perfilModulo->_idPerfilModulo = $registro['id_perfil_modulo'];
+            $perfilModulo->_idModulo = $registro['id_modulo'];
             $perfilModulo->_idPerfil = $registro['id_perfil'];
             $listado[] = $perfilModulo;
         }
         return $listado;
+    }
+
+    public static function obtenerPorIdPerfil($idPerfil) {
+        $sql = "SELECT * FROM perfil_modulo WHERE id_perfil = ".$idPerfil;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $listadoPerfilModulo = self::_listadoPerfilModulo($datos);
+
+        return $listadoPerfilModulo;
     }
 
     public function guardar() {

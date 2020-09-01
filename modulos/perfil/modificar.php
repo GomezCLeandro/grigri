@@ -2,7 +2,6 @@
 
 require_once "../../clases/Perfil.php";
 require_once "../../clases/Modulo.php";
-require_once "../../clases/PerfilModulo.php";
 
 $id = $_GET['id'];
 
@@ -10,11 +9,8 @@ $perfil = Perfil::obtenerPorId($id);
 
 $listadoModulos = Modulo::obtenerTodos();
 
-$listadoPerfilModulo = Modulo::obtenerModulosPorIdPerfil($id);
-
 /*
-highlight_string(var_export($listadoPerfilModulo,true));
-echo $listadoPerfilModulo->modulo->getIdModulo();
+highlight_string(var_export($listadoModulos,true));
 exit;
 */
 
@@ -39,28 +35,26 @@ exit;
 			<select name="cboModulos[]" multiple style="width: 250px; height: 250px;">
 			    <option value="0">Seleccionar</option>
 
-			    <?php
-			    
-			    foreach ($listadoPerfilModulo as $listado) {
-			    	echo $listado->getIdModulo()
-			    	echo $perfil->getIdPerfil();
-			    }
-			    exit;
-			    ?>
+                	<?php foreach ($listadoModulos as $modulo): ?>
 
+                        <?php 
 
-				<?php
-				foreach ($listadoPerfilModulo as $modulos):
-					$selected = '';
-					if ($listadoModulos->getIdModulo() == $modulos->getIdModulo()) {
-						$selected = "SELECTED";
-					}
-				?>
-					<option value="<?php echo $modulos->getIdModulo(); ?>" <?php echo $selected; ?> >
-					    <?php echo utf8_encode($modulos); ?>
-					</option>
+                        $selected = '';
+                        $idModulo = $modulo->getIdModulo();
 
-				<?php endforeach ?>
+                        if ($perfil->tieneModulo($idModulo)) {
+                    	    $selected = "SELECTED";
+                        }
+
+                        ?>
+
+                        <option value="<?php echo $modulo->getIdModulo(); ?>" <?php echo $selected ?> >
+
+                        <?php echo utf8_encode($modulo); ?>
+
+                        </option>
+
+                    <?php endforeach  ?>
 
 			</select>
 		    <br><br>
