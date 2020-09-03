@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once "../../../clases/Usuario.php";;
 
 $username = $_POST['txtUsername'];
@@ -13,31 +15,73 @@ $tipoDocumento = $_POST['cboTipoDocumento'];
 $idPerfil = 2;
 
 if (empty(trim($username))) {
-	echo "ERROR CAMPO USERNAME VACIO";
+	$_SESSION['mensaje_error'] = "Debe ingresar el username";
+	header("location: /grigri/modulos/usuario/alta.php");
+	exit;
+}
+if (strlen(trim($username)) < 3) {
+	$_SESSION['mensaje_error'] = "Pocos caracteres para una username";
+	header("location: /grigri/modulos/usuario/alta.php");
 	exit;
 }
 if (empty(trim($password))) {
-	echo "ERROR CAMPO PASSWORD VACIO";
+	$_SESSION['mensaje_error'] = "Debe ingresar el password";
+	header("location: /grigri/modulos/usuario/alta.php");
+	exit;
+}
+if (strlen(trim($password)) < 3) {
+	$_SESSION['mensaje_error'] = "Pocos caracteres para una password";
+	header("location: /grigri/modulos/usuario/alta.php");
 	exit;
 }
 if (empty(trim($nombre))) {
-	echo "ERROR CAMPO NOMBRE VACIO";
+	$_SESSION['mensaje_error'] = "Debe ingresar el nombre";
+	header("location: /grigri/modulos/usuario/alta.php");
+	exit;
+}
+if (strlen(trim($nombre)) < 3) {
+	$_SESSION['mensaje_error'] = "Pocos caracteres para una nombre";
+	header("location: /grigri/modulos/usuario/alta.php");
 	exit;
 }
 if (empty(trim($apellido))) {
-	echo "ERROR CAMPO APELLIDO VACIO";
+	$_SESSION['mensaje_error'] = "Debe ingresar el apellido";
+	header("location: /grigri/modulos/usuario/alta.php");
 	exit;
 }
-if (empty(trim($sexo))) {
-	echo "ERROR CAMPO SEXO VACIO";
+if (strlen(trim($apellido)) < 3) {
+	$_SESSION['mensaje_error'] = "Pocos caracteres para una apellido";
+	header("location: /grigri/modulos/usuario/alta.php");
+	exit;
+}
+if (empty($sexo)) {
+	$_SESSION['mensaje_error'] = "Debe ingresar el sexo";
+	header("location: /grigri/modulos/usuario/alta.php");
+	exit;
+}
+if (strlen($sexo) != 1) {
+	$_SESSION['mensaje_error'] = "Debe ingresar el sexo de 1 caracter";
+	header("location: /grigri/modulos/usuario/alta.php");
+	exit;
+}
+if (empty($tipoDocumento)) {
+	$_SESSION['mensaje_error'] = "Debe seleccionar tipo documento";
+	header("location: /grigri/modulos/usuario/alta.php");
 	exit;
 }
 if (empty(trim($numeroDocumento))) {
-	echo "ERROR CAMPO NUMERO DOCUMENTO VACIO";
+	$_SESSION['mensaje_error'] = "Debe ingresar el numero documento";
+	header("location: /grigri/modulos/usuario/alta.php");
 	exit;
 }
-if (empty(trim($fechaNacimiento))) {
-	echo "ERROR CAMPO FECHA NACIMIENTO VACIO";
+if (strlen(trim($numeroDocumento)) < 3) {
+	$_SESSION['mensaje_error'] = "Pocos caracteres para una numero documento";
+	header("location: /grigri/modulos/usuario/alta.php");
+	exit;
+}
+if (empty($fechaNacimiento)) {
+	$_SESSION['mensaje_error'] = "Debe ingresar el fecha nacimiento";
+	header("location: /grigri/modulos/usuario/alta.php");
 	exit;
 }
 

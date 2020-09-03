@@ -54,7 +54,7 @@ $listadoCategoria = Categoria::obtenerTodos();
 			</select>
 			<br><br>
 
-		    <input type="button" value="Guardar" onclick="validarDatos()">			
+		    <input type="button" value="Guardar" onclick="validarDatos()">
 
 		</form>
 

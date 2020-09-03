@@ -13,35 +13,52 @@ $listadoTipoDocumento = TipoDocumento::obtenerTodos();
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Modificar Usuario</title>
+
+	<script type="text/javascript" src="../../js/validaciones/validacionUsuario2.js"></script>
+
 </head>
 <body>
 
 	<?php require_once '../../menu.php'; ?>
 	
 <div align="center">
-		<form name="frmDatos" method="POST" action="procesar/modificar.php">
+
+        <?php if (isset($_SESSION['mensaje_error'])) : ?>
+
+            <font color="red"> 
+              	<?php echo $_SESSION['mensaje_error']; ?>
+            </font>
+            <br><br>
+
+        <?php
+                unset($_SESSION['mensaje_error']);
+            endif;
+        ?>
+        <div id="mensajeError"></div>
+
+		<form name="frmDatos" id="frmDatos" method="POST" action="procesar/modificar.php">
 
 			<input type="hidden" name="txtId" value="<?php echo $user->getIdUsuario(); ?>">
 
 		    <label>Username</label>
-		    <input type="text" name="txtUsername" value="<?php echo $user->getUsername(); ?>">
+		    <input type="text" id="txtUsername" name="txtUsername" value="<?php echo $user->getUsername(); ?>">
 		    <br><br>
 
 		    <label>Nombre</label>
-		    <input type="text" name="txtNombre" value="<?php echo $user->getNombre(); ?>">
+		    <input type="text" id="txtNombre" name="txtNombre" value="<?php echo $user->getNombre(); ?>">
 		    <br><br>
 
 		    <label>Apellido</label>
-		    <input type="text" name="txtApellido" value="<?php echo $user->getApellido(); ?>">
+		    <input type="text" id="txtApellido" name="txtApellido" value="<?php echo $user->getApellido(); ?>">
 		    <br><br>
 
 		    <label>Sexo</label>
-		    <input type="text" name="txtSexo" value="<?php echo $user->getSexo(); ?>">
+		    <input type="text" id="txtSexo" name="txtSexo" value="<?php echo $user->getSexo(); ?>">
 		    <br><br>
 
 			<label>Tipo Documento: </label>
-			<select name="cboTipoDocumento">
+			<select name="cboTipoDocumento" id="cboTipoDocumento">
 			    <option value="0">Seleccionar</option>
 
 				<?php
@@ -51,7 +68,6 @@ $listadoTipoDocumento = TipoDocumento::obtenerTodos();
 						$selected = "SELECTED";
 					}
 				?>
-
 					<option value="<?php echo $tipoDocumento->getIdTipoDocumento(); ?>" <?php echo $selected; ?>>
 					    <?php echo $tipoDocumento; ?>
 					</option>
@@ -62,14 +78,14 @@ $listadoTipoDocumento = TipoDocumento::obtenerTodos();
 			<br><br>
 
 		    <label>Numero de documento</label>
-		    <input type="text" name="txtNumeroDocumento" value="<?php echo $user->getNumeroDocumento(); ?>">
+		    <input type="text" id="txtNumeroDocumento" name="txtNumeroDocumento" value="<?php echo $user->getNumeroDocumento(); ?>">
 		    <br><br>
 
 		    <label>Fecha de nacimiento</label>
-		    <input type="date" name="txtFechaNacimiento" value="<?php echo $user->getFechaNacimiento(); ?>">
+		    <input type="date" id="txtFechaNacimiento" name="txtFechaNacimiento" value="<?php echo $user->getFechaNacimiento(); ?>">
 		    <br><br>
 
-		    <input type="submit" name="btnGuardar" value="Actualizar">			
+		    <input type="button" value="Guardar" onclick="validarDatos()">			
 
 		</form>
 
