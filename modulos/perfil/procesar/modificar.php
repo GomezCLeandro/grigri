@@ -28,6 +28,8 @@ if (empty($listaModulos) || $listaModulos[0] == 0) {
 $perfil = Perfil::obtenerPorId($idPerfil);
 $perfil->setDescripcion($descripcion);
 
+$perfil->actualizar();
+
 PerfilModulo::resetModulos($idPerfil);
 
 foreach ($listaModulos as $modulo_id) {

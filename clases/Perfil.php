@@ -100,6 +100,14 @@ class Perfil {
         return $result->num_rows > 0;
     }
 
+    public function actualizar() {
+        $sql = "UPDATE perfil SET nombre = '$this->_descripcion' WHERE id_perfil ='$this->_idPerfil'";
+
+        $mysql = new MySQL();
+        $mysql->actualizar($sql);
+        $mysql->desconectar();
+    }
+
     public function guardar() {
         $sql="INSERT INTO Perfil (id_perfil, nombre) VALUES (null, '$this->_descripcion')";
 
