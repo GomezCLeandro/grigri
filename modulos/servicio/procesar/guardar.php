@@ -1,16 +1,25 @@
 <?php
 
+session_start();
+
 require_once "../../../clases/Servicio.php";;
 
 $item = $_POST['txtDescripcion'];
 $precio = $_POST['txtPrecio'];
 
 if (empty(trim($item))) {
-	echo "ERROR CAMPO SERVICIO VACIO";
+	$_SESSION['mensaje_error'] = "Debe ingresar la descripcion";
+	header("location: /grigri/modulos/servicio/alta.php");
 	exit;
 }
-if (empty(trim($precio))) {
-	echo "ERROR CAMPO PRECIO VACIO";
+if (strlen(trim($item)) < 5) {
+	$_SESSION['mensaje_error'] = "Pocos caracteres para una descripcion";
+	header("location: /grigri/modulos/servicio/alta.php");
+	exit;
+}
+if ($precio < 1) {
+	$_SESSION['mensaje_error'] = "Precio muy bajo";
+	header("location: /grigri/modulos/servicio/alta.php");
 	exit;
 }
 

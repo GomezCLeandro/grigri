@@ -5,32 +5,47 @@ require_once '../../clases/Categoria.php';
 $id = $_GET['id'];
 
 $categoria = Categoria::obtenerPorId($id);
-//highlight_string(var_export($categoria,true));
-//exit;
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Modificar Categoria</title>
+
+	<script type="text/javascript" src="../../js/validaciones/validacionCategoria.js"></script>
+
 </head>
 <body>
-<?php require_once '../../menu.php'; ?>
+
+	<?php require_once '../../menu.php'; ?>
 	
-<div align="center">
-		<form name="frmDatos" method="POST" action="procesar/modificar.php">
+	<div align="center">
+        <?php if (isset($_SESSION['mensaje_error'])) : ?>
 
-			<input type="hidden" name="idCategoria" value="<?php echo $categoria->getIdCategoria(); ?>">
+            <font color="red"> 
+              	<?php echo $_SESSION['mensaje_error']; ?> 
+            </font>
+            <br><br>
 
-		    <label>Categoria</label>
-		    <input type="text" name="txtCategoria" value="<?php echo $categoria; ?>">
-		    <br><br>
+        <?php
+                unset($_SESSION['mensaje_error']);
+            endif;
+        ?>
+        <div id="mensajeError"></div>
 
-		    <input type="submit" name="btnGuardar" value="Actualizar">			
+	<form name="frmDatos" id="frmDatos" method="POST" action="procesar/modificar.php">
 
-		</form>
+		<input type="hidden" name="idCategoria" value="<?php echo $categoria->getIdCategoria(); ?>">
 
-</div>
+	    <label>Categoria</label>
+	    <input type="text" name="txtCategoria" id="txtCategoria" value="<?php echo $categoria; ?>">
+	    <br><br>
+
+	    <input type="button" value="Guardar" onclick="validarDatos()">			
+
+	</form>
+
+	</div>
 </body>
 </html>
 

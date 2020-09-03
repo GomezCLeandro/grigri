@@ -1,13 +1,18 @@
 function validarDatos() {
 	var divMensajeError = document.getElementById("mensajeError");
-	var nombre = document.getElementById("txtCategoria").value;
+	var subCategoria = document.getElementById("txtSubCategoria").value;
+	var categoria = document.getElementById("idCategoria").value;
 
-	if (nombre.trim() == "") {
+	if (subCategoria.trim() == "") {
 		divMensajeError.innerHTML = "<font color='red'> El nombre no debe estar vacio js</font><br><br>";
 		return;
 	}
-	if (nombre.length < 3) {
+	if (subCategoria.length < 3) {
 		divMensajeError.innerHTML = "<font color='red'> El nombre debe contener al menos 3 caracteres js</font><br><br>";
+		return;
+	}
+	if (categoria != null) {
+		divMensajeError.innerHTML = "<font color='red'> Debe seleccionar la categoria js</font><br><br>";
 		return;
 	}
 

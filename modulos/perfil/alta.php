@@ -6,28 +6,41 @@ $listadoModulos = Modulo::obtenerTodos();
 
 ?>
 
-
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Alta de Perfil</title>
+
+	<script type="text/javascript" src="../../js/validaciones/validacionPerfil.js"></script>
+
 </head>
 <body>
 
 	<?php require_once "../../menu.php"; ?>
-	<br>
-	<br>
 
 	<h4>Alta de Perfil</h4>
 	<br>
 
+        <?php if (isset($_SESSION['mensaje_error'])) : ?>
+
+            <font color="red"> 
+              	<?php echo $_SESSION['mensaje_error']; ?>
+            </font>
+            <br><br>
+
+        <?php
+                unset($_SESSION['mensaje_error']);
+            endif;
+        ?>
+        <div id="mensajeError"></div>
+
 		<form name="frmDatos" method="POST" action="procesar/guardar.php">
 
 	        <label>Descripcion:</label>
-		    <input type="text" name="txtDescripcion">
+		    <input type="text" id="txtDescripcion" name="txtDescripcion">
 		    <br><br>
 
-		    <select name="cboModulos[]" multiple style="width: 250px; height: 250px;">
+		    <select name="cboModulos[]" id="cboModulos" multiple style="width: 250px; height: 250px;">
 
 		         <?php foreach ($listadoModulos as $modulo) :?>
 
@@ -40,7 +53,7 @@ $listadoModulos = Modulo::obtenerTodos();
 		    </select>
 		    <br><br>
 
-		    <input type="submit" name="btnGuardar" value="Guardar">			
+		    <input type="button" value="Guardar" onclick="validarDatos()">
 
 		</form>
 

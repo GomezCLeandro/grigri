@@ -1,15 +1,27 @@
 <?php
 
+session_start();
+
 require_once '../../../clases/SubCategoria.php';
 
 $descripcion = $_POST['txtSubCategoria'];
 $categoria = $_POST['idCategoria'];
 
-/*
-highlight_string(var_export($categorias,true));
-highlight_string(var_export($descripcion,true));
-exit;
-*/
+if (empty(trim($descripcion))) {
+	$_SESSION['mensaje_error'] = "Debe ingresar la descripcion";
+	header("location: /grigri/modulos/subCategoria/alta.php");
+	exit;
+}
+if (strlen(trim($descripcion)) < 5) {
+	$_SESSION['mensaje_error'] = "Pocos caracteres para una descripcion";
+	header("location: /grigri/modulos/subCategoria/alta.php");
+	exit;
+}
+if (empty($categoria)) {
+	$_SESSION['mensaje_error'] = "Debe seleccionar categoria";
+	header("location: /grigri/modulos/subCategoria/alta.php");
+	exit;
+}
 
 $subCategoria = new SubCategoria($descripcion);
 

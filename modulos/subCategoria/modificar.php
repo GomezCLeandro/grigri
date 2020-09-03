@@ -15,21 +15,38 @@ $listadoCategoria = Categoria::obtenerTodos();
 <head>
 	<meta charset="UTF-8">
 	<title>Modificar Sub Categoria</title>
+
+	<script type="text/javascript" src="../../js/validaciones/validacionSubCategoria.js"></script>
+
 </head>
 <body>
 <?php require_once '../../menu.php'; ?>
 	
 <div align="center">
-		<form name="frmDatos" method="POST" action="procesar/modificar.php">
+
+        <?php if (isset($_SESSION['mensaje_error'])) : ?>
+
+            <font color="red"> 
+              	<?php echo $_SESSION['mensaje_error']; ?>
+            </font>
+            <br><br>
+
+        <?php
+                unset($_SESSION['mensaje_error']);
+            endif;
+        ?>
+        <div id="mensajeError"></div>
+
+		<form name="frmDatos" id="frmDatos" method="POST" action="procesar/modificar.php">
 
 			<input type="hidden" name="idSubCategoria" value="<?php echo $subCategoria->getIdSubCategoria(); ?>">
 
 		    <label>Sub Categoria</label>
-		    <input type="text" name="txtSubCategoria" value="<?php echo utf8_encode($subCategoria); ?>">
+		    <input type="text" id="txtSubCategoria" name="txtSubCategoria" value="<?php echo utf8_encode($subCategoria); ?>">
 		    <br><br>
 
 			<label>Categorias:</label>
-			<select name="idCategoria">
+			<select name="idCategoria" id="idCategoria">
 			    <option value="0">Seleccionar</option>
 
 				<?php
@@ -48,7 +65,7 @@ $listadoCategoria = Categoria::obtenerTodos();
 			</select>
 			<br><br>
 
-		    <input type="submit" name="btnGuardar" value="Actualizar">			
+		    <input type="button" value="Guardar" onclick="validarDatos()">			
 
 		</form>
 

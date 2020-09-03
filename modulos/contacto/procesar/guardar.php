@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once "../../../clases/Contacto.php";;
 
 $idLlamada = $_POST['idLlamada'];
@@ -9,14 +11,20 @@ $idPersona = $_POST['idPersona'];
 $idTipoContacto = $_POST['cboTipoContacto'];
 
 if (empty(trim($valor))) {
-	echo "ERROR CAMPO DISEÑO VACIO";
+	$_SESSION['mensaje_error'] = "Debe ingresar el CONTACTO";
+	header("location: /grigri/modulos/contacto/alta.php?idPersona=$idPersona&idLlamada=$idLlamada");
 	exit;
 }
-if (empty(trim($idTipoContacto))) {
-	echo "ERROR CAMPO PRECIO VACIO";
+if (strlen(trim($valor)) < 5) {
+	$_SESSION['mensaje_error'] = "Pocos caracteres para ser un CONTACTO";
+	header("location: /grigri/modulos/contacto/alta.php?idPersona=$idPersona&idLlamada=$idLlamada");
 	exit;
 }
-
+if ($idTipoContacto == 0) {
+	$_SESSION['mensaje_error'] = "Debe seleccionar algun TIPO de CONTACTO";
+	header("location: /grigri/modulos/contacto/alta.php?idPersona=$idPersona&idLlamada=$idLlamada");
+	exit;
+}
 
 $contacto = new Contacto();
 $contacto->setValor($valor);

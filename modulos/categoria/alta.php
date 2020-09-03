@@ -12,17 +12,17 @@
 	
 	<div align="center">
 
-		<?php if (isset($_SESSIONERROR['mensaje_error'])) : ?>
+            <?php if (isset($_SESSION['mensaje_error'])) : ?>
 
-			<font color="red"> 
-				<?php echo $_SESSIONERROR['mensaje_error'] ?>
-			</font>
-			<br><br>
+                <font color="red"> 
+                	<?php echo $_SESSION['mensaje_error']; ?>
+                </font>
+                <br><br>
 
-		<?php
-				unset($_SESSIONERROR['mensaje_error']);
-			endif;
-		?>
+            <?php
+                    unset($_SESSION['mensaje_error']);
+                endif;
+            ?>
 		<div id="mensajeError"></div>
 
 		<form name="frmDatos" id="frmDatos" method="POST" action="procesar/guardar.php">
@@ -31,8 +31,8 @@
 		    <input type="text" name="txtCategoria" id="txtCategoria">
 		    <br><br>
 
-		    <input type="button" value="Guardar" onclick="validarDatosAlta()">			
-			</form>
+		    <input type="button" value="Guardar" onclick="validarDatos()">
+		</form>
 
 	</div>
 </body>

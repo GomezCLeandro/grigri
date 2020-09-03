@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once "../../../clases/Domicilio.php";;
 
 $idPersona = $_POST['idPersona'];
@@ -12,28 +14,43 @@ $manzana = $_POST['txtManzana'];
 $descripcion = $_POST['txtDescripcion'];
 $idBarrio = $_POST['idBarrio'];
 
+if ($idBarrio == 0) {
+	$_SESSION['mensaje_error'] = "Debe selecionar un barrio";
+	header("location: /grigri/modulos/domicilio/modificar.php?idPersona=$idPersona&idLlamada=$idLlamada");
+	exit;
+}
 if (empty(trim($calle))) {
-	echo "ERROR CAMPO CALLE VACIO";
+	$_SESSION['mensaje_error'] = "Debe ingresar la calle";
+	header("location: /grigri/modulos/domicilio/modificar.php?idPersona=$idPersona&idLlamada=$idLlamada");
 	exit;
 }
-if (empty(trim($altura))) {
-	echo "ERROR CAMPO ALTURA VACIO";
+if (strlen(trim($calle)) < 5) {
+	$_SESSION['mensaje_error'] = "Pocos caracteres para una calle";
+	header("location: /grigri/modulos/domicilio/modificar.php?idPersona=$idPersona&idLlamada=$idLlamada");
 	exit;
 }
-if (empty(trim($casa))) {
-	echo "ERROR CAMPO CASA VACIO";
+if ($altura < 1) {
+	$_SESSION['mensaje_error'] = "Altura muy baja";
+	header("location: /grigri/modulos/domicilio/modificar.php?idPersona=$idPersona&idLlamada=$idLlamada");
 	exit;
 }
-if (empty(trim($manzana))) {
-	echo "ERROR CAMPO MANZANA VACIO";
+if ($casa < 1 ) {
+	$_SESSION['mensaje_error'] = "Casa muy caja";
+	header("location: /grigri/modulos/domicilio/modificar.php?idPersona=$idPersona&idLlamada=$idLlamada");
 	exit;
 }
-if (empty(trim($idBarrio))) {
-	echo "ERROR BARRIO NO SLECIONADO";
+if ($manzana < 1 ) {
+	$_SESSION['mensaje_error'] = "Manzana muy baja";
+	header("location: /grigri/modulos/domicilio/modificar.php?idPersona=$idPersona&idLlamada=$idLlamada");
 	exit;
 }
 if (empty(trim($descripcion))) {
-	$descripcion = 'Sin descripcion';
+	$descripcion = "sin descripcion";
+}
+if (strlen(trim($descripcion)) < 5) {
+	$_SESSION['mensaje_error'] = "Pocos caracteres para una descripcion";
+	header("location: /grigri/modulos/domicilio/modificar.php?idPersona=$idPersona&idLlamada=$idLlamada");
+	exit;
 }
 
 $domicilio = Domicilio::obtenerPorIdPersona($idPersona);

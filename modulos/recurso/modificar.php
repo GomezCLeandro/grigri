@@ -11,20 +11,37 @@ $recurso = Recurso::obtenerPorId($id);
 <html>
 <head>
 	<title>Modificar Recurso</title>
+
+	<script type="text/javascript" src="../../js/validaciones/validacionRecursos.js"></script>
+
 </head>
 <body>
 <?php require_once '../../menu.php'; ?>
 	
 <div align="center">
-		<form name="frmDatos" method="POST" action="procesar/modificar.php">
+
+            <?php if (isset($_SESSION['mensaje_error'])) : ?>
+
+                <font color="red"> 
+                	<?php echo $_SESSION['mensaje_error']; ?>
+                </font>
+                <br><br>
+
+            <?php
+                    unset($_SESSION['mensaje_error']);
+                endif;
+            ?>
+		<div id="mensajeError"></div>
+		
+		<form name="frmDatos" id="frmDatos" method="POST" action="procesar/modificar.php">
 
 			<input type="hidden" name="idRecurso" value="<?php echo $recurso->getIdRecurso(); ?>">
 
 		    <label>Recurso</label>
-		    <input type="text" name="txtRecurso" value="<?php echo $recurso; ?>">
+		    <input type="text" id="txtRecurso" name="txtRecurso" value="<?php echo $recurso; ?>">
 		    <br><br>
 
-		    <input type="submit" name="btnGuardar" value="Actualizar">			
+		    <input type="button" value="Guardar" onclick="validarDatos()">			
 
 		</form>
 

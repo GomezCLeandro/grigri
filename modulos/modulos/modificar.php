@@ -14,19 +14,36 @@ $modificarModulo = Modulo::obtenerPorId($id);
 <html>
 <head>
 	<title>Modificar Modulo</title>
+
+	<script type="text/javascript" src="../../js/validaciones/validacionModulos.js"></script>
+
 </head>
 <body>
 <?php require_once '../../menu.php'; ?>
 	
 <div align="center">
+
+            <?php if (isset($_SESSION['mensaje_error'])) : ?>
+
+                <font color="red"> 
+                	<?php echo $_SESSION['mensaje_error']; ?>
+                </font>
+                <br><br>
+
+            <?php
+                    unset($_SESSION['mensaje_error']);
+                endif;
+            ?>
+		<div id="mensajeError"></div>
+
 		<form name="frmDatos" method="POST" action="procesar/modificar.php">
 
 			<input type="hidden" name="idModulo" value="<?php echo $modificarModulo->getIdModulo(); ?>">
 
-		    <input type="text" name="txtModulo" value="<?php echo $modificarModulo->getNombre(); ?>">
+		    <input type="text" id="txtModulo" name="txtModulo" value="<?php echo $modificarModulo->getNombre(); ?>">
 		    <br><br>
 
-		    <input type="submit" name="btnGuardar" value="Actualizar">			
+		    <input type="button" value="Guardar" onclick="validarDatos()">			
 
 		</form>
 

@@ -13,20 +13,34 @@ $idLlamada = $_GET['idLlamada'];
 <html>
 <head>
 	<title>Alta de Domicilio</title>
+
+	<script type="text/javascript" src="../../js/validaciones/validacionDomicilio.js"></script>
+
 </head>
 <body>
 
 	<?php require_once "../../menu.php"; ?>
-	<br>
-	<br>
 
-		<form name="frmDatos" method="POST" action="procesar/guardar.php">
+        <?php if (isset($_SESSION['mensaje_error'])) : ?>
+
+            <font color="red"> 
+              	<?php echo $_SESSION['mensaje_error']; ?>
+            </font>
+            <br><br>
+
+        <?php
+                unset($_SESSION['mensaje_error']);
+            endif;
+        ?>
+        <div id="mensajeError"></div>
+
+		<form name="frmDatos" id="frmDatos" method="POST" action="procesar/guardar.php">
 
 		    <input type="hidden" name="idPersona" value='<?php echo $idPersona ?>'>
 		    <input type="hidden" name="idLlamada" value='<?php echo $idLlamada ?>'>
 
 			<label>Barrio:</label>
-			<select name="cboBarrio">
+			<select name="cboBarrio" id="cboBarrio">
 			    <option value="0">Seleccionar</option>
 
 				<?php foreach ($listadoBarrio as $barrio): ?>
@@ -41,26 +55,26 @@ $idLlamada = $_GET['idLlamada'];
 			<br><br>
 
 	        <label>Calle:</label>
-		    <input type="text" name="txtCalle">
+		    <input type="text" id="txtCalle" name="txtCalle">
 		    <br><br>
 
 		    <label>Altura:</label>
-		    <input type="number" name="txtAltura">
+		    <input type="number" id="txtAltura" name="txtAltura">
 		    <br><br>
 
 		    <label>Casa:</label>
-		    <input type="number" name="txtCasa">
+		    <input type="number" id="txtCasa" name="txtCasa">
 			<br><br>
 
 		    <label>Manzana:</label>
-		    <input type="number" name="txtManzana">
+		    <input type="number" id="txtManzana" name="txtManzana">
 			<br><br>
 
 		    <label>Descripcion:</label>
-		    <input type="text" name="txtDescripcion">
+		    <input type="text" id="txtDescripcion" name="txtDescripcion">
 			<br><br>
 
-		    <input type="submit" name="btnGuardar" value="Guardar">			
+		    <input type="button" value="Guardar" onclick="validarDatos()">		
 
 		</form>  
 
