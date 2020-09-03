@@ -6,7 +6,8 @@ $nombreCategoria = $_POST['txtCategoria'];
 $idCategoria = $_POST['idCategoria'];
 
 if (empty(trim($nombreCategoria))) {
-	echo "ERROR CAMPO CATEGORIA VACIO";
+	$_SESSION['mensaje_error'] = "Debe ingresar un nombre para la CATEGORIA" ;
+	header("location: alta.php");
 	exit;
 }
 
