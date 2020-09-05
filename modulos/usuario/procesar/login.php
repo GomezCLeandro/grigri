@@ -21,7 +21,7 @@ if ($usuario->estaLogueado()) {
 	}
 
 } else {
-	header("location: ../../../formulario_login.php");
+	header("location: ../../../formulario_login.php?mensaje="."usuario y/o contraseña incorrecto!");
 	
 }
 

@@ -35,15 +35,21 @@
                 <div class="login100-form-title" style="background-image: url(images/bg-01.jpg);">
                     <span class="login100-form-title-1"></span>
                 </div>
-
                 <form class="login100-form validate-form" method="POST" action="modulos/usuario/procesar/login.php">
-                    <div class="wrap-input100 validate-input m-b-26" data-validate="Usuario requerido">
+                
+                <?php if (isset($_GET['mensaje'])) : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $_GET['mensaje']; ?>
+                    </div> 
+                <?php endif; ?>                          
+
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="usuario requerido">
                         <span class="label-input100">Username</span>
                         <input class="input100" type="text" name="txtUsuario" placeholder="usuario">
                         <span class="focus-input100"></span>
                     </div>
 
-                    <div class="wrap-input100 validate-input m-b-18" data-validate = "Contraseña requerida">
+                    <div class="wrap-input100 validate-input m-b-18" data-validate = "contraseña requerida">
                         <span class="label-input100">Password</span>
                         <input class="input100" type="password" name="txtPassword" placeholder="contraseña">
                         <span class="focus-input100"></span>
