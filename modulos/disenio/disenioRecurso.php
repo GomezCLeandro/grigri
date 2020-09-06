@@ -3,8 +3,14 @@
 require_once '../../clases/Disenio.php';
 require_once '../../clases/Imagen.php';
 
-$listado = Disenio::obtenerTodos();
+$id = $_GET['id'];
 
+$disenio = Disenio::obtenerPorId($id);
+
+$arrRecurso = $disenio->arrRecurso;
+
+//highlight_string(var_export($r,true));
+//exit;
 //$imagenes = Imagen::obtenerTodos();
 
 //highlight_string(var_export($listado,true));
@@ -25,28 +31,29 @@ $listado = Disenio::obtenerTodos();
 		<tr>
 			<th>Descripcion</th>
 			<th>Precio</th>
-			<th>Accion</th>
 		</tr>
-
-		<?php foreach ($listado as $disenio): ?>
-
 		<tr>
 			<td> <?php echo $disenio->getDescripcion(); ?> </td>
 			<td> <?php echo $disenio->getPrecio(); ?> </td>
-			<td>
-				<a href="disenioRecurso.php?id=<?php echo $disenio->getIdDisenio(); ?>">Detalle</a>
-				-
-				<a href="modificar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Modificar</a>
-				-
-				<a href="eliminar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Borrar</a>
-			</td>
 		</tr>
-
-		<?php endforeach ?>		
-
 	</table>
 
-	<a href="alta.php">Agregar Nuevo Diseño</a>
-
+	<br><br>
+	
+	<table border="1" align="center">
+		<tr>
+			<th>Recurso</th>
+		</tr>
+		<?php foreach ($arrRecurso as $recurso): ?>
+		<tr>
+			<td>
+				<?php echo $recurso; ?>
+			</td>
+		</tr>
+		<?php endforeach ?>
+	</table>
+	<a href="modificar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Modificar</a>
+	-
+	<a href="eliminar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Borrar</a>
 </body>
 </html>

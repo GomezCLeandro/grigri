@@ -11,7 +11,7 @@ class Disenio extends Item {
     private $_idSubCategoria;
     private $_descripcion;
 
-    public $_arrRecurso;
+    public $arrRecurso;
 
     /**
      * @return mixed
@@ -119,7 +119,13 @@ class Disenio extends Item {
         $disenio->_idDisenio = $registro['id_disenio'];
         $disenio->_idItem = $registro['id_item'];
         $disenio->_precio = $registro['precio'];
+
+        $disenio->getRecurso();
         return $disenio;
+    }
+
+    public function getRecurso() {
+        $this->arrRecurso = Recurso::obtenerPorIdDisenio($this->_idDisenio);
     }
 
     public function guardar() {
