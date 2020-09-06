@@ -104,13 +104,16 @@ class PerfilModulo {
     }
 
     public function guardar() {
-        $sql = "INSERT INTO perfil_modulo (id_perfil_modulo, id_perfil, id_modulo) VALUES (NULL, $this->_idPerfil, $this->_idModulo)";
+        $sql = "INSERT INTO perfil_modulo (id_perfil_modulo, id_perfil, id_modulo) "
+             . "VALUES (NULL, $this->_idPerfil, $this->_idModulo)";
+
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
 
         $this->_idPerfilModulo = $idInsertado;
     }
+
 
     public static function resetModulos($idPerfil) {
         $sql = "DELETE FROM perfil_modulo WHERE id_perfil = ".$idPerfil ;
@@ -129,6 +132,5 @@ class PerfilModulo {
     }    
 
 }
-
 
 ?>
