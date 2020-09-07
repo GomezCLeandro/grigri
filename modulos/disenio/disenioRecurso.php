@@ -9,7 +9,7 @@ $disenio = Disenio::obtenerPorId($id);
 
 $arrRecurso = $disenio->arrRecurso;
 
-//highlight_string(var_export($r,true));
+//highlight_string(var_export($arrRecurso,true));
 //exit;
 //$imagenes = Imagen::obtenerTodos();
 
@@ -39,19 +39,18 @@ $arrRecurso = $disenio->arrRecurso;
 	</table>
 
 	<br><br>
-	
-	<table border="1" align="center">
-		<tr>
-			<th>Recurso</th>
-		</tr>
-		<?php foreach ($arrRecurso as $recurso): ?>
-		<tr>
-			<td>
-				<?php echo $recurso; ?>
-			</td>
-		</tr>
-		<?php endforeach ?>
-	</table>
+		<table border="1" align="center">
+			<tr>
+				<th>Recurso</th>
+			</tr>
+			<?php foreach ($arrRecurso as $recurso): ?>
+			<tr>
+				<td><?php echo $recurso; ?></td>
+			</tr>
+			<?php endforeach ?>
+		</table>
+
+
 	<a href="modificar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Modificar</a>
 	-
 	<a href="eliminar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Borrar</a>

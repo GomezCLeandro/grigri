@@ -81,25 +81,17 @@ class recurso {
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
 
-        $recurso = self::_generarRecurso($registro);
-        return $recurso;
-    }
-
-    private function _generarRecurso($registro) {
-
+        $registro = $datos->fetch_assoc();
         $recurso = new Recurso($registro['descripcion']);
         $recurso->_idRecurso = $registro['id_recurso'];
-
         return $recurso;
     }
-    
+
     public function obtenerPorIdDisenio($idDisenio) {
         $sql = "SELECT recurso.id_recurso ,recurso.descripcion FROM recurso "
         . "INNER JOIN disenio_recurso ON recurso.id_recurso = disenio_recurso.id_recurso "
         . "INNER JOIN disenio ON disenio.id_disenio = disenio_recurso.id_disenio "
         . "WHERE disenio.id_disenio = " . $idDisenio;
-        //var_dump($sql);
-        //exit;
 
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
@@ -108,7 +100,19 @@ class recurso {
         $registro = self::_listadoRecursos($datos);
         return $registro;
     }
-    /**/
+
+    public function tieneRecurso($idDisenio){
+        $sql = "SELECT * FROM disenio_recurso "
+            . "WHERE id_disenio = '$idDisenio' "
+            . "AND id_recurso = $this->_idRecurso";
+
+        $mysql = new MySQL();
+        $result = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        return $result->num_rows > 0;
+    }
+
     public function guardar() {
 
         $sql = "INSERT INTO recurso (id_recurso, descripcion) VALUES (NULL, '$this->_descripcion')";

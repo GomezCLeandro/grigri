@@ -34,8 +34,6 @@ $listado = Disenio::obtenerTodos();
 			<td> <?php echo $disenio->getDescripcion(); ?> </td>
 			<td> <?php echo $disenio->getPrecio(); ?> </td>
 			<td>
-				<a href="disenioRecurso.php?id=<?php echo $disenio->getIdDisenio(); ?>">Detalle</a>
-				-
 				<a href="modificar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Modificar</a>
 				-
 				<a href="eliminar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Borrar</a>
