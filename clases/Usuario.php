@@ -2,6 +2,7 @@
 require_once "Persona.php";
 require_once 'MySQL.php';
 require_once 'Perfil.php';
+require_once 'FotoPerfil.php';
 
 class Usuario extends Persona{
 	
@@ -11,6 +12,7 @@ class Usuario extends Persona{
     private $_idPerfil;
     private $_estaLogueado;
 
+    public $fotoPerfil;
     public $perfil;
 
     /**
@@ -178,6 +180,7 @@ class Usuario extends Persona{
             $usuario->_idPerfil = $registro['id_perfil'];
             $usuario->_estaLogueado = true;
 
+            $usuario->setFotoPerfil();
             $usuario->perfil = Perfil::obtenerPorId($usuario->_idPerfil);
 
         } else {
@@ -185,6 +188,10 @@ class Usuario extends Persona{
             $usuario->_estaLogueado = false;
         }
         return $usuario; 
+    }
+
+    public function setFotoPerfil() {
+        $this->fotoPerfil = FotoPerfil::obtenerPorIdUsuario($this->_idUsuario);
     }
 
     public function guardar() {
@@ -244,7 +251,8 @@ class Usuario extends Persona{
 
     public function __toString() {
         return $this->_username;
-    }    
+    }   
+
 }
 
 ?>

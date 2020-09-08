@@ -10,6 +10,14 @@ if (!isset($_SESSION['usuario'])) {
 
 $usuario = $_SESSION['usuario'];
 
+$imagen = $usuario->fotoPerfil->getFoto();
+
+if (is_null($imagen)) {
+    $imagen = "sinfoto.jpg";
+}
+
+//highlight_string(var_export($imagen,true));
+//exit;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,33 +114,36 @@ $usuario = $_SESSION['usuario'];
                                 </button>
                             </form>
                             <div class="header-button">
-                                
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src="/grigri/images/icons/avatar-01.jpg" alt="John Doe" />
+                                            <img src="/grigri/images/fotoPerfil/<?php echo $imagen; ?>" />
                                         </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">john doe</a>
+                                            <a class="js-acc-btn" href="#">
+                                                <?php echo $usuario; ?>
+                                            </a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
                                                 <div class="image">
-                                                    <a href="#">
-                                                        <img src="/grigri/images/icons/avatar-01.jpg" alt="John Doe" />
-                                                    </a>
+                                                    <a href="#"><img src="/grigri/images/fotoPerfil/<?php echo $imagen; ?>" /></a>
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#">john doe</a>
+                                                        <a href="#">
+                                                            <?php echo $usuario; ?>
+                                                        </a>
                                                     </h5>
-                                                    <span class="email">johndoe@example.com</span>
+                                                    <span class="email">
+                                                        <?php echo $usuario->getApellido() . ", " . $usuario->getNombre() ; ?>
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
                                                     <a href="#">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                        <i class="zmdi zmdi-account"></i>Cuenta</a>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
