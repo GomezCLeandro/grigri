@@ -162,7 +162,7 @@ class Disenio extends Item {
     }
 
     public function __toString() {
-        return $this->descripcion;
+        return $this->_descripcion;
     }
 }
 
