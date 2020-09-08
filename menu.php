@@ -170,11 +170,6 @@ if (is_null($imagen)) {
 
                                 <!-- contenido de la paguina -->
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- END MAIN CONTENT-->
             <!-- END PAGE CONTAINER-->
     <!-- Jquery JS-->
