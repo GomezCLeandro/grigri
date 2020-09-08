@@ -131,9 +131,7 @@ if (is_null($imagen)) {
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#">
-                                                            <?php echo $usuario; ?>
-                                                        </a>
+                                                        <?php echo $usuario; ?>
                                                     </h5>
                                                     <span class="email">
                                                         <?php echo $usuario->getApellido() . ", " . $usuario->getNombre() ; ?>
@@ -142,7 +140,7 @@ if (is_null($imagen)) {
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
+                                                    <a href="/grigri/modulos/usuario/detalle.php?id=<?php echo $usuario->getIdUsuario(); ?>">
                                                         <i class="zmdi zmdi-account"></i>Cuenta</a>
                                                 </div>
                                             </div>
@@ -174,6 +172,9 @@ if (is_null($imagen)) {
 
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
             <!-- END MAIN CONTENT-->
             <!-- END PAGE CONTAINER-->
     <!-- Jquery JS-->
