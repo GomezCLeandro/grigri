@@ -158,19 +158,6 @@ if (is_null($imagen)) {
             </header>
             <!-- HEADER DESKTOP-->
 
-            <!-- MAIN CONTENT-->
-            <div class="main-content">
-                <div class="section__content section__content--p30">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="overview-wrap">
-                                    <h2 class="title-1">Dashboard</h2>
-                                </div>
-
-                                <!-- contenido de la paguina -->
-
-            <!-- END MAIN CONTENT-->
             <!-- END PAGE CONTAINER-->
     <!-- Jquery JS-->
     <script src="/grigri/vendor/jquery-3.2.1.min.js"></script>
@@ -185,7 +172,7 @@ if (is_null($imagen)) {
     <script src="/grigri/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
     </script>
     <script src="/grigri/vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="/grigri//grigri/vendor/counter-up/jquery.counterup.min.js">
+    <script src="/grigri/vendor/counter-up/jquery.counterup.min.js">
     </script>
     <script src="/grigri/vendor/circle-progress/circle-progress.min.js"></script>
     <script src="/grigri/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
