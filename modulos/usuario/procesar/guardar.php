@@ -88,8 +88,7 @@ if (empty($fechaNacimiento)) {
 	exit;
 }
 
-//highlight_string(var_export($imagen,true));
-//exit;
+
 if (empty($imagen['name'])) {
 	$nombreImagen = "sinfoto.jpg";
 } else {
@@ -104,6 +103,8 @@ if (empty($imagen['name'])) {
 
 	move_uploaded_file($imagen['tmp_name'], $rutaImagen);
 }
+//highlight_string(var_export($nombreImagen,true));
+//exit;
 
 $usuario = new Usuario($nombre,$apellido);
 $usuario->setUsername($username);
