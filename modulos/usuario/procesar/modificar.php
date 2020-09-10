@@ -15,7 +15,6 @@ $tipoDocumento = $_POST['cboTipoDocumento'];
 $numeroDocumento = $_POST['txtNumeroDocumento'];
 $sexo = $_POST['txtSexo'];
 $imagen = $_FILES['fileImagen'];
-$cambiar = $_POST['txtCambiar'];
 
 if (empty(trim($username))) {
 	$_SESSION['mensaje_error'] = "Debe ingresar el username";
@@ -78,9 +77,25 @@ if (empty($fechaNacimiento)) {
 	exit;
 }
 
-//highlight_string(var_export($cambiar,true));
+//highlight_string(var_export($imagen,true));
 //exit;
+if (empty($imagen['name'])) {
+	$nombreImagen = "sinfoto.jpg";
+} else {
+	$extension = pathinfo($imagen['name'], PATHINFO_EXTENSION);
 
+	$nombreSinEspacios = str_replace(" ", "_", $imagen['name']);
+
+	$fechaHora = date("dmYHis");
+	$nombreImagen = $fechaHora . "_" . $nombreSinEspacios;
+
+	$rutaImagen = "../../../images/fotoPerfil/" . $nombreImagen;
+
+	//highlight_string(var_export($rutaImagen,true));
+	//exit;
+
+	move_uploaded_file($imagen['tmp_name'], $rutaImagen);
+}
 $usuario = Usuario::obtenerPorId($id);
 $usuario->setUsername($username);
 $usuario->setNombre($nombre);
@@ -92,34 +107,7 @@ $usuario->setSexo($sexo);
 $usuario->actualizar();
 
 $fotoPerfil = FotoPerfil::obtenerPorIdUsuario($usuario->getIdUsuario());
-
-if ($cambiar == "true") {
-
-	if (empty($imagen['name'])) {
-		$nombreImagen = "sinfoto.jpg";
-
-		$fotoPerfil->setFoto($nombreImagen);
-
-	} else {
-		$extension = pathinfo($imagen['name'], PATHINFO_EXTENSION);
-
-		$nombreSinEspacios = str_replace(" ", "_", $imagen['name']);
-
-		$fechaHora = date("dmYHis");
-		$nombreImagen = $fechaHora . "_" . $nombreSinEspacios;
-
-		$rutaImagen = "../../../images/fotoPerfil/" . $nombreImagen;
-
-		//highlight_string(var_export($rutaImagen,true));
-		//exit;
-
-		move_uploaded_file($imagen['tmp_name'], $rutaImagen);
-
-		$fotoPerfil->setFoto($nombreImagen);
-	}
-} else {
-	$nombreImagen = $fotoPerfil->getFoto();
-}
+$fotoPerfil->setFoto($nombreImagen);
 
 $fotoPerfil->actualizar();
 

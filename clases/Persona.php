@@ -159,8 +159,8 @@ class Persona {
 
     public function guardar () {
     	
-        $sql = "INSERT INTO Persona (id_persona, nombre, apellido, id_tipo_documento, numero_documento, fecha_nacimiento, sexo, estado) VALUES"
-        . "(NULL, '$this->_nombre', '$this->_apellido', '$this->_idTipoDocumento', '$this->_numeroDocumento', '$this->_fechaNacimiento', '$this->_sexo', '$this->_estado')";
+        $sql = "INSERT INTO Persona (id_persona, nombre, apellido, id_tipo_documento, numero_documento, fecha_nacimiento, sexo) VALUES"
+        . "(NULL, '$this->_nombre', '$this->_apellido', '$this->_idTipoDocumento', '$this->_numeroDocumento', '$this->_fechaNacimiento', '$this->_sexo')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
