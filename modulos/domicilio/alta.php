@@ -21,62 +21,109 @@ $idLlamada = $_GET['idLlamada'];
 
 	<?php require_once "../../menu.php"; ?>
 
-        <?php if (isset($_SESSION['mensaje_error'])) : ?>
+	<div class="main-content">
+	    <div class="section__content section__content--p30">
+	        <div class="container-fluid">
+	            <div class="row">	
+					<div class="col-lg-6">
+						<div class="card">
+						    <div class="card-header">
+						        <strong>Formulario de Usuario</strong>
+						    </div>
+						    <div class="card-body card-block">
+				    	        <?php if (isset($_SESSION['mensaje_error'])) : ?>
 
-            <font color="red"> 
-              	<?php echo $_SESSION['mensaje_error']; ?>
-            </font>
-            <br><br>
+						            <font color="red"> 
+						              	<?php echo $_SESSION['mensaje_error']; ?>
+						            </font>
+						            <br><br>
 
-        <?php
-                unset($_SESSION['mensaje_error']);
-            endif;
-        ?>
-        <div id="mensajeError"></div>
+						        <?php
+						                unset($_SESSION['mensaje_error']);
+						            endif;
+						        ?>
+						        <div id="mensajeError"></div>
 
-		<form name="frmDatos" id="frmDatos" method="POST" action="procesar/guardar.php">
+						        <form action="procesar/guardar.php" id="frmDatos" name="frmDatos" method="post" enctype="multipart/form-data" class="form-horizontal">
+									<input type="hidden" name="idPersona" value='<?php echo $idPersona ?>'>
+								    <input type="hidden" name="idLlamada" value='<?php echo $idLlamada ?>'>
 
-		    <input type="hidden" name="idPersona" value='<?php echo $idPersona ?>'>
-		    <input type="hidden" name="idLlamada" value='<?php echo $idLlamada ?>'>
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label for="select" class=" form-control-label">Barrio</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                	<select name="cboBarrio" id="cboBarrio" class="form-control">
+						                    	<option value="0">Seleccionar</option>
+												<?php foreach ($listadoBarrio as $barrio): ?>
 
-			<label>Barrio:</label>
-			<select name="cboBarrio" id="cboBarrio">
-			    <option value="0">Seleccionar</option>
+													<option value="<?php echo $barrio->getIdBarrio(); ?>">
+													    <?php echo $barrio; ?>
+													</option>
 
-				<?php foreach ($listadoBarrio as $barrio): ?>
-
-					<option value="<?php echo $barrio->getIdBarrio(); ?>">
-					    <?php echo $barrio; ?>
-					</option>
-
-				<?php endforeach ?>
-
-			</select>
-			<br><br>
-
-	        <label>Calle:</label>
-		    <input type="text" id="txtCalle" name="txtCalle">
-		    <br><br>
-
-		    <label>Altura:</label>
-		    <input type="number" id="txtAltura" name="txtAltura">
-		    <br><br>
-
-		    <label>Casa:</label>
-		    <input type="number" id="txtCasa" name="txtCasa">
-			<br><br>
-
-		    <label>Manzana:</label>
-		    <input type="number" id="txtManzana" name="txtManzana">
-			<br><br>
-
-		    <label>Descripcion:</label>
-		    <input type="text" id="txtDescripcion" name="txtDescripcion">
-			<br><br>
-
-		    <input type="button" value="Guardar" onclick="validarDatos()">		
-
-		</form>  
-
+												<?php endforeach ?>
+						                    </select>
+						                </div>
+						            </div>
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label for="email-input" class=" form-control-label">Calle</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                    <input type="text" id="txtCalle" name="txtCalle" placeholder="calle" class="form-control">
+						                    <small class="help-block form-text">Escriba el nombre de la calle</small>
+						                </div>
+						            </div>
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label for="password-input" class=" form-control-label">Altura</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                    <input type="number" id="txtAltura" name="txtAltura" placeholder="altura" class="form-control">
+						                    <small class="help-block form-text">Escriba la altura</small>
+						                </div>
+						            </div>					            
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label for="email-input" class=" form-control-label">Casa</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                    <input type="number" id="txtCasa" name="txtCasa" placeholder="casa" class="form-control">
+						                    <small class="help-block form-text">casa</small>
+						                </div>
+						            </div>
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label for="email-input" class=" form-control-label">Manzana</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                    <input type="number" id="txtManzana" name="txtManzana" placeholder="manzana" class="form-control">
+						                    <small class="help-block form-text">manzana</small>
+						                </div>
+						            </div>						            
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label for="email-input" class=" form-control-label">Descripcion</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                    <input type="number" id="txtDescripcion" name="txtDescripcion" placeholder="descripcion" class="form-control">
+						                    <small class="help-block form-text">pequeña descipcion que queira agregar</small>
+						                </div>
+						            </div>
+						        </div>
+		                        <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm" onclick="validarDatos()">
+                                        <i class="fa fa-dot-circle-o"></i> Guardar
+                                    </button>
+                                </div>
+                            	</form>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </body>
 </html>

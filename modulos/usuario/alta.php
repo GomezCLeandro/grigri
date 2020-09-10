@@ -40,7 +40,9 @@ $listadoTipoDocumento = TipoDocumento::obtenerTodos();
 						            endif;
 						        ?>
 						        <div id="mensajeError"></div>
-						        <form action="procesar/guardar.php" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+						        <form action="procesar/guardar.php" id="frmDatos" name="frmDatos" method="post" enctype="multipart/form-data" class="form-horizontal">
+
 						            <div class="row form-group">
 						                <div class="col col-md-3">
 						                    <label for="email-input" class=" form-control-label">Username</label>
@@ -142,6 +144,7 @@ $listadoTipoDocumento = TipoDocumento::obtenerTodos();
                                         <i class="fa fa-dot-circle-o"></i> Guardar
                                     </button>
                                 </div>
+                            	</form>
 						    </div>
 						</div>
 					</div>

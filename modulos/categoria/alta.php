@@ -9,31 +9,45 @@
 <body>
 
 	<?php require_once '../../menu.php'; ?>
-	
-	<div align="center">
 
-            <?php if (isset($_SESSION['mensaje_error'])) : ?>
+	<div class="main-content">
+	    <div class="section__content section__content--p30">
+	        <div class="container-fluid">
+	            <div class="card">
+	                <div class="card-header">
+	                    <strong>Categoria</strong>
+	                </div>
+	                <div class="card-body card-block">
 
-                <font color="red"> 
-                	<?php echo $_SESSION['mensaje_error']; ?>
-                </font>
-                <br><br>
+				            <?php if (isset($_SESSION['mensaje_error'])) : ?>
 
-            <?php
-                    unset($_SESSION['mensaje_error']);
-                endif;
-            ?>
-		<div id="mensajeError"></div>
+				                <font color="red"> 
+				                	<?php echo $_SESSION['mensaje_error']; ?>
+				                </font>
+				                <br><br>
 
-		<form name="frmDatos" id="frmDatos" method="POST" action="procesar/guardar.php">
+				            <?php
+				                    unset($_SESSION['mensaje_error']);
+				                endif;
+				            ?>
+						<div id="mensajeError"></div>
 
-		    <label>Nombre de la Categoria</label>
-		    <input type="text" name="txtCategoria" id="txtCategoria">
-		    <br><br>
+	                    <form action="procesar/guardar.php" method="post" id="frmDatos" class="form-inline">
+	                        <div class="form-group">
+	                            <label for="exampleInputName2" class="pr-1  form-control-label">nombre</label>
+	                            <input type="text" id="txtCategoria" name="txtCategoria" placeholder="" required="" class="form-control">
+	                        </div>
+	                    </form>
+	                </div>
+	                <div class="card-footer">
+	                    <button type="submit" class="btn btn-primary btn-sm" onclick="validarDatos()">
+	                        <i class="fa fa-dot-circle-o"></i> Guardar
+	                    </button>
+	                </div>
+	            </div>
+            </div>
+        </div>
+    </div>
 
-		    <input type="button" value="Guardar" onclick="validarDatos()">
-		</form>
-
-	</div>
 </body>
 </html>

@@ -19,35 +19,46 @@ $categoria = Categoria::obtenerPorId($id);
 
 	<?php require_once '../../menu.php'; ?>
 	
-	<div align="center">
-        <?php if (isset($_SESSION['mensaje_error'])) : ?>
+	<div class="main-content">
+	    <div class="section__content section__content--p30">
+	        <div class="container-fluid">
+	            <div class="card">
+	                <div class="card-header">
+	                    <strong>Categoria</strong>
+	                </div>
+	                <div class="card-body card-block">
 
-            <font color="red"> 
-              	<?php echo $_SESSION['mensaje_error']; ?> 
-            </font>
-            <br><br>
+				            <?php if (isset($_SESSION['mensaje_error'])) : ?>
 
-        <?php
-                unset($_SESSION['mensaje_error']);
-            endif;
-        ?>
-        <div id="mensajeError"></div>
+				                <font color="red"> 
+				                	<?php echo $_SESSION['mensaje_error']; ?>
+				                </font>
+				                <br><br>
 
-	<form name="frmDatos" id="frmDatos" method="POST" action="procesar/modificar.php">
+				            <?php
+				                    unset($_SESSION['mensaje_error']);
+				                endif;
+				            ?>
+						<div id="mensajeError"></div>
 
-		<input type="hidden" name="idCategoria" value="<?php echo $categoria->getIdCategoria(); ?>">
+	                    <form action="procesar/modificar.php" method="post" id="frmDatos" class="form-inline">
+	                    	<input type="hidden" name="idCategoria" value="<?php echo $categoria->getIdCategoria(); ?>">
 
-	    <label>Categoria</label>
-	    <input type="text" name="txtCategoria" id="txtCategoria" value="<?php echo $categoria; ?>">
-	    <br><br>
-
-	    <input type="button" value="Guardar" onclick="validarDatos()">			
-
-	</form>
-
-	</div>
-</body>
-</html>
+	                        <div class="form-group">
+	                            <label for="exampleInputName2" class="pr-1  form-control-label">nombre</label>
+	                            <input type="text" id="txtCategoria" name="txtCategoria" value="<?php echo $categoria; ?>" placeholder="<?php echo $categoria; ?>" class="form-control">
+	                        </div>
+	                    </form>
+	                </div>
+	                <div class="card-footer">
+	                    <button type="submit" class="btn btn-primary btn-sm" onclick="validarDatos()">
+	                        <i class="fa fa-dot-circle-o"></i> Guardar
+	                    </button>
+	                </div>
+	            </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

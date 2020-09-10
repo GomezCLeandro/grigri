@@ -3,8 +3,6 @@
 require_once "../../clases/Pedido.php";
 require_once "../../clases/Usuario.php";
 require_once "../../clases/EstadoPedido.php";
-require_once "../../clases/DetallePedido.php";
-require_once "../../clases/Disenio.php";
 
 $listadoPedidos = Pedido::obtenerTodos();
 
@@ -38,12 +36,10 @@ $listadoPedidos = Pedido::obtenerTodos();
                                 <table class="table table-borderless table-data3">
                                         <thead>
                                             <tr>
+                                                <th>Usuario</th>
+                                                <th>Lugar de Entrega</th>
 												<th>Estado del Pedido</th>
 												<th>fecha de Entrega</th>
-												<th>Lugar de Entrega</th>
-                                                <th>Diseño</th>
-                                                <th>Cantidad</th>
-                                                <th>Total</th>
 												<th>Accion</th>
                                             </tr>
                                         </thead>
@@ -51,17 +47,14 @@ $listadoPedidos = Pedido::obtenerTodos();
                                             <tbody>
                                             	<?php foreach ($listadoPedidos as $pedidos): ?>
 
-                                            	<?php $estado = EstadoPedido::obtenerPorId($pedidos->getIdEstadoPedido()); ?>
-                                                <?php $detallePedido = DetallePedido::obtenerPorIdPedido($pedidos->getIdPedido()); ?>
-                                                <?php $disenio = Disenio::obtenerPorIdItem($detallePedido->getIdItem()); ?>
-                                                <?php $total = $disenio->getPrecio() * $detallePedido->getCantidad(); ?>
+                                                    <?php $usuario = Usuario::obtenerPorId($pedidos->getIdUsuario()); ?>
+                                                	<?php $estado = EstadoPedido::obtenerPorId($pedidos->getIdEstadoPedido()); ?>
+
                                                 <tr>
+                                                    <td> <?php echo $usuario->getUsername(); ?> </td>
+                                                    <td> <?php echo $pedidos->getLugarEntrega(); ?> </td>
                                                 	<td> <?php echo $estado->getDescripcion(); ?> </td>
-                                                	<td> <?php echo $pedidos->getFechaEntrega(); ?> </td>                                                
-                                                	<td> <?php echo $pedidos->getLugarEntrega(); ?> </td>
-                                                    <td> <?php echo $disenio; ?> </td>
-                                                    <td> <?php echo $detallePedido->getCantidad(); ?> </td>
-                                                    <td> <?php echo $total ?> </td>
+                                                	<td> <?php echo $pedidos->getFechaEntrega(); ?> </td>
                                                     <td>
                                                         <a class="btn btn-success btn-sm" href="detalle.php?id=<?php echo $pedidos->getIdPedido(); ?>">Detalle</a>
                                                     	<a class="btn btn-secondary btn-sm" href="modificar.php?id=<?php echo $pedidos->getIdPedido(); ?>">Modificar</a>

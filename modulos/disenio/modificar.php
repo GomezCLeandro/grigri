@@ -20,68 +20,103 @@ $listadoRecurso = Recurso::obtenerTodos();
 	
 </head>
 <body>
-<?php require_once '../../menu.php'; ?>
-	
-<div align="center">
 
-        <?php if (isset($_SESSION['mensaje_error'])) : ?>
+    <?php require_once '../../menu.php'; ?>
 
-            <font color="red"> 
-              	<?php echo $_SESSION['mensaje_error']; ?>
-            </font>
-            <br><br>
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="row">   
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Diseño</strong>
+                            </div>
+                            <div class="card-body card-block">
+                                    <?php if (isset($_SESSION['mensaje_error'])) : ?>
 
-        <?php
-                unset($_SESSION['mensaje_error']);
-            endif;
-        ?>
-        <div id="mensajeError"></div>
+                                        <font color="red"> 
+                                            <?php echo $_SESSION['mensaje_error']; ?>
+                                        </font>
+                                        <br><br>
 
-		<form name="frmDatos" id="frmDatos" method="POST" action="procesar/modificar.php">
+                                    <?php
+                                            unset($_SESSION['mensaje_error']);
+                                        endif;
+                                    ?>
+                                <div id="mensajeError"></div>
 
-			<input type="hidden" name="idDisenio" value="<?php echo $disenio->getIdDisenio(); ?>">
+                                <form action="procesar/modificar.php" name="frmDatos" id="frmDatos" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="idDisenio" value="<?php echo $disenio->getIdDisenio(); ?>">
 
-		    <label>Diseño</label>
-		    <input type="text" id="txtDescripcion" name="txtDescripcion" value="<?php echo $disenio->getDescripcion(); ?>">
-		    <br><br>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Diseño</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" id="txtDescripcion" name="txtDescripcion" class="form-control" value="<?php echo $disenio->getDescripcion(); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Precio</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" id="txtPrecio" name="txtPrecio" class="form-control" value="<?php echo $disenio->getPrecio(); ?>">
+                                        </div>
+                                    </div>                                  
 
-		    <label>precio</label>
-		    <input type="number" id="txtPrecio" name="txtPrecio" value="<?php echo $disenio->getPrecio(); ?>">
-		    <br><br>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="multiple-select" class=" form-control-label">Recurso</label>
+                                        </div>
+                                        <div class="col col-md-9">
+                                            <select name="cboRecurso[]" id="cboRecurso" id="multiple-select" multiple="" class="form-control">
 
-			<label>Recursos:</label>
-			<select name="cboRecurso[]" id="cboRecurso" multiple style="width: 250px; height: 250px;">
-			    <option value="0">Seleccionar</option>
+                                                <?php foreach ($listadoRecurso as $recurso): ?>
+                                                    
+                                                    <?php 
+                                                    $selected = '';
+                                                    $idDisenio = $disenio->getIdDisenio();
 
-                	<?php foreach ($listadoRecurso as $recurso): ?>
-                		
-                        <?php 
-                        $selected = '';
-                        $idDisenio = $disenio->getIdDisenio();
+                                                    if ($recurso->tieneRecurso($idDisenio)) {
+                                                        $selected = "SELECTED";
+                                                    }
+                                                    ?>                                                
+                                                    <option value="<?php echo $recurso->getIdRecurso(); ?>" <?php echo $selected ?> >
 
-                        if ($recurso->tieneRecurso($idDisenio)) {
-                    	    $selected = "SELECTED";
-                        }
-                        ?>
+                                                    <?php echo utf8_encode($recurso); ?>
 
-                        <option value="<?php echo $recurso->getIdRecurso(); ?>" <?php echo $selected ?> >
+                                                    </option>
 
-                        <?php echo utf8_encode($recurso); ?>
+                                                <?php endforeach  ?>
+                                            
+                                            </select>
+                                        </div>
+                                    </div>
 
-                        </option>
-
-                    <?php endforeach  ?>
-
-			</select>
-			<br><br>
-
-		    <input type="button" value="Guardar" onclick="validarDatos()">			
-
-		</form>
-
-</div>
-</body>
-</html>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="file-input" class=" form-control-label">Imagen del diseño:</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="file" id="file-input" name="fileImagen" class="form-control-file">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-dot-circle-o"></i> Modificar
+                                    </button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

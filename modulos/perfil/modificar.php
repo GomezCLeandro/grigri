@@ -21,62 +21,89 @@ $listadoModulos = Modulo::obtenerTodos();
 </head>
 <body>
 
-<?php require_once '../../menu.php'; ?>
+    <?php require_once '../../menu.php'; ?>
 
-        <?php if (isset($_SESSION['mensaje_error'])) : ?>
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="row">   
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Diseño</strong>
+                            </div>
+                            <div class="card-body card-block">
+                                    <?php if (isset($_SESSION['mensaje_error'])) : ?>
 
-            <font color="red"> 
-              	<?php echo $_SESSION['mensaje_error']; ?>
-            </font>
-            <br><br>
+                                        <font color="red"> 
+                                            <?php echo $_SESSION['mensaje_error']; ?>
+                                        </font>
+                                        <br><br>
 
-        <?php
-                unset($_SESSION['mensaje_error']);
-            endif;
-        ?>
-        <div id="mensajeError"></div>
+                                    <?php
+                                            unset($_SESSION['mensaje_error']);
+                                        endif;
+                                    ?>
+                                <div id="mensajeError"></div>
 
-		<form name="frmDatos" id="frmDatos" method="POST" action="procesar/modificar.php">
+                                <form action="procesar/modificar.php" name="frmDatos" id="frmDatos" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="idPerfil" value="<?php echo $perfil->getIdPerfil(); ?>">
 
-			<input type="hidden" name="idPerfil" value="<?php echo $perfil->getIdPerfil(); ?>">
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">Descripcion</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input type="text" id="txtDescripcion" name="txtDescripcion" class="form-control" value="<?php echo $perfil->getDescripcion(); ?>">
+                                        </div>
+                                    </div>                              
 
-	        <label>Descripcion:</label>
-		    <input type="text" id="txtDescripcion" name="txtDescripcion" value="<?php echo $perfil->getDescripcion(); ?>">
-		    <br><br>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="multiple-select" class=" form-control-label">Modulos</label>
+                                        </div>
+                                        <div class="col col-md-9">
+                                            <select name="cboModulos[]" id="cboModulos" id="multiple-select" multiple="" class="form-control">
 
-			<label>Modulos:</label>
-			<select name="cboModulos[]" id="cboModulos" multiple style="width: 250px; height: 250px;">
-			    <option value="0">Seleccionar</option>
+                                                <?php foreach ($listadoModulos as $modulo): ?>
+                                                    
+                                                    <?php 
 
-                	<?php foreach ($listadoModulos as $modulo): ?>
+                                                    $selected = '';
+                                                    $idModulo = $modulo->getIdModulo();
 
-                        <?php 
+                                                    if ($perfil->tieneModulo($idModulo)) {
+                                                        $selected = "SELECTED";
+                                                    }
 
-                        $selected = '';
-                        $idModulo = $modulo->getIdModulo();
+                                                    ?>
 
-                        if ($perfil->tieneModulo($idModulo)) {
-                    	    $selected = "SELECTED";
-                        }
+                                                    <option value="<?php echo $modulo->getIdModulo(); ?>" <?php echo $selected ?> >
 
-                        ?>
+                                                    <?php echo utf8_encode($modulo); ?>
 
-                        <option value="<?php echo $modulo->getIdModulo(); ?>" <?php echo $selected ?> >
+                                                    </option>
 
-                        <?php echo utf8_encode($modulo); ?>
+                                                <?php endforeach  ?>
+                                            
+                                            </select>
+                                        </div>
+                                    </div>
 
-                        </option>
-
-                    <?php endforeach  ?>
-
-			</select>
-		    <br><br>
-
-		    <input type="button" value="Guardar" onclick="validarDatos()">
-
-		</form>
-</body>
-</html>
-
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-dot-circle-o"></i> Modificar
+                                    </button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>
