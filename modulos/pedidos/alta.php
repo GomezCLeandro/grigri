@@ -20,82 +20,121 @@ $listadoDisenio = Disenio::obtenerTodos();
 </head>
 <body>
 
-	<?php //require_once '../../menu.php'; ?>
-	
-<div align="center">
+	<?php require_once '../../menu.php'; ?>
 
-        <?php if (isset($_SESSION['mensaje_error'])) : ?>
+	<div class="main-content">
+	    <div class="section__content section__content--p30">
+	        <div class="container-fluid">
+	            <div class="row">	
+					<div class="col-lg-6">
+						<div class="card">
+						    <div class="card-header">
+						        <strong>Alta de Pedido</strong>
+						    </div>
+						    <div class="card-body card-block">
+				    	        <?php if (isset($_SESSION['mensaje_error'])) : ?>
 
-            <font color="red"> 
-              	<?php echo $_SESSION['mensaje_error']; ?>
-            </font>
-            <br><br>
+						            <font color="red"> 
+						              	<?php echo $_SESSION['mensaje_error']; ?>
+						            </font>
+						            <br><br>
 
-        <?php
-                unset($_SESSION['mensaje_error']);
-            endif;
-        ?>
-        <div id="mensajeError"></div>
+						        <?php
+						                unset($_SESSION['mensaje_error']);
+						            endif;
+						        ?>
+						        <div id="mensajeError"></div>
 
-		<form name="frmDatos" id="frmDatos" method="POST" action="procesar/guardar.php" enctype="multipart/form-data">
+						        <form action="procesar/guardar.php" id="frmDatos" name="frmDatos" method="post" class="form-horizontal">
 
-			<label>Usuario / Persona:</label>
-			<select name="idUsuario" id="idCategoria">
-			    <option value="0">Seleccionar</option>
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label for="select" class=" form-control-label">Usuario / Persona</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                	<select name="idUsuario" id="idCategoria" class="form-control">
+											    <option value="0">Seleccionar</option>
 
-				<?php foreach ($listadoUsuario as $usuario): ?>
+												<?php foreach ($listadoUsuario as $usuario): ?>
 
-					<option value="<?php echo $usuario->getIdUsuario(); ?>">
-					    <?php echo $usuario . ", " . $usuario->getApellido(). " " .$usuario->getNombre(); ?>
-					</option>
+													<option value="<?php echo $usuario->getIdUsuario(); ?>">
+													    <?php echo $usuario . ", " . $usuario->getApellido(). " " .$usuario->getNombre(); ?>
+													</option>
 
-				<?php endforeach ?>
+												<?php endforeach ?>
 
-			</select>
-			<br><br>
+											</select>
+						                </div>
+						            </div>
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label for="select" class=" form-control-label">Tipo Envio</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+											<select name="idTipoEnvio" id="idCategoria" class="form-control">
+											    <option value="0">Seleccionar</option>
 
-			<label>Tipo Envio:</label>
-			<select name="idTipoEnvio" id="idCategoria">
-			    <option value="0">Seleccionar</option>
+												<?php foreach ($listadoEnvio as $tipoEnvio): ?>
 
-				<?php foreach ($listadoEnvio as $tipoEnvio): ?>
+													<option value="<?php echo $tipoEnvio->getIdEnvio(); ?>">
+													    <?php echo $tipoEnvio->getDescripcion(); ?>
+													</option>
 
-					<option value="<?php echo $tipoEnvio->getIdEnvio(); ?>">
-					    <?php echo $tipoEnvio->getDescripcion(); ?>
-					</option>
+												<?php endforeach ?>
+											</select>
+						                </div>
+						            </div>
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label for="select" class=" form-control-label">Diseño</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+											<select name="idItem" id="idCategoria" class="form-control">
+											    <option value="0">Seleccionar</option>
 
-				<?php endforeach ?>
+												<?php foreach ($listadoDisenio as $disenio): ?>
 
-			</select>
-			<br><br>
+													<option value="<?php echo $disenio->getIdItem(); ?>">
+													    <?php echo $disenio->getDescripcion(); ?>
+													</option>
 
-			<label>Diseño:</label>
-			<select name="idItem" id="idCategoria">
-			    <option value="0">Seleccionar</option>
+												<?php endforeach ?>
+											</select>
+						                </div>
+						            </div>
 
-				<?php foreach ($listadoDisenio as $disenio): ?>
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label for="email-input" class=" form-control-label">Fecha de Entrega</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                    <input type="date" id="txtDescripcion" name="txtFechaEntrega" placeholder="fecha de entrega" class="form-control">
+						                    <small class="help-block form-text">Fecha de Entrega</small>
+						                </div>
+						            </div>
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label for="password-input" class=" form-control-label">Cantidad</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                    <input type="number" id="txtCantidad" name="txtCantidad" placeholder="cantidad" class="form-control">
+						                    <small class="help-block form-text">Eliga la cantidad</small>
+						                </div>
+						            </div>
+						        </div>
+		                        <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm" onclick="validarDatos()">
+                                        <i class="fa fa-dot-circle-o"></i> Guardar
+                                    </button>
+                                </div>
+                            	</form>
+						    </div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-					<option value="<?php echo $disenio->getIdItem(); ?>">
-					    <?php echo $disenio->getDescripcion(); ?>
-					</option>
-
-				<?php endforeach ?>
-
-			</select>
-			<br><br>
-
-		    <label>Fecha de Entrega</label>
-		    <input type="date" id="txtDescripcion" name="txtFechaEntrega">
-		    <br><br>
-
-		    <label>Cantidad:</label>
-		    <input type="number" id="txtAltura" name="txtCantidad">
-		    <br><br>
-
-		    <input type="submit" value="Guardar" >
-
-		</form>
-
-</div>
 </body>
 </html>

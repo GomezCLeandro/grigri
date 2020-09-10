@@ -126,9 +126,9 @@ class DetallePedido {
         return $detallePedido;
     }
 
-    public static function obtenerPorIdPedido($id) {
+    public static function obtenerPorIdPedido($idPedido) {
 
-        $sql = "SELECT * FROM detallepedido WHERE id_pedido = " . $id;
+        $sql = "SELECT * FROM detallepedido WHERE id_pedido = " . $idPedido;
 
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);

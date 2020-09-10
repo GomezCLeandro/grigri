@@ -16,10 +16,7 @@ $listadoPedidos = Pedido::obtenerTodos();
     <title>Listado Pedidos</title>
 </head>
 <body>
-                    <div>
-                    <a class="au-btn au-btn-icon au-btn--blue" href="alta.php">
-                        <i class="zmdi zmdi-plus"></i>Pedido</a>
-                    </div>
+
 	<?php require_once '../../menu.php'; ?>
 
         <div class="main-content">
@@ -56,7 +53,7 @@ $listadoPedidos = Pedido::obtenerTodos();
                                                 	<td> <?php echo $estado->getDescripcion(); ?> </td>
                                                 	<td> <?php echo $pedidos->getFechaEntrega(); ?> </td>
                                                     <td>
-                                                        <a class="btn btn-success btn-sm" href="detalle.php?id=<?php echo $pedidos->getIdPedido(); ?>">Detalle</a>
+                                                        <a class="btn btn-success btn-sm" href="../detallePedido/detallePedido.php?id=<?php echo $pedidos->getIdPedido(); ?>">Detalle</a>
                                                     	<a class="btn btn-secondary btn-sm" href="modificar.php?id=<?php echo $pedidos->getIdPedido(); ?>">Modificar</a>
                                                     	<a class="btn btn-warning btn-sm" href="eliminar.php?id=<?php echo $pedidos->getIdPedido(); ?>">Borrar</a>
                                                     </td>
