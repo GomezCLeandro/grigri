@@ -138,7 +138,21 @@ if ($user->getSexo() == "M") {
 						                    <small class="help-block form-text">Selecciones o escriba su fecha de nacimiento</small>
 						                </div>
 						            </div>
-						            <br>
+						            <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label class=" form-control-label">¿Cambiar foto?</label>
+						                </div>
+						                <div class="col col-md-9">
+						                    <div class="form-check-inline form-check">
+						                        <label for="inline-radio1" class="form-check-label ">
+						                            <input type="radio" name="txtCambiar" id="inline-radio1" name="inline-radios" value="true" class="form-check-input">SI
+						                        </label>
+						                        <label for="inline-radio2" class="form-check-label ">
+						                            <input type="radio" name="txtCambiar" id="inline-radio2" name="inline-radios" value="false" class="form-check-input" checked>NO
+						                        </label>
+						                    </div>
+						                </div>
+						            </div>
 						            <div class="row form-group">
 						                <div class="col col-md-3">
 						                    <label for="file-input" class=" form-control-label">Imagen para perfil:</label>
