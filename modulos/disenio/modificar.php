@@ -94,7 +94,6 @@ $listadoRecurso = Recurso::obtenerTodos();
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="file-input" class=" form-control-label">Imagen del diseño:</label>
