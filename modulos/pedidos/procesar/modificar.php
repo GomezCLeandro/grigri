@@ -8,31 +8,31 @@ require_once "../../../clases/Usuario.php";
 
 $idPedido = $_POST['idPedido'];
 $idDetallePedido = $_POST['idDetallePedido'];
-$idUsuario = $_POST['idUsuario'];
+$idUsuario = $_POST['cboUsuario'];
 $idTipoEnvio = $_POST['cboEnvio'];
 $fechaEntrega = $_POST['txtFechaEntrega'];
 $idEstado = $_POST['cboEstado'];
-$idItem = $_POST['idItem'];
+$idItem = $_POST['cboItem'];
 $cantidad = $_POST['txtCantidad'];
 
 if (empty($idUsuario)) {
 	$_SESSION['mensaje_error'] = "Debe ingresar para quien es el pedido";
-	header("location: /grigri/modulos/pedidos/modificar.php?id=". $idPedido);
+	header("location: /grigri/modulos/pedidos/modificar.php");
 	exit;
 }
 if (empty($idTipoEnvio)) {
 	$_SESSION['mensaje_error'] = "Debe ingresar el tipo de envio";
-	header("location: /grigri/modulos/pedidos/modificar.php?id=". $idPedido);
+	header("location: /grigri/modulos/pedidos/modificar.php");
 	exit;
 }
 if (empty($fechaEntrega)) {
 	$_SESSION['mensaje_error'] = "Debe ingresar la fecha de entrega";
-	header("location: /grigri/modulos/pedidos/modificar.php?id=". $idPedido);
+	header("location: /grigri/modulos/pedidos/modificar.php");
 	exit;
 }
 if (empty($idEstado)) {
 	$_SESSION['mensaje_error'] = "Debe seleccionar el estado";
-	header("location: /grigri/modulos/pedidos/modificar.php?id=". $idPedido);
+	header("location: /grigri/modulos/pedidos/modificar.php");
 	exit;
 }
 

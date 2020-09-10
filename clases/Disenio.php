@@ -112,9 +112,9 @@ class Disenio extends Item {
         return $disenio;
     }
 
-    public static function obtenerPorIdItem($idItem) {
+    public static function obtenerPorIdItem($id) {
 
-        $sql = "SELECT * FROM disenio JOIN item ON item.id_item = disenio.id_item WHERE disenio.id_item= ".$idItem;
+        $sql = "SELECT * FROM disenio JOIN item ON item.id_item = disenio.id_item WHERE disenio.id_item= ".$id;
 
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
