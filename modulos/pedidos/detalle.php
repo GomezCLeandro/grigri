@@ -26,12 +26,13 @@ $pedido = Pedido::obtenerPorId($idPedido);
 	<?php require_once '../../menu.php'; ?>
 
             <div class="main-content">
-                <div class="section__content section__content--p30">                 
-                    <div class="container-fluid">
-                        <div>
-                            <div>
-                                <div class="table-responsive table--no-card m-b-30">
-                                    <table class="table table-borderless table-striped table-earning">
+                <div class="section__content section__content--p30">
+                    <div>
+                        <div class="row m-t-30">
+                            <div class="col-md-12">
+                                <div class="table-responsive m-b-40">
+
+                                <table class="table table-borderless table-data3">
                                         <thead>
                                             <tr>
 												<th>Usuario</th>

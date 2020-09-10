@@ -18,21 +18,24 @@ $listadoPedidos = Pedido::obtenerTodos();
     <title>Listado Pedidos</title>
 </head>
 <body>
-
-	<?php require_once '../../menu.php'; ?>
-
-            <div class="main-content">
-                <div class="section__content section__content--p30">
                     <div>
                     <a class="au-btn au-btn-icon au-btn--blue" href="alta.php">
                         <i class="zmdi zmdi-plus"></i>Pedido</a>
                     </div>
-                    <br>                    
-                    <div class="container-fluid">
-                        <div>
-                            <div >
-                                <div class="table-responsive table--no-card m-b-30">
-                                    <table class="table table-borderless table-striped table-earning">
+	<?php require_once '../../menu.php'; ?>
+
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div>
+                    <div>
+                    <a class="au-btn au-btn-icon au-btn--blue" href="alta.php">
+                        <i class="zmdi zmdi-plus"></i>Pedido</a>
+                    </div>
+                    <div class="row m-t-30">
+                        <div class="col-md-12">
+                            <div class="table-responsive m-b-40">
+
+                                <table class="table table-borderless table-data3">
                                         <thead>
                                             <tr>
 												<th>Estado del Pedido</th>

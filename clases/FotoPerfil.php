@@ -73,8 +73,26 @@ class FotoPerfil {
         return $this;
     }
 
+    public function guardar() {
+        $sql = "INSERT INTO fotousuario (id_foto_usuario, id_usuario, foto) VALUES (NULL, '$this->_idUsuario', '$this->_foto')";
+
+        $mysql = new MySQL();
+        $idInsertado = $mysql->insertar($sql);
+        $mysql->desconectar();
+
+        $this->_idFotoPerfil = $idInsertado;
+    }
+
+    public function actualizar() {
+        $sql = "UPDATE fotousuario SET id_usuario = '$this->_idUsuario', foto = '$this->_foto' WHERE id_foto_usuario = '$this->_idFotoPerfil'";
+
+        $mysql = new MySQL();
+        $mysql->actualizar($sql);
+        $mysql->desconectar();
+    }
+
     public function obtenerPorIdUsuario($idUsuario) {
-    	$sql = "SELECT * FROM `fotousuario` WHERE id_usuario = " . $idUsuario;
+    	$sql = "SELECT * FROM fotousuario WHERE id_usuario = " . $idUsuario;
 
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);

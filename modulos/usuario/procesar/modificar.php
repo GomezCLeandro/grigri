@@ -2,7 +2,9 @@
 
 session_start();
 
+require_once "../../../config.php";
 require_once "../../../clases/Usuario.php";
+require_once "../../../clases/FotoPerfil.php";
 
 $id = $_POST['txtId'];
 $username = $_POST['txtUsername'];
@@ -12,6 +14,7 @@ $fechaNacimiento = $_POST['txtFechaNacimiento'];
 $tipoDocumento = $_POST['cboTipoDocumento'];
 $numeroDocumento = $_POST['txtNumeroDocumento'];
 $sexo = $_POST['txtSexo'];
+$imagen = $_FILES['fileImagen'];
 
 if (empty(trim($username))) {
 	$_SESSION['mensaje_error'] = "Debe ingresar el username";
@@ -74,6 +77,25 @@ if (empty($fechaNacimiento)) {
 	exit;
 }
 
+//highlight_string(var_export($imagen,true));
+//exit;
+if (empty($imagen['name'])) {
+	$nombreImagen = "sinfoto.jpg";
+} else {
+	$extension = pathinfo($imagen['name'], PATHINFO_EXTENSION);
+
+	$nombreSinEspacios = str_replace(" ", "_", $imagen['name']);
+
+	$fechaHora = date("dmYHis");
+	$nombreImagen = $fechaHora . "_" . $nombreSinEspacios;
+
+	$rutaImagen = "../../../images/fotoPerfil/" . $nombreImagen;
+
+	//highlight_string(var_export($rutaImagen,true));
+	//exit;
+
+	move_uploaded_file($imagen['tmp_name'], $rutaImagen);
+}
 $usuario = Usuario::obtenerPorId($id);
 $usuario->setUsername($username);
 $usuario->setNombre($nombre);
@@ -83,6 +105,12 @@ $usuario->setNumeroDocumento($numeroDocumento);
 $usuario->setSexo($sexo);
 
 $usuario->actualizar();
+
+$fotoPerfil = FotoPerfil::obtenerPorIdUsuario($usuario->getIdUsuario());
+$fotoPerfil->setFoto($nombreImagen);
+
+$fotoPerfil->actualizar();
+
 
 header("location: /grigri/modulos/usuario/listado.php?id=$id");
 ?>

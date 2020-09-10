@@ -21,7 +21,7 @@ $listadoCategoria = Categoria::obtenerTodos();
 </head>
 <body>
 <?php require_once '../../menu.php'; ?>
-	
+
 <div align="center">
 
         <?php if (isset($_SESSION['mensaje_error'])) : ?>

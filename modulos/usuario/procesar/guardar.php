@@ -2,7 +2,9 @@
 
 session_start();
 
-require_once "../../../clases/Usuario.php";;
+require_once "../../../config.php";
+require_once "../../../clases/Usuario.php";
+require_once "../../../clases/FotoPerfil.php";
 
 $username = $_POST['txtUsername'];
 $password = $_POST['txtPassword'];
@@ -12,6 +14,7 @@ $sexo = $_POST['txtSexo'];
 $numeroDocumento = $_POST['txtNumeroDocumento'];
 $fechaNacimiento = $_POST['txtFechaNacimiento'];
 $tipoDocumento = $_POST['cboTipoDocumento'];
+$imagen = $_FILES['fileImagen'];
 $idPerfil = 2;
 
 if (empty(trim($username))) {
@@ -85,6 +88,23 @@ if (empty($fechaNacimiento)) {
 	exit;
 }
 
+//highlight_string(var_export($imagen,true));
+//exit;
+if (empty($imagen['name'])) {
+	$nombreImagen = "sinfoto.jpg";
+} else {
+	$extension = pathinfo($imagen['name'], PATHINFO_EXTENSION);
+
+	$nombreSinEspacios = str_replace(" ", "_", $imagen['name']);
+
+	$fechaHora = date("dmYHis");
+	$nombreImagen = $fechaHora . "_" . $nombreSinEspacios;
+
+	$rutaImagen = "../../../images/fotoPerfil/" . $nombreImagen;
+
+	move_uploaded_file($imagen['tmp_name'], $rutaImagen);
+}
+
 $usuario = new Usuario($nombre,$apellido);
 $usuario->setUsername($username);
 $usuario->setPassword($password);
@@ -95,6 +115,11 @@ $usuario->setFechaNacimiento($fechaNacimiento);
 $usuario->setIdPerfil($idPerfil);
 
 $usuario->guardar();
+
+$fotoPerfil = new FotoPerfil($nombreImagen);
+$fotoPerfil->setIdUsuario($usuario->getidUsuario());
+
+$fotoPerfil->guardar();
 
 header("location: /grigri/modulos/usuario/listado.php");
 

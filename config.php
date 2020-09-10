@@ -1,5 +1,5 @@
 <?php
 
-const DIR_IMAGENES = "imagenes/";
+const DIR_FOTOPERFIL = "/grigri/images/fotoPerfil";
 
 ?>

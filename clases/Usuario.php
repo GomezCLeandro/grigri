@@ -104,7 +104,7 @@ class Usuario extends Persona{
     }
 
     public static function obtenerTodos() {
-        $sql = "SELECT usuario.id_usuario, persona.id_persona, usuario.username, usuario.password, persona.nombre, persona.apellido"
+        $sql = "SELECT usuario.id_usuario, persona.id_persona, usuario.username, usuario.contra, persona.nombre, persona.apellido"
         ." FROM persona INNER JOIN usuario on usuario.id_persona = persona.id_persona";
   
         $mysql = new MySQL();
@@ -123,7 +123,10 @@ class Usuario extends Persona{
             $usuario->_idUsuario = $registro['id_usuario'];
             $usuario->_idPersona = $registro['id_persona'];
             $usuario->_username = $registro['username'];
-            $usuario->_password = $registro['password'];
+            $usuario->_password = $registro['contra'];
+
+            $usuario->setFotoPerfil();
+            
             $listado[] = $usuario;
         }
         return $listado;
@@ -154,6 +157,7 @@ class Usuario extends Persona{
         $usuario->_numeroDocumento = $registro['numero_documento'];
         $usuario->_fechaNacimiento = $registro['fecha_nacimiento'];
 
+        $usuario->setFotoPerfil();
         $usuario->setDomicilio();
         $usuario->setContactos();
 
@@ -164,7 +168,7 @@ class Usuario extends Persona{
         $sql = "SELECT * FROM usuario "
              . "INNER JOIN persona on persona.id_persona = usuario.id_persona "
              . "WHERE username = '$username' "
-             . "AND password = '$password' "
+             . "AND contra = '$password' "
              . "AND persona.estado = 1";
 
         $mysql = new MySQL();
@@ -197,7 +201,7 @@ class Usuario extends Persona{
     public function guardar() {
     	parent::guardar();
 
-        $sql = "INSERT INTO Usuario (id_usuario,id_persona , username, password) VALUES (NULL,'$this->_idPersona', '$this->_username', '$this->_password')";
+        $sql = "INSERT INTO Usuario (id_usuario,id_persona , username, contra, id_perfil) VALUES (NULL,'$this->_idPersona', '$this->_username', '$this->_password', '$this->_idPerfil')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
@@ -209,7 +213,7 @@ class Usuario extends Persona{
     public function actualizar() {
         parent::actualizar();
 
-        $sql = "UPDATE usuario SET username = '$this->_username' WHERE id_usuario ='$this->_idUsuario'";
+        $sql = "UPDATE usuario SET username = '$this->_username', id_perfil = '$this->_idPerfil' WHERE id_usuario ='$this->_idUsuario'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
