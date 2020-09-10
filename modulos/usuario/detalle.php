@@ -20,7 +20,7 @@ $tipoDocumento = TipoDocumento::obtenerPorId($user->getIdTipoDocumento());
 	
 <?php require_once '../../menu.php'; ?>
 
-	<table border="1" align="center">
+	<table align="center">
 		<tr>
 			<th>Nombre</th>
 			<th>Apellido</th>

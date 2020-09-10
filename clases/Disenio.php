@@ -112,6 +112,23 @@ class Disenio extends Item {
         return $disenio;
     }
 
+    public static function obtenerPorIdItem($id) {
+
+        $sql = "SELECT * FROM disenio JOIN item ON item.id_item = disenio.id_item WHERE disenio.id_item= ".$id;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+        
+        $registro = $datos->fetch_assoc();
+        $disenio = new Disenio($registro['descripcion']);
+            $disenio->_descripcion = $registro['descripcion'];
+            $disenio->_idDisenio = $registro['id_disenio'];
+            $disenio->_idItem = $registro['id_item'];
+            $disenio->_precio = $registro['precio'];
+        return $disenio;
+    }
+
     private function _generarDisenio($registro) {
 
         $disenio = new Disenio($registro['descripcion']);

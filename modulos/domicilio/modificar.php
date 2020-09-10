@@ -42,7 +42,7 @@ $arrBarrios = $domicilio->barrio->obtenerTodos();
 			<input type="hidden" name="txtIdLlamada" value='<?php echo $idLlamada ?>'>
 
 			<label>Barrio:</label>
-			<select name="idBarrio" id="cboBarrio"
+			<select name="idBarrio" id="cboBarrio">
 			    <option value="0">Seleccionar</option>
 
 				<?php

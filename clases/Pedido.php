@@ -138,6 +138,28 @@ class Pedido {
         return $this;
     }
 
+    public function guardar() {
+        $sql = "INSERT INTO pedido (id_pedido, id_usuario, id_envio, id_estado_pedido, fecha_entrega, lugar_entrega) "
+        . "VALUES (NULL, '$this->_idUsuario', '$this->_idEnvio', '$this->_idEstadoPedido', '$this->_fechaEntrega', '$this->_lugarEntrega')";
+
+        $mysql = new MySQL();
+        $idInsertado = $mysql->insertar($sql);
+        $mysql->desconectar();
+
+        $this->_idPedido = $idInsertado;
+    }
+
+    public function actualizar($idPedido) {
+        $sql = "UPDATE pedido SET id_usuario = '$this->_idUsuario',id_envio = '$this->_idEnvio',id_estado_pedido = '$this->_idEstadoPedido', "
+        . "fecha_entrega = '$this->_fechaEntrega',lugar_entrega = '$this->_lugarEntrega' "
+        . "WHERE id_pedido =" . $idPedido;
+        
+        $mysql = new MySQL();
+        $mysql->actualizar($sql);
+        $mysql->desconectar();        
+    }
+
+
     public static function obtenerTodos(){
         $sql = "SELECT * FROM pedido";
 
@@ -157,11 +179,31 @@ class Pedido {
     		$pedido->_idPedido = $registro['id_pedido'];
     		$pedido->_idUsuario = $registro['id_usuario'];
     		$pedido->_idEnvio = $registro['id_envio'];
+    		$pedido->_idEstadoPedido = $registro['id_estado_pedido'];
     		$pedido->_fechaEntrega = $registro['fecha_entrega'];
     		$pedido->_lugarEntrega = $registro['lugar_entrega'];
     		$listado[] = $pedido;
     	}
     	return $listado;
+    }
+
+    public static function obtenerPorId($id) {
+
+        $sql = "SELECT * FROM pedido WHERE id_pedido = " . $id;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+    		$pedido = new Pedido();
+    		$pedido->_idPedido = $registro['id_pedido'];
+    		$pedido->_idUsuario = $registro['id_usuario'];
+    		$pedido->_idEnvio = $registro['id_envio'];
+    		$pedido->_idEstadoPedido = $registro['id_estado_pedido'];
+    		$pedido->_fechaEntrega = $registro['fecha_entrega'];
+    		$pedido->_lugarEntrega = $registro['lugar_entrega'];
+        return $pedido;
     }
 }
 

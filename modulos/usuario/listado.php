@@ -14,7 +14,7 @@ $listado = Usuario::obtenerTodos();
 
 	<?php require_once '../../menu.php'; ?>
 	
-	<table border="1" align="center">
+	<table align="center">
 		<tr>
 			<th>Username</th>
 			<th>Password</th>
