@@ -159,8 +159,8 @@ class Persona {
 
     public function guardar () {
     	
-        $sql = "INSERT INTO Persona (id_persona, nombre, apellido, id_tipo_documento, numero_documento, fecha_nacimiento, sexo) VALUES"
-        . "(NULL, '$this->_nombre', '$this->_apellido', '$this->_idTipoDocumento', '$this->_numeroDocumento', '$this->_fechaNacimiento', '$this->_sexo')";
+        $sql = "INSERT INTO Persona (id_persona, nombre, apellido, id_tipo_documento, numero_documento, fecha_nacimiento, sexo, estado) VALUES"
+        . "(NULL, '$this->_nombre', '$this->_apellido', '$this->_idTipoDocumento', '$this->_numeroDocumento', '$this->_fechaNacimiento', '$this->_sexo','$this->_estado')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
@@ -171,7 +171,7 @@ class Persona {
 
     public function actualizar() {
 
-        $sql = "UPDATE persona SET nombre ='$this->_nombre', apellido ='$this->_apellido',id_tipo_documento ='$this->_idTipoDocumento', numero_documento ='$this->_numeroDocumento',fecha_nacimiento ='$this->_fechaNacimiento', sexo='$this->_sexo' WHERE id_persona ='$this->_idPersona'";
+        $sql = "UPDATE persona SET nombre ='$this->_nombre', apellido ='$this->_apellido',id_tipo_documento ='$this->_idTipoDocumento', numero_documento ='$this->_numeroDocumento',fecha_nacimiento ='$this->_fechaNacimiento', sexo='$this->_sexo', estado ='$this->_estado' WHERE id_persona ='$this->_idPersona'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
