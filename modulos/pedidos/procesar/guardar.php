@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set("UTC");
+
 session_start();
 
 require_once "../../../clases/Pedido.php";
@@ -37,7 +39,9 @@ if ($idTipoEnvio == 1) {
 	$lugarEntrega = "Retiro de local";
 }
 if (empty($fechaCreacion)) {
-	$fechaCreacion = date('Y-m-d');
+	$fechaCreacion = date('Y-m-d H-I-s');
+	highlight_string(var_export($fechaCreacion,true));
+	exit;
 }
 
 $pedido = new Pedido();

@@ -162,8 +162,7 @@ class Pedido {
     public function guardar() {
         $sql = "INSERT INTO pedido (id_pedido, id_usuario, id_envio, id_estado_pedido, fecha_entrega, lugar_entrega, fecha_creacion) "
         . "VALUES (NULL, '$this->_idUsuario', '$this->_idEnvio', '$this->_idEstadoPedido', '$this->_fechaEntrega', '$this->_lugarEntrega', '$this->_fechaCreacion')";
-        var_dump($sql);
-        exit;
+
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
         $mysql->desconectar();
