@@ -1,6 +1,6 @@
 <?php
 
-date_default_timezone_set("UTC");
+date_default_timezone_set("America/Argentina/Buenos_Aires");
 
 session_start();
 
@@ -39,9 +39,7 @@ if ($idTipoEnvio == 1) {
 	$lugarEntrega = "Retiro de local";
 }
 if (empty($fechaCreacion)) {
-	$fechaCreacion = date('Y-m-d H-I-s');
-	highlight_string(var_export($fechaCreacion,true));
-	exit;
+	$fechaCreacion = date('Y-m-d');
 }
 
 $pedido = new Pedido();
