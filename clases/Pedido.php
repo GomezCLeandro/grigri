@@ -9,6 +9,7 @@ class Pedido {
 	private $_idEnvio;
 	private $_idEstadoPedido;
 	private $_fechaEntrega;
+    private $_fechaCreacion;
 	private $_lugarEntrega;
 
     const ACTIVO = 1;
@@ -138,10 +139,31 @@ class Pedido {
         return $this;
     }
 
-    public function guardar() {
-        $sql = "INSERT INTO pedido (id_pedido, id_usuario, id_envio, id_estado_pedido, fecha_entrega, lugar_entrega) "
-        . "VALUES (NULL, '$this->_idUsuario', '$this->_idEnvio', '$this->_idEstadoPedido', '$this->_fechaEntrega', '$this->_lugarEntrega')";
+    /**
+     * @return mixed
+     */
+    public function getFechaCreacion()
+    {
+        return $this->_fechaCreacion;
+    }
 
+    /**
+     * @param mixed $_fechaCreacion
+     *
+     * @return self
+     */
+    public function setFechaCreacion($_fechaCreacion)
+    {
+        $this->_fechaCreacion = $_fechaCreacion;
+
+        return $this;
+    }
+
+    public function guardar() {
+        $sql = "INSERT INTO pedido (id_pedido, id_usuario, id_envio, id_estado_pedido, fecha_entrega, lugar_entrega, fecha_creacion) "
+        . "VALUES (NULL, '$this->_idUsuario', '$this->_idEnvio', '$this->_idEstadoPedido', '$this->_fechaEntrega', '$this->_lugarEntrega', '$this->_fechaCreacion')";
+        var_dump($sql);
+        exit;
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
         $mysql->desconectar();
@@ -151,7 +173,7 @@ class Pedido {
 
     public function actualizar($idPedido) {
         $sql = "UPDATE pedido SET id_usuario = '$this->_idUsuario',id_envio = '$this->_idEnvio',id_estado_pedido = '$this->_idEstadoPedido', "
-        . "fecha_entrega = '$this->_fechaEntrega',lugar_entrega = '$this->_lugarEntrega' "
+        . "fecha_entrega = '$this->_fechaEntrega',lugar_entrega = '$this->_lugarEntrega', fecha_creacion = '$this->_fechaCreacion' "
         . "WHERE id_pedido =" . $idPedido;
         
         $mysql = new MySQL();
@@ -181,6 +203,7 @@ class Pedido {
     		$pedido->_idEnvio = $registro['id_envio'];
     		$pedido->_idEstadoPedido = $registro['id_estado_pedido'];
     		$pedido->_fechaEntrega = $registro['fecha_entrega'];
+            $pedido->_fechaCreacion = $registro['fecha_creacion'];
     		$pedido->_lugarEntrega = $registro['lugar_entrega'];
     		$listado[] = $pedido;
     	}
@@ -202,9 +225,11 @@ class Pedido {
     		$pedido->_idEnvio = $registro['id_envio'];
     		$pedido->_idEstadoPedido = $registro['id_estado_pedido'];
     		$pedido->_fechaEntrega = $registro['fecha_entrega'];
+            $pedido->_fechaCreacion = $registro['fecha_creacion'];
     		$pedido->_lugarEntrega = $registro['lugar_entrega'];
         return $pedido;
     }
+
 }
 
 ?>

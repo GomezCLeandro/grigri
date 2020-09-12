@@ -11,6 +11,8 @@ $idTipoEnvio = $_POST['idTipoEnvio'];
 $fechaEntrega = $_POST['txtFechaEntrega'];
 $idItem = $_POST['idItem'];
 $cantidad = $_POST['txtCantidad'];
+$fechaCreacion = $_POST['txtFechaCreacion'];
+
 
 if (empty($idUsuario)) {
 	$_SESSION['mensaje_error'] = "Debe ingresar para quien es el pedido";
@@ -34,12 +36,16 @@ if ($idTipoEnvio == 1) {
 } else {
 	$lugarEntrega = "Retiro de local";
 }
+if (empty($fechaCreacion)) {
+	$fechaCreacion = date('Y-m-d');
+}
 
 $pedido = new Pedido();
 $pedido->setIdUsuario($idUsuario);
 $pedido->setIdEnvio($idTipoEnvio);
 $pedido->setFechaEntrega($fechaEntrega);
 $pedido->setLugarEntrega($lugarEntrega);
+$pedido->setFechaCreacion($fechaCreacion);
 
 $pedido->guardar();
 
@@ -47,9 +53,6 @@ $detallePedido = new DetallePedido();
 $detallePedido->setIdItem($idItem);
 $detallePedido->setCantidad($cantidad);
 $detallePedido->setIdPedido($pedido->getIdPedido());
-
-//highlight_string(var_export($detallePedido,true));
-//exit;
 
 $detallePedido->guardar();
 

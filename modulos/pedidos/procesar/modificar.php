@@ -14,6 +14,7 @@ $fechaEntrega = $_POST['txtFechaEntrega'];
 $idEstado = $_POST['cboEstado'];
 $idItem = $_POST['idItem'];
 $cantidad = $_POST['txtCantidad'];
+$fechaCreacion = $_POST['txtFechaCreacion'];
 
 if (empty($idUsuario)) {
 	$_SESSION['mensaje_error'] = "Debe ingresar para quien es el pedido";
@@ -48,6 +49,7 @@ $pedido->setIdUsuario($idUsuario);
 $pedido->setIdEnvio($idTipoEnvio);
 $pedido->setIdEstadoPedido($idEstado);
 $pedido->setFechaEntrega($fechaEntrega);
+$pedido->setFechaCreacion($fechaCreacion);
 $pedido->setLugarEntrega($lugarEntrega);
 
 $pedido->actualizar($idPedido);

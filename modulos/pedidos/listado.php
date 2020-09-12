@@ -3,11 +3,14 @@
 require_once "../../clases/Pedido.php";
 require_once "../../clases/Usuario.php";
 require_once "../../clases/EstadoPedido.php";
+require_once "../../clases/DetallePedido.php";
+require_once "../../clases/Disenio.php";
 
 $listadoPedidos = Pedido::obtenerTodos();
 
-//highlight_string(var_export($listadoPedidos,true));
+//highlight_string(var_export($listadoPedidos, true));
 //exit;
+
 ?>
 
 <!DOCTYPE html>
@@ -33,11 +36,14 @@ $listadoPedidos = Pedido::obtenerTodos();
                                 <table class="table table-borderless table-data3">
                                         <thead>
                                             <tr>
-                                                <th>Usuario</th>
+                                                <th>Nr. Pedido</th>
+                                                <th>Cliente</th>
                                                 <th>Lugar de Entrega</th>
 												<th>Estado del Pedido</th>
-												<th>fecha de Entrega</th>
-												<th>Accion</th>
+                                                <th>Fecha de Creacion</th>
+												<th>Fecha de Entrega</th>
+												<th>Total</th>
+                                                <th>Accion</th>
                                             </tr>
                                         </thead>
                                         <?php if (!empty($listadoPedidos)): ?>
@@ -46,12 +52,17 @@ $listadoPedidos = Pedido::obtenerTodos();
 
                                                     <?php $usuario = Usuario::obtenerPorId($pedidos->getIdUsuario()); ?>
                                                 	<?php $estado = EstadoPedido::obtenerPorId($pedidos->getIdEstadoPedido()); ?>
+                                                    <?php $detallePedido = DetallePedido::obtenerPorIdPedido($pedidos->getIdPedido()); ?>
+                                                    <?php $disenio = Disenio::obtenerPorIdItem($detallePedido->getIdItem()); ?>
 
                                                 <tr>
-                                                    <td> <?php echo $usuario->getUsername(); ?> </td>
+                                                    <td> <?php echo $pedidos->getIdPedido(); ?> </td>
+                                                    <td> <?php echo $usuario->getApellido(), ", " ,$usuario->getNombre() ; ?> </td>
                                                     <td> <?php echo $pedidos->getLugarEntrega(); ?> </td>
                                                 	<td> <?php echo $estado->getDescripcion(); ?> </td>
+                                                    <td> <?php echo $pedidos->getFechaCreacion(); ?> </td>
                                                 	<td> <?php echo $pedidos->getFechaEntrega(); ?> </td>
+                                                    <td> <?php echo $detallePedido->getCantidad() * $disenio->getPrecio(); ?> </td>
                                                     <td>
                                                         <a class="btn btn-success btn-sm" href="../detallePedido/detallePedido.php?id=<?php echo $pedidos->getIdPedido(); ?>">Detalle</a>
                                                     	<a class="btn btn-secondary btn-sm" href="modificar.php?id=<?php echo $pedidos->getIdPedido(); ?>">Modificar</a>

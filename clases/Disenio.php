@@ -119,7 +119,7 @@ class Disenio extends Item {
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
-        
+
         $registro = $datos->fetch_assoc();
         $disenio = new Disenio($registro['descripcion']);
             $disenio->_descripcion = $registro['descripcion'];

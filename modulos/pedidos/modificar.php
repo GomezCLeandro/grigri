@@ -137,6 +137,15 @@ $listadoDisenio = Disenio::obtenerTodos();
 						            </div>
 						            <div class="row form-group">
 						                <div class="col col-md-3">
+						                    <label for="email-input" class=" form-control-label">Fecha de Creacion</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                    <input type="date" id="txtDescripcion" name="txtFechaCreacion" value="<?php echo $pedido->getFechaCreacion(); ?>" class="form-control">
+						                    <small class="help-block form-text">Fecha de Creacion</small>
+						                </div>
+						            </div>
+						            <div class="row form-group">
+						                <div class="col col-md-3">
 						                    <label for="select" class=" form-control-label">Estado</label>
 						                </div>
 						                <div class="col-12 col-md-9">
