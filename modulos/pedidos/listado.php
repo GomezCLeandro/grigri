@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set("America/Argentina/Buenos_Aires");
+
 require_once "../../clases/Pedido.php";
 require_once "../../clases/Usuario.php";
 require_once "../../clases/EstadoPedido.php";
@@ -42,6 +44,7 @@ $listadoPedidos = Pedido::obtenerTodos();
 												<th>Estado del Pedido</th>
                                                 <th>Fecha de Creacion</th>
 												<th>Fecha de Entrega</th>
+                                                <th>Dias Restantes</th>
 												<th>Total</th>
                                                 <th>Accion</th>
                                             </tr>
@@ -55,14 +58,29 @@ $listadoPedidos = Pedido::obtenerTodos();
                                                     <?php $detallePedido = DetallePedido::obtenerPorIdPedido($pedidos->getIdPedido()); ?>
                                                     <?php $disenio = Disenio::obtenerPorIdItem($detallePedido->getIdItem()); ?>
 
+                                                    <?php $fechaInicio = new DateTime(date('Y-m-d')); ?>
+                                                    <?php $fechaFinal = new DateTime($pedidos->getFechaEntrega()); ?>
+                                                    <?php $resultado = $fechaInicio->diff($fechaFinal); ?>
+
                                                 <tr>
                                                     <td> <?php echo $pedidos->getIdPedido(); ?> </td>
                                                     <td> <?php echo $usuario->getApellido(), ", " ,$usuario->getNombre() ; ?> </td>
                                                     <td> <?php echo $pedidos->getLugarEntrega(); ?> </td>
-                                                	<td> <?php echo $estado->getDescripcion(); ?> </td>
+                                                    <?php
+                                                        if ($estado->getIdEstadoPedido() == 1) {
+                                                            echo "<td><span class='role admin'>". $estado->getDescripcion() ."</span></td>";
+                                                        }
+                                                        if ($estado->getIdEstadoPedido() == 2) {
+                                                            echo "<td><span class='role user'>". $estado->getDescripcion() ."</span></td>";
+                                                        }
+                                                        if ($estado->getIdEstadoPedido() == 3) {
+                                                            echo "<td><span class='role member'>". $estado->getDescripcion() ."</span></td>";
+                                                        }
+                                                    ?>
                                                     <td> <?php echo $pedidos->getFechaCreacion(); ?> </td>
                                                 	<td> <?php echo $pedidos->getFechaEntrega(); ?> </td>
-                                                    <td> <?php echo $detallePedido->getCantidad() * $disenio->getPrecio(); ?> </td>
+                                                    <td> <?php echo $resultado->format('%a días'); ?> </td>
+                                                    <td> <?php echo "$".$detallePedido->getCantidad() * $disenio->getPrecio(); ?> </td>
                                                     <td>
                                                         <a class="btn btn-success btn-sm" href="../detallePedido/detallePedido.php?id=<?php echo $pedidos->getIdPedido(); ?>">Detalle</a>
                                                     	<a class="btn btn-secondary btn-sm" href="modificar.php?id=<?php echo $pedidos->getIdPedido(); ?>">Modificar</a>
