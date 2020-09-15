@@ -114,7 +114,7 @@ $arrBarrios = $domicilio->barrio->obtenerTodos();
 						                    <label for="email-input" class=" form-control-label">Descripcion</label>
 						                </div>
 						                <div class="col-12 col-md-9">
-						                    <input type="number" id="txtDescripcion" name="txtDescripcion" placeholder="descripcion" class="form-control" value="<?php echo $domicilio->getDescripcion(); ?>">
+						                    <input type="text" id="txtDescripcion" name="txtDescripcion" placeholder="descripcion" class="form-control" value="<?php echo $domicilio->getDescripcion(); ?>">
 						                    <small class="help-block form-text">pequeña descipcion que queira agregar</small>
 						                </div>
 						            </div>

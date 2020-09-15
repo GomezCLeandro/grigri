@@ -44,7 +44,7 @@ $listadoPedidos = Pedido::obtenerTodos();
 												<th>Estado del Pedido</th>
                                                 <th>Fecha de Creacion</th>
 												<th>Fecha de Entrega</th>
-                                                <th>Dias Restantes</th>
+                                                <th>Para Entregar</th>
 												<th>Total</th>
                                                 <th>Accion</th>
                                             </tr>
@@ -60,7 +60,17 @@ $listadoPedidos = Pedido::obtenerTodos();
 
                                                     <?php $fechaInicio = new DateTime(date('Y-m-d')); ?>
                                                     <?php $fechaFinal = new DateTime($pedidos->getFechaEntrega()); ?>
-                                                    <?php $resultado = $fechaInicio->diff($fechaFinal); ?>
+
+                                                    <?php 
+                                                    if ($fechaInicio == $fechaFinal) {
+                                                        $fechaEntrega = "Hoy";
+                                                    } elseif ($fechaFinal < $fechaInicio) { 
+                                                        $fechaEntrega = "Expirado"; 
+                                                    } else {
+                                                        $resultado = $fechaInicio->diff($fechaFinal);
+                                                        $fechaEntrega = $resultado->format('en %a días');
+                                                    }
+                                                    ?>
 
                                                 <tr>
                                                     <td> <?php echo $pedidos->getIdPedido(); ?> </td>
@@ -75,11 +85,12 @@ $listadoPedidos = Pedido::obtenerTodos();
                                                         }
                                                         if ($estado->getIdEstadoPedido() == 3) {
                                                             echo "<td><span class='role member'>". $estado->getDescripcion() ."</span></td>";
+                                                            $fechaEntrega = "<i class='fa fa-check'></i>";
                                                         }
                                                     ?>
                                                     <td> <?php echo $pedidos->getFechaCreacion(); ?> </td>
                                                 	<td> <?php echo $pedidos->getFechaEntrega(); ?> </td>
-                                                    <td> <?php echo $resultado->format('%a días'); ?> </td>
+                                                    <td> <?php echo $fechaEntrega ?> </td>
                                                     <td> <?php echo "$".$detallePedido->getCantidad() * $disenio->getPrecio(); ?> </td>
                                                     <td>
                                                         <a class="btn btn-success btn-sm" href="../detallePedido/detallePedido.php?id=<?php echo $pedidos->getIdPedido(); ?>">Detalle</a>

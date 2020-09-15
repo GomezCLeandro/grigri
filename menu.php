@@ -82,7 +82,7 @@ if (is_null($imagen)) {
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
 
-            <div class="menu-sidebar__content js-scrollbar1">
+            <div>
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li>
@@ -90,7 +90,7 @@ if (is_null($imagen)) {
 
 							<a href="/grigri/modulos/<?php echo $modulo->getDirectorio()?>/listado.php">
 								
-                                <i class="fas fa-chart-bar"></i><?php echo utf8_encode($modulo); ?></a>
+                                <i class="fa fa-circle"></i><?php echo utf8_encode($modulo); ?></a>
 							
 							<?php endforeach ?>
 

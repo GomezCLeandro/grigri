@@ -30,6 +30,7 @@ $tipoDocumento = TipoDocumento::obtenerPorId($user->getIdTipoDocumento());
 									<tr>
 										<th>Nombre</th>
 										<th>Apellido</th>
+										<th>Foto de Pefil</th>
 										<th>Tipo Documento</th>
 										<th>Numero Documento</th>
 										<th>Fecha de Nacimiento</th>
@@ -41,6 +42,9 @@ $tipoDocumento = TipoDocumento::obtenerPorId($user->getIdTipoDocumento());
 									<tr>
 										<td> <?php echo $user->getNombre(); ?> </td>
 										<td> <?php echo $user->getApellido(); ?> </td>
+										<td> 
+											<img src="<?php echo DIR_FOTOPERFIL ?>/<?php echo $user->fotoPerfil->getFoto() ?>" width="50">
+										</td>
 										<td> <?php echo $tipoDocumento; ?> </td>
 										<td> <?php echo $user->getNumeroDocumento(); ?> </td>
 										<td> <?php echo $user->getFechaNacimiento(); ?> </td>
@@ -57,7 +61,7 @@ $tipoDocumento = TipoDocumento::obtenerPorId($user->getIdTipoDocumento());
 							<br><br>
 
 	                    	<a href="/grigri/modulos/domicilio/alta.php?idPersona=<?php echo $user->getIdPersona(); ?>&idLlamada=<?php echo $user->getIdUsuario(); ?>" class="au-btn au-btn-icon au-btn--blue" href="alta.php">
-	                        	<i class="zmdi zmdi-plus"></i>Agregar Domiclio
+	                        	<i class="fa fa-plus"></i>Agregar Domiclio
 						    </a>
 
 						<?php else: ?>
@@ -118,7 +122,7 @@ $tipoDocumento = TipoDocumento::obtenerPorId($user->getIdTipoDocumento());
 									</table>
 								</div>
 								<a href="/grigri/modulos/contacto/alta.php?idPersona=<?php echo $user->getIdPersona(); ?>&idLlamada=<?php echo $user->getIdUsuario(); ?>" type="submit" class="btn btn-success btn-sm">
-									<i class="fa fa-dot-circle-o"></i> Agregar Contacto
+									<i class="fa fa-plus"></i> Agregar Contacto
 								</a>
 							</div>
 						</div>
