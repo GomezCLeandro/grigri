@@ -138,6 +138,86 @@ $listadoDisenio = Disenio::obtenerTodos();
                                 </div>
                             	</form>
 						    </div>
+						    
+                <section id="section1">
+                <h5>Realizar Venta </h5>
+                <div id="id_message_validacion" class="alert alert-danger" role="alert">
+                    Error de carga
+                </div>
+
+                <div class="card">
+                        <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>2020/02/20</span>
+                        </div>
+                        <hr>
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                        <div class="col-sm-6 mb-3">
+                            <div class="list-with-gap">
+                                <!-- control -->
+                                    <div class="floating-label input-icon input-icon-right">
+                                        <i onclick="abrirListaProductos();" data-feather="search"></i>
+                                        <input id="id_txt_codigo" type="text" class="form-control" id="floatingSearch" placeholder="Código del articulo">
+                                        <label for="floatingSearch">Codigo del articulo</label>
+                                    </div>
+                                <!-- control -->
+                            </div>
+                        </div>
+
+                        </div>
+                        <div class="table-responsive my-3">
+                            <table  id="id_detalle_venta"  class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                <th class="text-center">Código</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th class="">Subtotal</th>
+                                <th class="text-right">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr >
+                                  
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                        <div class="row row-cols-2">
+                            <div class="col">
+                            <p class="lead">Totales</p>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                    <th class="w-50">Total:</th>
+                                    <td id="id_total">$0.0</td>
+                                    </tr>
+                                    <tr>
+                                    <th>Pago</th>
+                                    <td><input id="id_pago" type="number" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                    <th>Vuelto:</th>
+                                    <td id="id_vuelto">$0.0</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column flex-sm-row mt-3">
+                           
+                            <button onclick="guardarFormVentas()" class="btn btn-success has-icon ml-sm-1 mt-1 mt-sm-0" type="button">
+                            <i class="mr-2" data-feather="printer"></i>Guardar
+                            </button>
+                        </div>
+                        </div>
+                </div>
+
+
+                </section>
+
 						</div>
 					</div>
 				</div>
