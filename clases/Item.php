@@ -95,7 +95,33 @@ class Item {
 
         return $this;
     }
+/*
+    public function obtenerTodos() {
+        $sql = "SELECT * FROM item";
 
+        //var_dump($sql);
+        //exit;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $item = self::_listadoItem($datos);
+        return $item;
+    }
+
+    private function _listadoItem($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $item = new Item($registro['descripcion']);
+            $item->_idItem = $registro['id_item'];
+            $item->_precio = $registro['precio'];
+
+            $listado[] = $item;
+        }
+        return $listado;
+    }
+*/
     public function guardar() {
 
         $sql = "INSERT INTO item (id_item, descripcion, precio) VALUES (NULL, '$this->_nombre', '$this->_precio')";
