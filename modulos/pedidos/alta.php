@@ -28,7 +28,7 @@ $listadoServicio = Servicio::obtenerTodos();
 	    <div class="section__content section__content--p30">
 	        <div class="container-fluid">
 	            <div class="row">	
-					<div class="col-lg-6">
+					<div class="col-lg-12">
 						<div class="card">
 						    <div class="card-header">
 						        <strong>Alta de Pedido</strong>
@@ -306,7 +306,14 @@ function setCantidad(id, nombre, precio){
 
 	let cantidad = prompt('Ingrese la cantidad')
 
-	//console.log(nombre, cantidad, precio, id);
+
+	console.log(nombre, cantidad, precio, id);
+
+	console.log(isNaN(cantidad));
+
+	if (cantidad == null || cantidad == "") {
+		return false;
+	}
 
     let subtotal = calcularSubtotal(cantidad, precio);
     let items = {}; // items del detalle
