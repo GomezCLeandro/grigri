@@ -32,7 +32,7 @@ $listadoPedidos = Pedido::obtenerTodos();
                         <i class="zmdi zmdi-plus"></i>Pedido</a>
                     </div>
                     <div class="row m-t-30">
-                        <div class="col-md-12">
+                        <div>
                             <div class="table-responsive m-b-40">
 
                                 <table class="table table-borderless table-data3">

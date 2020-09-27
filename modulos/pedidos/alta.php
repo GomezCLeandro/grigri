@@ -4,6 +4,7 @@ require_once "../../clases/Usuario.php";
 require_once "../../clases/Envio.php";
 require_once "../../clases/Disenio.php";
 require_once "../../clases/Servicio.php";
+require_once "../../config.php";
 
 $listadoUsuario = Usuario::obtenerTodos();
 $listadoEnvio = Envio::obtenerTodos();
@@ -18,6 +19,8 @@ $listadoServicio = Servicio::obtenerTodos();
 	<title>Alta Pedido</title>
 
 	<script type="text/javascript" src="../../js/validaciones/validacionItem.js"></script>
+	<script type="text/javascript" src="../../js/pedido/setCantidad.js"></script>
+	<script type="text/javascript" src="../../js/pedido/calcularSubtotal.js"></script>
 
 </head>
 <body>
@@ -33,7 +36,6 @@ $listadoServicio = Servicio::obtenerTodos();
 						    <div class="card-header">
 						        <strong>Alta de Pedido</strong>
 						    </div>
-
 						    <div class="card-body card-block">
 				    	        <?php if (isset($_SESSION['mensaje_error'])) : ?>
 
@@ -51,25 +53,23 @@ $listadoServicio = Servicio::obtenerTodos();
 						        <div class="card">
 						        	<!-- fomulario de Alan -->
 			                        <div class="card-body">
-				                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-					                        <div class="col-sm-6 mb-3">
-					                            <div class="list-with-gap">
-					                                <!-- control -->
-													<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalDisenio">
-														<i class="fa fa-list-ol" ></i>&nbsp; Listado de Diseños</button>
-													<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalServicio">
-		                                            	<i class="fa fa-list-ol" ></i>&nbsp; Listado de Servicios</button>
-		                                            <!--
-					                                    <div class="floating-label input-icon input-icon-right">
-					                                        <i   data-feather="search"></i>
-					                                        <input id="id_txt_codigo" type="text" class="form-control" id="floatingSearch" placeholder="Código del articulo">
-					                                        
-					                                    </div>
-					                                -->
-					                                <!-- control -->
-					                            </div>
-					                        </div>
-				                        </div>
+			                        	<!-- boton modal usuario -->
+										<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#listadoUsuario">
+											Clientes
+										</button>
+										<!-- boton modal usuario -->
+			                        	<!-- imagen usuario 
+										<div class="media">
+											<div class="media-left">
+										    	<img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/" data-holder-rendered="true" style="width: 64px; height: 64px;">
+											</div>
+										    <div class="media-body">
+										    	<h4 class="media-heading">Media heading</h4>
+										    </div>
+										  	<div class="clearfix"> </div>
+										</div>-->
+										<!-- imagen usuario -->
+
 				                        <div class="table-responsive my-3">
 				                            <table  id="id_detalle_venta"  class="table table-striped table-sm">
 				                            <thead>
@@ -103,11 +103,27 @@ $listadoServicio = Servicio::obtenerTodos();
 				                            </div>
 				                            </div>
 				                        </div>
-				                        <div class="d-flex flex-column flex-sm-row mt-3">
-				                           
-				                            <button onclick="guardarFormVentas()" class="btn btn-success has-icon ml-sm-1 mt-1 mt-sm-0" type="button">
-				                            <i class="mr-2" data-feather="printer"></i>Guardar
-				                            </button>
+				                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+					                        <div class="col-sm-6 mb-3">
+					                            <div class="list-with-gap">
+					                                <!-- control -->
+													<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalDisenio">
+														<i class="fa fa-list-ol" ></i>&nbsp; Listado de Diseños</button>
+													<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalServicio">
+		                                            	<i class="fa fa-list-ol" ></i>&nbsp; Listado de Servicios</button>
+						                            <button onclick="guardarFormVentas()" class="btn btn-success has-icon ml-sm-1 mt-1 mt-sm-0" type="button">
+						                            <i class="fa fa-save" data-feather="printer"></i> Guardar
+						                            </button>
+		                                            <!--
+					                                    <div class="floating-label input-icon input-icon-right">
+					                                        <i   data-feather="search"></i>
+					                                        <input id="id_txt_codigo" type="text" class="form-control" id="floatingSearch" placeholder="Código del articulo">
+					                                        
+					                                    </div>
+					                                -->
+					                                <!-- control -->
+					                            </div>
+					                        </div>
 				                        </div>
 			                    	</div>
 			                	</div>
@@ -202,7 +218,7 @@ $listadoServicio = Servicio::obtenerTodos();
 						        </div>
 		                        <div class="card-footer">
                                     <button type="submit" class="btn btn-primary btn-sm" onclick="validarDatos()">
-                                        <i class="fa fa-dot-circle-o"></i> Guardar
+                                        <i class="fa fa-save"></i> Guardar
                                     </button>
                                 </div>
                             	</form>
@@ -213,6 +229,47 @@ $listadoServicio = Servicio::obtenerTodos();
 				</div>
 			</div>
 		</div>
+
+	<!-- modal small usuario -->
+	<div class="modal fade" id="listadoUsuario" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="mediumModalLabel">Medium Modal</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+		            <table class="table table-striped table-sm" id="id_tabla_productos">
+	                    <tbody>
+		                    <thead>
+		                        <tr class="text-center">
+		                        	<th>Foto Perfil</th>
+			                        <th>Username</th>
+			                        <th>Apellido y Nombre</th>
+		                        </tr>
+		                    </thead>
+							<?php foreach ($listadoUsuario as $usuario): ?>
+								<tr class="text-center">
+		                        	<td>
+		                        		<img src="<?php echo DIR_FOTOPERFIL ?>/<?php echo $usuario->fotoPerfil->getFoto() ?>" class="rounded float-left" width="50">
+		                        	</td>
+		                        	<td> <?php echo $usuario; ?> </td>
+		                        	<td> <?php echo $usuario->getApellido(). " " .$usuario->getNombre(); ?> </td>
+								</tr>
+
+							<?php endforeach ?>
+	                    </tbody>
+	                </table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end modal small usuario -->
 
 	<!-- modal large disenio -->
 	<div class="modal fade" id="modalDisenio" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
@@ -293,7 +350,7 @@ $listadoServicio = Servicio::obtenerTodos();
 	<!-- end modal large servicio -->
 
 </div>
-
+<!--
 <script>
 
 var total = 0.0;
@@ -334,7 +391,7 @@ function calcularSubtotal(cantidad, precio){
 }
 
 </script>
-
+-->
 
 </body>
 </html>
