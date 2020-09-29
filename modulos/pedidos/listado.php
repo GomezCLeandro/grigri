@@ -56,7 +56,6 @@ $listadoPedidos = Pedido::obtenerTodos();
                                                     <?php $usuario = Usuario::obtenerPorId($pedidos->getIdUsuario()); ?>
                                                 	<?php $estado = EstadoPedido::obtenerPorId($pedidos->getIdEstadoPedido()); ?>
                                                     <?php $detallePedido = DetallePedido::obtenerPorIdPedido($pedidos->getIdPedido()); ?>
-                                                    <?php $disenio = Disenio::obtenerPorIdItem($detallePedido->getIdItem()); ?>
 
                                                     <?php $fechaInicio = new DateTime(date('Y-m-d')); ?>
                                                     <?php $fechaFinal = new DateTime($pedidos->getFechaEntrega()); ?>
@@ -90,8 +89,8 @@ $listadoPedidos = Pedido::obtenerTodos();
                                                     ?>
                                                     <td> <?php echo $pedidos->getFechaCreacion(); ?> </td>
                                                 	<td> <?php echo $pedidos->getFechaEntrega(); ?> </td>
-                                                    <td> <?php echo $fechaEntrega ?> </td>
-                                                    <td> <?php echo "$".$detallePedido->getCantidad() * $disenio->getPrecio(); ?> </td>
+                                                    <td> <?php echo $fechaEntrega; ?> </td>
+                                                    <td> <?php echo $pedidos->calcularTotal(); ?> </td>
                                                     <td>
                                                         <a class="btn btn-success btn-sm" href="../detallePedido/detallePedido.php?id=<?php echo $pedidos->getIdPedido(); ?>">Detalle</a>
                                                     	<a class="btn btn-secondary btn-sm" href="modificar.php?id=<?php echo $pedidos->getIdPedido(); ?>">Modificar</a>

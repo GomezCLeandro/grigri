@@ -1,5 +1,5 @@
 var total = 0.0;
-var detalle_ventas = []; // array
+var detallePedido = []; // array
 
 function setCantidad(id, nombre, precio){
     /*
@@ -8,10 +8,9 @@ function setCantidad(id, nombre, precio){
 
 	let cantidad = prompt('Ingrese la cantidad')
 
+	//console.log(nombre, cantidad, precio, id);
 
-	console.log(nombre, cantidad, precio, id);
-
-	console.log(isNaN(cantidad));
+	//console.log(isNaN(cantidad));
 
 	if (cantidad == null || cantidad == "") {
 		return false;
@@ -23,7 +22,7 @@ function setCantidad(id, nombre, precio){
     items['id'] = id;
     items['cantidad'] = cantidad;
 
-    detalle_ventas.push(items); // armando mi detalle para el envio
+    detallePedido.push(items); // armando mi detalle para el envio
 
-    $('#id_detalle_venta tr:last').after('<tr><td>' + id + '</td><td>' + nombre + '</td><td>' + cantidad + '</td><td>' + subtotal + '</td> <td class="text-right"> <i class="mr-2" data-feather="trash"></i></td></tr>')
+    $('#tabla_detalle tr:last').after('<tr><td>' + id + '</td><td>' + nombre + '</td><td>' + precio +'</td><td>' + cantidad + '</td><td>' + subtotal + '</td> <td class="text-right"> <i class="mr-2" data-feather="trash"></i></td></tr>')
 }

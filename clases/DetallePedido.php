@@ -1,6 +1,7 @@
 <?php
 
 require_once 'MySQL.php';
+require_once 'Disenio.php';
 
 class DetallePedido {
 	
@@ -56,7 +57,7 @@ class DetallePedido {
     {
         return $this->_idItem;
     }
-
+ 
     /**
      * @param mixed $_idItem
      *
@@ -134,14 +135,31 @@ class DetallePedido {
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
 
-        $registro = $datos->fetch_assoc();
-    		$detallePedido = new DetallePedido();
-    		$detallePedido->_idDetallePedido = $registro['id_detalle_pedido'];
-    		$detallePedido->_idPedido = $registro['id_pedido'];
-    		$detallePedido->_idItem = $registro['id_item'];
-    		$detallePedido->_cantidad = $registro['cantidad'];
-        return $detallePedido;
+        $listado = self::_generarListadoDetallePedidos($datos);
+
+        return $listado;
     }
+
+    private function _generarListadoDetallePedidos($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $detallePedido = new DetallePedido();
+            $detallePedido->_idPedido = $registro['id_pedido'];
+            $detallePedido->_idItem = $registro['id_item'];
+            $detallePedido->_cantidad = $registro['cantidad'];
+            $listado[] = $detallePedido;
+        }
+        return $listado;
+    }
+
+    public function calcularSubTotal() {
+        $item = Disenio::obtenerPorIdItem($this->_idItem);
+
+        $subTotal = $item->getPrecio() * $this->_cantidad;
+
+        return $subTotal;
+    }
+
 }
 
 ?>

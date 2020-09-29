@@ -96,8 +96,8 @@ class Item {
         return $this;
     }
 /*
-    public function obtenerTodos() {
-        $sql = "SELECT * FROM item";
+    public function obtenerPrecio($idItem) {
+        $sql = "SELECT * FROM item WHERE id_item =".$idItem;
 
         //var_dump($sql);
         //exit;
@@ -106,7 +106,10 @@ class Item {
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
 
-        $item = self::_listadoItem($datos);
+        $registro = $datos->fetch_assoc();
+            $item = new Item($registro['descripcion']);
+            $item->_idItem = $registro['id_item'];
+            $item->_precio = $registro['precio'];
         return $item;
     }
 
