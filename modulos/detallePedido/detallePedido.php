@@ -28,7 +28,7 @@ $arrDetallePedido = DetallePedido::obtenerPorIdPedido($idPedido);
     <div class="main-content">
         <div class="section__content section__content--p30">
             <div class="row m-t-30">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="table-responsive m-b-40">
                         <table class="table table-borderless table-data3">
                             <thead>
@@ -46,9 +46,19 @@ $arrDetallePedido = DetallePedido::obtenerPorIdPedido($idPedido);
                                     <tr>
                                         <td> <?php echo $usuario->getUsername(); ?> </td>
                                         <td> <?php echo $pedido->getLugarEntrega(); ?> </td>
-                                        <td> <?php echo $estado->getDescripcion(); ?> </td>
+                                        <?php
+                                            if ($estado->getIdEstadoPedido() == 1) {
+                                                echo "<td><span class='role admin'>". $estado->getDescripcion() ."</span></td>";
+                                            }
+                                            if ($estado->getIdEstadoPedido() == 2) {
+                                                echo "<td><span class='role user'>". $estado->getDescripcion() ."</span></td>";
+                                            }
+                                            if ($estado->getIdEstadoPedido() == 3) {
+                                                echo "<td><span class='role member'>". $estado->getDescripcion() ."</span></td>";
+                                            }
+                                        ?>                                        
                                         <td> <?php echo $pedido->getFechaEntrega(); ?> </td>
-                                        <td></td>
+                                        <td> <?php echo $pedido->calcularTotal(); ?> </td>
                                     </tr>
                                 </tbody>
                         </table>

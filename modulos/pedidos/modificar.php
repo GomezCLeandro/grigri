@@ -16,7 +16,7 @@ $listadoEnvio = Envio::obtenerTodos();
 $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 $listadoDisenio = Disenio::obtenerTodos();
 
-//highlight_string(var_export($modulo, true));
+//highlight_string(var_export($detallePedido, true));
 //exit;
 
 ?>
@@ -39,7 +39,7 @@ $listadoDisenio = Disenio::obtenerTodos();
 					<div class="col-lg-6">
 						<div class="card">
 						    <div class="card-header">
-						        <strong>Alta de Pedido</strong>
+						        <strong>Modificar de Pedido</strong>
 						    </div>
 						    <div class="card-body card-block">
 				    	        <?php if (isset($_SESSION['mensaje_error'])) : ?>

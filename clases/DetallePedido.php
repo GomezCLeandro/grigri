@@ -144,6 +144,7 @@ class DetallePedido {
         $listado = array();
         while ($registro = $datos->fetch_assoc()) {
             $detallePedido = new DetallePedido();
+            $detallePedido->_idDetallePedido = $registro['id_detalle_pedido'];
             $detallePedido->_idPedido = $registro['id_pedido'];
             $detallePedido->_idItem = $registro['id_item'];
             $detallePedido->_cantidad = $registro['cantidad'];

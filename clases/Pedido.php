@@ -242,6 +242,7 @@ class Pedido {
     		$pedido->_fechaEntrega = $registro['fecha_entrega'];
             $pedido->_fechaCreacion = $registro['fecha_creacion'];
     		$pedido->_lugarEntrega = $registro['lugar_entrega'];
+            $pedido->setArrDetallePedido();
         return $pedido;
     }
 
