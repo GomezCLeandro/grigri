@@ -57,7 +57,7 @@ $listadoDisenio = Disenio::obtenerTodos();
 
 						        <form action="procesar/modificar.php" id="frmDatos" name="frmDatos" method="post" class="form-horizontal">
 									<input type="hidden" name="idPedido" value="<?php echo $pedido->getIdPedido(); ?>">
-									<input type="hidden" name="idDetallePedido" value="<?php echo $detallePedido->getIdDetallePedido(); ?>">
+									
 
 						            <div class="row form-group">
 						                <div class="col col-md-3">

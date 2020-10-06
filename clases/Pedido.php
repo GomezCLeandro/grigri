@@ -246,6 +246,33 @@ class Pedido {
         return $pedido;
     }
 
+    public static function obtenerTerminados() {
+
+        $sql = "SELECT * FROM pedido WHERE id_estado_pedido = 6" ;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $listado = self::_generarListadoTerminado($datos);
+
+        return $listado;
+    }
+
+    private function _generarListadoTerminado($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $pedido = new Pedido();
+            $pedido->_idPedido = $registro['id_pedido'];
+            $pedido->_idUsuario = $registro['id_usuario'];
+            $pedido->_idEstadoPedido = $registro['id_estado_pedido'];
+            $pedido->setArrDetallePedido();
+
+            $listado[] = $pedido;
+        }
+        return $listado;
+    }
+
     public function calcularTotal() {
         $total = 0;
         foreach ($this->_arrDetallePedido as $detallePedido) {
