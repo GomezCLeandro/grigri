@@ -49,6 +49,7 @@ $listadoPedidos = Pedido::obtenerTodos();
                                                 <th>Accion</th>
                                             </tr>
                                         </thead>
+
                                         <?php if (!empty($listadoPedidos)): ?>
                                             <tbody>
                                             	<?php foreach ($listadoPedidos as $pedidos): ?>
@@ -76,15 +77,25 @@ $listadoPedidos = Pedido::obtenerTodos();
                                                     <td> <?php echo $usuario->getApellido(), ", " ,$usuario->getNombre() ; ?> </td>
                                                     <td> <?php echo $pedidos->getLugarEntrega(); ?> </td>
                                                     <?php
+
                                                         if ($estado->getIdEstadoPedido() == 1) {
-                                                            echo "<td><span class='role admin'>". $estado->getDescripcion() ."</span></td>";
+                                                            echo "<td><span class='badge badge-danger'>". $estado->getDescripcion() ."</span></td>";
                                                         }
                                                         if ($estado->getIdEstadoPedido() == 2) {
-                                                            echo "<td><span class='role user'>". $estado->getDescripcion() ."</span></td>";
+                                                            echo "<td><span class='badge badge-info'>". $estado->getDescripcion() ."</span></td>";
                                                         }
                                                         if ($estado->getIdEstadoPedido() == 3) {
-                                                            echo "<td><span class='role member'>". $estado->getDescripcion() ."</span></td>";
+                                                            echo "<td><span class='badge badge-success'>". $estado->getDescripcion() ."</span></td>";
                                                             $fechaEntrega = "<i class='fa fa-check'></i>";
+                                                        }
+                                                        if ($estado->getIdEstadoPedido() == 6) {
+                                                            echo "<td><span class='badge badge-primary'>". $estado->getDescripcion() ."</span></td>";
+                                                        }
+                                                        if ($estado->getIdEstadoPedido() == 7) {
+                                                            echo "<td><span class='badge badge-warning'>". $estado->getDescripcion() ."</span></td>";
+                                                        }
+                                                        if ($estado->getIdEstadoPedido() == 8) {
+                                                            echo "<td><span class='badge badge-info'>". utf8_encode($estado->getDescripcion()) ."</span></td>";
                                                         }
                                                     ?>
                                                     <td> <?php echo $pedidos->getFechaCreacion(); ?> </td>

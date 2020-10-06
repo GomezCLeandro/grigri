@@ -246,10 +246,10 @@ class Pedido {
         return $pedido;
     }
 
-    public static function obtenerTerminados() {
+    public static function obtenerPedidoParaFacturar() {
 
-        $sql = "SELECT * FROM pedido WHERE id_estado_pedido = 6" ;
-
+        $sql = "SELECT * FROM pedido WHERE id_estado_pedido = 6 OR id_estado_pedido = 7";
+        
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
