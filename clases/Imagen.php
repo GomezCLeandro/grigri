@@ -70,7 +70,31 @@ class Imagen {
             $listado[] = $imagen;
         }
         return $listado;
-    }    
+    }
+
+    public static function obtenerPorIdItem($idItem){
+        $sql = "SELECT * FROM imagen WHERE id_item = " . $idItem;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $listadoImagenes = self::_listadoImagenesPorItem($datos);
+
+        return $listadoImagenes;
+    }
+
+    private function _listadoImagenesPorItem($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $imagen = new Imagen();
+            $imagen->_idImagen = $registro['id_imagen'];
+            $imagen->_imagen = $registro['imagen'];
+            $imagen->_idItem = $registro['id_item'];
+            $listado[] = $imagen;
+        }
+        return $listado;
+    } 
 
     public function __toString() {
         return $this->_imagen;

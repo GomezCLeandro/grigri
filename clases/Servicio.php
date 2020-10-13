@@ -69,6 +69,7 @@ class Servicio extends Item {
             $servicio->_idServicio = $registro['id_servicio'];
             $servicio->_idItem = $registro['id_item'];
             $servicio->_precio = $registro['precio'];
+            $servicio->setArrImagen();
 
             $listado[] = $servicio;
         }

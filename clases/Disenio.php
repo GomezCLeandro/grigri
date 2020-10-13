@@ -92,6 +92,7 @@ class Disenio extends Item {
             $disenio->_idDisenio = $registro['id_disenio'];
             $disenio->_idItem = $registro['id_item'];
             $disenio->_precio = $registro['precio'];
+            $disenio->setArrImagen();
 
             $listado[] = $disenio;
         }

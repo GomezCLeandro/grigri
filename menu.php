@@ -43,6 +43,10 @@ if (is_null($imagen)) {
     <!-- Bootstrap CSS-->
     <link href="/grigri/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
+    <!-- Full Slider  -->
+    <link href="/grigri/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/grigri/css/full-slider.css" rel="stylesheet">
+
     <!-- Vendor CSS-->
     <link href="/grigri/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
     <link href="/grigri/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
@@ -93,10 +97,10 @@ if (is_null($imagen)) {
                                     <a href="#" class="js-arrow"><i class="fa fa-circle"></i>Catalogo<span class="fa arrow"></span></a>
                                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                         <li>
-                                            <a href="/grigri/modulos/catalogo/inicio.php">Inicio</a>
+                                            <a href="/grigri/inicioCatalogo.php">Inicio</a>
                                         </li>
                                         <li>
-                                            <a href="/grigri/modulos/catalogo/catalogoDisenio.php">Diseños</a>
+                                            <a href="/grigri/modulos/catalogo/catalogoDisenios.php">Diseños</a>
                                         </li>
                                         <li>
                                             <a href="/grigri/modulos/catalogo/catalogoServicio.php">Servicios</a>
