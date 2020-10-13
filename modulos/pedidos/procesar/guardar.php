@@ -8,13 +8,11 @@ require_once "../../../clases/Pedido.php";
 require_once "../../../clases/Usuario.php";
 require_once "../../../clases/DetallePedido.php";
 
-$idUsuario = $_POST['idUsuario'];
-$idTipoEnvio = $_POST['idTipoEnvio'];
-$fechaEntrega = $_POST['txtFechaEntrega'];
-$idItem = $_POST['idItem'];
-$cantidad = $_POST['txtCantidad'];
-$fechaCreacion = $_POST['txtFechaCreacion'];
-
+$idUsuario = $_POST['usuario'];
+$idTipoEnvio = $_POST['tipoEnvio'];
+$fechaEntrega = $_POST['fechaEntrega'];
+$arrItems = $_POST['items'];
+$fechaCreacion = $_POST['fechaCreacion'];
 
 if (empty($idUsuario)) {
 	$_SESSION['mensaje_error'] = "Debe ingresar para quien es el pedido";
@@ -51,13 +49,13 @@ $pedido->setFechaCreacion($fechaCreacion);
 
 $pedido->guardar();
 
-$detallePedido = new DetallePedido();
-$detallePedido->setIdItem($idItem);
-$detallePedido->setCantidad($cantidad);
-$detallePedido->setIdPedido($pedido->getIdPedido());
+foreach ($arrItems as $item) {
+	$detallePedido = new DetallePedido();
+	$detallePedido->setIdItem($item['id']);
+	$detallePedido->setCantidad($item['cantidad']);
+	$detallePedido->setIdPedido($pedido->getIdPedido());
 
-$detallePedido->guardar();
-
-header("location: /grigri/modulos/pedidos/listado.php");
+	$detallePedido->guardar();
+}
 
 ?>

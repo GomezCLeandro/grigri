@@ -9,7 +9,7 @@ require_once "../../clases/Disenio.php";
 $idPedido = $_GET['id'];
 
 $pedido = Pedido::obtenerPorId($idPedido);
-$detallePedido = DetallePedido::obtenerPorIdPedido($idPedido);
+$arrDetallePedido = DetallePedido::obtenerPorIdPedido($idPedido);
 
 //highlight_string(var_export($listadoPedidos,true));
 //exit;
@@ -28,7 +28,7 @@ $detallePedido = DetallePedido::obtenerPorIdPedido($idPedido);
     <div class="main-content">
         <div class="section__content section__content--p30">
             <div class="row m-t-30">
-                <div class="col-md-12">
+                <div class="col-md-8">
                     <div class="table-responsive m-b-40">
                         <table class="table table-borderless table-data3">
                             <thead>
@@ -37,6 +37,7 @@ $detallePedido = DetallePedido::obtenerPorIdPedido($idPedido);
                                     <th>Lugar de Entrega</th>
                                     <th>Estado del Pedido</th>
                                     <th>fecha de Entrega</th>
+                                    <th>Total</th>
                                 </tr>
                             </thead>
                                 <tbody>
@@ -45,8 +46,19 @@ $detallePedido = DetallePedido::obtenerPorIdPedido($idPedido);
                                     <tr>
                                         <td> <?php echo $usuario->getUsername(); ?> </td>
                                         <td> <?php echo $pedido->getLugarEntrega(); ?> </td>
-                                        <td> <?php echo $estado->getDescripcion(); ?> </td>
+                                        <?php
+                                            if ($estado->getIdEstadoPedido() == 1) {
+                                                echo "<td><span class='role admin'>". $estado->getDescripcion() ."</span></td>";
+                                            }
+                                            if ($estado->getIdEstadoPedido() == 2) {
+                                                echo "<td><span class='role user'>". $estado->getDescripcion() ."</span></td>";
+                                            }
+                                            if ($estado->getIdEstadoPedido() == 3) {
+                                                echo "<td><span class='role member'>". $estado->getDescripcion() ."</span></td>";
+                                            }
+                                        ?>                                        
                                         <td> <?php echo $pedido->getFechaEntrega(); ?> </td>
+                                        <td> <?php echo $pedido->calcularTotal(); ?> </td>
                                     </tr>
                                 </tbody>
                         </table>
@@ -54,23 +66,29 @@ $detallePedido = DetallePedido::obtenerPorIdPedido($idPedido);
                     </div>
                 </div>
             </div>
-            <table class="table table-borderless table-data3">
-                <thead>
-                    <tr>
-                        <th>Nr. Pedido</th>
-                        <th>Diseño</th>
-                        <th>Cantidad</th>
-                    </tr>
-                </thead>
-                    <tbody>
-                            <?php $disenio = Disenio::obtenerPorIdItem($detallePedido->getIdItem()); ?>
+            <div class="col-lg-5">
+                <table class="table table-borderless table-data3">
+                    <thead>
                         <tr>
-                            <td> <?php echo $detallePedido->getIdPedido(); ?> </td>
-                            <td> <?php echo $disenio->getDescripcion(); ?> </td>
-                            <td> <?php echo $detallePedido->getCantidad(); ?> </td>
+                            <th>Nr. Pedido</th>
+                            <th>Diseño</th>
+                            <th>Cantidad</th>
                         </tr>
-                    </tbody>
-            </table>
+                    </thead>
+                        <tbody>
+                            <?php foreach ($arrDetallePedido as $detallePedido): ?>
+
+                                <?php $disenio = Disenio::obtenerPorIdItem($detallePedido->getIdItem()); ?>
+                            <tr>
+                                <td> <?php echo $detallePedido->getIdPedido(); ?> </td>
+                                <td> <?php echo $disenio ?> </td>
+                                <td> <?php echo $detallePedido->getCantidad(); ?> </td>
+                            </tr>
+
+                            <?php endforeach ?>
+                        </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

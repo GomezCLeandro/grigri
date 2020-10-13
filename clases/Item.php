@@ -5,10 +5,10 @@ require_once 'Item.php';
 
 class Item {
 
-	protected $_idItem;
+	public $_idItem;
 	protected $_idImagen;
 	protected $_nombre;
-	protected $_precio;
+	public $_precio;
 
 	public $arrImagen;
 
@@ -95,7 +95,36 @@ class Item {
 
         return $this;
     }
+/*
+    public function obtenerPrecio($idItem) {
+        $sql = "SELECT * FROM item WHERE id_item =".$idItem;
 
+        //var_dump($sql);
+        //exit;
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $registro = $datos->fetch_assoc();
+            $item = new Item($registro['descripcion']);
+            $item->_idItem = $registro['id_item'];
+            $item->_precio = $registro['precio'];
+        return $item;
+    }
+
+    private function _listadoItem($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $item = new Item($registro['descripcion']);
+            $item->_idItem = $registro['id_item'];
+            $item->_precio = $registro['precio'];
+
+            $listado[] = $item;
+        }
+        return $listado;
+    }
+*/
     public function guardar() {
 
         $sql = "INSERT INTO item (id_item, descripcion, precio) VALUES (NULL, '$this->_nombre', '$this->_precio')";

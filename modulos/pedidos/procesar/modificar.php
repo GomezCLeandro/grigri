@@ -7,14 +7,12 @@ require_once "../../../clases/DetallePedido.php";
 require_once "../../../clases/Usuario.php";
 
 $idPedido = $_POST['idPedido'];
-$idDetallePedido = $_POST['idDetallePedido'];
-$idUsuario = $_POST['idUsuario'];
-$idTipoEnvio = $_POST['cboEnvio'];
-$fechaEntrega = $_POST['txtFechaEntrega'];
-$idEstado = $_POST['cboEstado'];
-$idItem = $_POST['idItem'];
-$cantidad = $_POST['txtCantidad'];
-$fechaCreacion = $_POST['txtFechaCreacion'];
+$idUsuario = $_POST['usuario'];
+$idTipoEnvio = $_POST['tipoEnvio'];
+$fechaEntrega = $_POST['fechaEntrega'];
+$idEstado = $_POST['estadoPedido'];
+$arrItem = $_POST['item'];
+$fechaCreacion = $_POST['fechaCreacion'];
 
 if (empty($idUsuario)) {
 	$_SESSION['mensaje_error'] = "Debe ingresar para quien es el pedido";
@@ -54,13 +52,17 @@ $pedido->setLugarEntrega($lugarEntrega);
 
 $pedido->actualizar($idPedido);
 
-$detallePedido = DetallePedido::obtenerPorId($idDetallePedido);
-$detallePedido->setIdPedido($idPedido);
-$detallePedido->setIdItem($idItem);
-$detallePedido->setCantidad($cantidad);
+$detallePedido = DetallePedido::obtenerPorId($idPedido);
 
-$detallePedido->actualizar($idDetallePedido);
+foreach ($arrItem as $item) {
+	
+	$detallePedido->setIdPedido($idPedido);
+	$detallePedido->setIdItem($item['idItem']);
+	$detallePedido->setCantidad($item['cantidad']);
 
-header("location: /grigri/modulos/pedidos/listado.php");
+	$detallePedido->actualizar();
+}
+
+//header("location: /grigri/modulos/pedidos/listado.php");
 
 ?>

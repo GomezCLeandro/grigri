@@ -9,7 +9,7 @@ class Disenio extends Item {
 
     private $_idDisenio;
     private $_idSubCategoria;
-    private $_descripcion;
+    public $_descripcion;
 
     public $arrRecurso;
 

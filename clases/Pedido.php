@@ -1,6 +1,7 @@
 <?php
 
 require_once "MySQL.php";
+require_once "DetallePedido.php";
 
 class Pedido {
 	
@@ -12,6 +13,7 @@ class Pedido {
     private $_fechaCreacion;
 	private $_lugarEntrega;
 
+    private $_arrDetallePedido;
     const ACTIVO = 1;
 
     public function __construct() {
@@ -159,6 +161,18 @@ class Pedido {
         return $this;
     }
 
+    /**
+     * @param mixed $arrDetallePedido
+     *
+     * @return self
+     */
+    public function setArrDetallePedido()
+    {
+        $this->_arrDetallePedido = DetallePedido::obtenerPorIdPedido($this->_idPedido);
+
+        return $this;
+    }
+
     public function guardar() {
         $sql = "INSERT INTO pedido (id_pedido, id_usuario, id_envio, id_estado_pedido, fecha_entrega, lugar_entrega, fecha_creacion) "
         . "VALUES (NULL, '$this->_idUsuario', '$this->_idEnvio', '$this->_idEstadoPedido', '$this->_fechaEntrega', '$this->_lugarEntrega', '$this->_fechaCreacion')";
@@ -204,6 +218,8 @@ class Pedido {
     		$pedido->_fechaEntrega = $registro['fecha_entrega'];
             $pedido->_fechaCreacion = $registro['fecha_creacion'];
     		$pedido->_lugarEntrega = $registro['lugar_entrega'];
+            $pedido->setArrDetallePedido();
+
     		$listado[] = $pedido;
     	}
     	return $listado;
@@ -226,9 +242,44 @@ class Pedido {
     		$pedido->_fechaEntrega = $registro['fecha_entrega'];
             $pedido->_fechaCreacion = $registro['fecha_creacion'];
     		$pedido->_lugarEntrega = $registro['lugar_entrega'];
+            $pedido->setArrDetallePedido();
         return $pedido;
     }
 
+    public static function obtenerPedidoParaFacturar() {
+
+        $sql = "SELECT * FROM pedido WHERE id_estado_pedido = 6 OR id_estado_pedido = 7";
+        
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        $listado = self::_generarListadoTerminado($datos);
+
+        return $listado;
+    }
+
+    private function _generarListadoTerminado($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $pedido = new Pedido();
+            $pedido->_idPedido = $registro['id_pedido'];
+            $pedido->_idUsuario = $registro['id_usuario'];
+            $pedido->_idEstadoPedido = $registro['id_estado_pedido'];
+            $pedido->setArrDetallePedido();
+
+            $listado[] = $pedido;
+        }
+        return $listado;
+    }
+
+    public function calcularTotal() {
+        $total = 0;
+        foreach ($this->_arrDetallePedido as $detallePedido) {
+            $total = $total+$detallePedido->calcularSubTotal();
+        }
+        return $total;
+    }
 }
 
 ?>

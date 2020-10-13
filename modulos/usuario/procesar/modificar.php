@@ -92,36 +92,32 @@ $usuario->actualizar();
 
 $fotoPerfil = FotoPerfil::obtenerPorIdUsuario($usuario->getIdUsuario());
 
-if ($cambiar == "true") {
+//echo $fotoPerfil->getFoto();
+//exit;
 
-	if (empty($imagen['name'])) {
+if (!empty($imagen['name'])) {
 
-		$nombreImagen = "sinfoto.jpg";
+	$extension = pathinfo($imagen['name'], PATHINFO_EXTENSION);
 
-		$fotoPerfil->setFoto($nombreImagen);
+	$nombreSinEspacios = str_replace(" ", "_", $imagen['name']);
 
-	} else {
-		$extension = pathinfo($imagen['name'], PATHINFO_EXTENSION);
+	$fechaHora = date("dmYHis");
+	$nombreImagen = $fechaHora . "_" . $nombreSinEspacios;
 
-		$nombreSinEspacios = str_replace(" ", "_", $imagen['name']);
+	$rutaImagen = "../../../images/fotoPerfil/" . $nombreImagen;
 
-		$fechaHora = date("dmYHis");
-		$nombreImagen = $fechaHora . "_" . $nombreSinEspacios;
+	//highlight_string(var_export($rutaImagen,true));
+	//exit;
 
-		$rutaImagen = "../../../images/fotoPerfil/" . $nombreImagen;
+	move_uploaded_file($imagen['tmp_name'], $rutaImagen);
 
-		//highlight_string(var_export($rutaImagen,true));
-		//exit;
+	unlink("../../../images/fotoPerfil/" . $fotoPerfil->getFoto());
 
-		move_uploaded_file($imagen['tmp_name'], $rutaImagen);
-
-		$fotoPerfil->setFoto($nombreImagen);
-	}
-} else {
-	$nombreImagen = $fotoPerfil->getFoto();
+	$fotoPerfil->setFoto($nombreImagen);
+	
+	$fotoPerfil->actualizar();
 }
 
-$fotoPerfil->actualizar();
-
 header("location: /grigri/modulos/usuario/listado.php?id=$id");
+
 ?>

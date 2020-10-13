@@ -32,7 +32,7 @@ $listadoPedidos = Pedido::obtenerTodos();
                         <i class="zmdi zmdi-plus"></i>Pedido</a>
                     </div>
                     <div class="row m-t-30">
-                        <div class="col-md-12">
+                        <div>
                             <div class="table-responsive m-b-40">
 
                                 <table class="table table-borderless table-data3">
@@ -49,6 +49,7 @@ $listadoPedidos = Pedido::obtenerTodos();
                                                 <th>Accion</th>
                                             </tr>
                                         </thead>
+
                                         <?php if (!empty($listadoPedidos)): ?>
                                             <tbody>
                                             	<?php foreach ($listadoPedidos as $pedidos): ?>
@@ -56,7 +57,6 @@ $listadoPedidos = Pedido::obtenerTodos();
                                                     <?php $usuario = Usuario::obtenerPorId($pedidos->getIdUsuario()); ?>
                                                 	<?php $estado = EstadoPedido::obtenerPorId($pedidos->getIdEstadoPedido()); ?>
                                                     <?php $detallePedido = DetallePedido::obtenerPorIdPedido($pedidos->getIdPedido()); ?>
-                                                    <?php $disenio = Disenio::obtenerPorIdItem($detallePedido->getIdItem()); ?>
 
                                                     <?php $fechaInicio = new DateTime(date('Y-m-d')); ?>
                                                     <?php $fechaFinal = new DateTime($pedidos->getFechaEntrega()); ?>
@@ -77,21 +77,31 @@ $listadoPedidos = Pedido::obtenerTodos();
                                                     <td> <?php echo $usuario->getApellido(), ", " ,$usuario->getNombre() ; ?> </td>
                                                     <td> <?php echo $pedidos->getLugarEntrega(); ?> </td>
                                                     <?php
+
                                                         if ($estado->getIdEstadoPedido() == 1) {
-                                                            echo "<td><span class='role admin'>". $estado->getDescripcion() ."</span></td>";
+                                                            echo "<td><span class='badge badge-danger'>". $estado->getDescripcion() ."</span></td>";
                                                         }
                                                         if ($estado->getIdEstadoPedido() == 2) {
-                                                            echo "<td><span class='role user'>". $estado->getDescripcion() ."</span></td>";
+                                                            echo "<td><span class='badge badge-info'>". $estado->getDescripcion() ."</span></td>";
                                                         }
                                                         if ($estado->getIdEstadoPedido() == 3) {
-                                                            echo "<td><span class='role member'>". $estado->getDescripcion() ."</span></td>";
+                                                            echo "<td><span class='badge badge-success'>". $estado->getDescripcion() ."</span></td>";
                                                             $fechaEntrega = "<i class='fa fa-check'></i>";
+                                                        }
+                                                        if ($estado->getIdEstadoPedido() == 6) {
+                                                            echo "<td><span class='badge badge-primary'>". $estado->getDescripcion() ."</span></td>";
+                                                        }
+                                                        if ($estado->getIdEstadoPedido() == 7) {
+                                                            echo "<td><span class='badge badge-warning'>". $estado->getDescripcion() ."</span></td>";
+                                                        }
+                                                        if ($estado->getIdEstadoPedido() == 8) {
+                                                            echo "<td><span class='badge badge-info'>". utf8_encode($estado->getDescripcion()) ."</span></td>";
                                                         }
                                                     ?>
                                                     <td> <?php echo $pedidos->getFechaCreacion(); ?> </td>
                                                 	<td> <?php echo $pedidos->getFechaEntrega(); ?> </td>
-                                                    <td> <?php echo $fechaEntrega ?> </td>
-                                                    <td> <?php echo "$".$detallePedido->getCantidad() * $disenio->getPrecio(); ?> </td>
+                                                    <td> <?php echo $fechaEntrega; ?> </td>
+                                                    <td> <?php echo $pedidos->calcularTotal(); ?> </td>
                                                     <td>
                                                         <a class="btn btn-success btn-sm" href="../detallePedido/detallePedido.php?id=<?php echo $pedidos->getIdPedido(); ?>">Detalle</a>
                                                     	<a class="btn btn-secondary btn-sm" href="modificar.php?id=<?php echo $pedidos->getIdPedido(); ?>">Modificar</a>

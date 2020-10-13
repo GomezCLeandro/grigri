@@ -1,13 +1,16 @@
 <?php
 
 require_once 'MySQL.php';
+require_once 'Disenio.php';
 
 class DetallePedido {
 	
-	private $_idDetallePedido;
-	private $_idPedido;
-	private $_idItem;
-	private $_cantidad;
+	public $_idDetallePedido;
+	public $_idPedido;
+	public $_idItem;
+	public $_cantidad;
+
+    public $item;
 
     /**
      * @return mixed
@@ -56,7 +59,7 @@ class DetallePedido {
     {
         return $this->_idItem;
     }
-
+ 
     /**
      * @param mixed $_idItem
      *
@@ -100,9 +103,9 @@ class DetallePedido {
         $this->_idDetallePedido = $idInsertado;
     }
 
-    public function actualizar($idDetallePedido) {
-        $sql = "UPDATE detallepedido SET id_pedido = '$this->_idPedido',id_item = '$this->_idItem',cantidad = '$this->_cantidad' "
-        . "WHERE id_detalle_pedido =" . $idDetallePedido;
+    public function actualizar() {
+        $sql = "UPDATE detallepedido SET id_item = '$this->_idItem',cantidad = '$this->_cantidad' "
+        . "WHERE id_pedido = '$this->_idPedido'";
 
         $mysql = new MySQL();
         $mysql->actualizar($sql);
@@ -111,7 +114,7 @@ class DetallePedido {
 
     public static function obtenerPorId($id) {
 
-        $sql = "SELECT * FROM detallepedido WHERE id_detalle_pedido = " . $id;
+        $sql = "SELECT * FROM detallepedido WHERE id_pedido = " . $id;
 
         $mysql = new MySQL();
         $datos = $mysql->consulta($sql);
@@ -134,14 +137,38 @@ class DetallePedido {
         $datos = $mysql->consulta($sql);
         $mysql->desconectar();
 
-        $registro = $datos->fetch_assoc();
-    		$detallePedido = new DetallePedido();
-    		$detallePedido->_idDetallePedido = $registro['id_detalle_pedido'];
-    		$detallePedido->_idPedido = $registro['id_pedido'];
-    		$detallePedido->_idItem = $registro['id_item'];
-    		$detallePedido->_cantidad = $registro['cantidad'];
-        return $detallePedido;
+        $listado = self::_generarListadoDetallePedidos($datos);
+
+        return $listado;
     }
+
+    private function _generarListadoDetallePedidos($datos) {
+        $listado = array();
+        while ($registro = $datos->fetch_assoc()) {
+            $detallePedido = new DetallePedido();
+            $detallePedido->_idDetallePedido = $registro['id_detalle_pedido'];
+            $detallePedido->_idPedido = $registro['id_pedido'];
+            $detallePedido->_idItem = $registro['id_item'];
+            $detallePedido->_cantidad = $registro['cantidad'];
+            $detallePedido->item = self::obtenerItemPorIdItem($registro['id_item']);            
+
+            $listado[] = $detallePedido;
+        }
+        return $listado;
+    }
+
+    public function obtenerItemPorIdItem($idItem) {
+        return Disenio::obtenerPorIdItem($idItem);
+    }
+
+    public function calcularSubTotal() {
+        $item = Disenio::obtenerPorIdItem($this->_idItem);
+
+        $subTotal = $item->getPrecio() * $this->_cantidad;
+
+        return $subTotal;
+    }
+
 }
 
 ?>
