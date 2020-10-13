@@ -112,6 +112,14 @@ class DetallePedido {
         $mysql->desconectar();        
     }
 
+    public function eliminar($id) {
+        $sql = "DELETE FROM detallepedido WHERE id_pedido= " . $id;
+
+        $mysql = new MySQL();
+        $mysql->eliminar($sql);
+        $mysql->desconectar(); 
+    }
+
     public static function obtenerPorId($id) {
 
         $sql = "SELECT * FROM detallepedido WHERE id_pedido = " . $id;

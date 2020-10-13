@@ -1,5 +1,6 @@
 var total = 0.0;
 var detallePedido = []; // array
+var indice = 0;
 
 function setCantidad(id, nombre, precio){
     /*
@@ -19,6 +20,7 @@ function setCantidad(id, nombre, precio){
     let subtotal = calcularSubtotal(cantidad, precio);
     let items = {}; // items del detalle
     
+    items['indice'] = indice;
     items['id'] = id;
     items['cantidad'] = cantidad;
 

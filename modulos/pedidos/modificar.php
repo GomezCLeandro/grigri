@@ -41,7 +41,7 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 	    <div class="section__content section__content--p30">
 	        <div class="container-fluid">
 	            <div class="row">	
-					<div class="col-lg-6">
+					<div class="col-lg-12">
 						<div class="card">
 						    <div class="card-header">
 						        <strong>Modificar de Pedido</strong>
@@ -115,7 +115,7 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 					                    <label for="email-input" class=" form-control-label">Fecha de Entrega</label>
 					                </div>
 					                <div class="col-12 col-md-9">
-					                    <input type="date" id="txtDescripcion" name="txtFechaEntrega" value="<?php echo $pedido->getFechaEntrega(); ?>" class="form-control">
+					                    <input type="date" id="txtFechaEntrega" name="txtFechaEntrega" value="<?php echo $pedido->getFechaEntrega(); ?>" class="form-control">
 					                    <small class="help-block form-text">Fecha de Entrega</small>
 					                </div>
 					            </div>
@@ -124,7 +124,7 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 					                    <label for="email-input" class=" form-control-label">Fecha de Creacion</label>
 					                </div>
 					                <div class="col-12 col-md-9">
-					                    <input type="date" id="txtDescripcion" name="txtFechaCreacion" value="<?php echo $pedido->getFechaCreacion(); ?>" class="form-control">
+					                    <input type="date" id="txtFechaCreacion" name="txtFechaCreacion" value="<?php echo $pedido->getFechaCreacion(); ?>" class="form-control">
 					                    <small class="help-block form-text">Fecha de Creacion</small>
 					                </div>
 					            </div>
@@ -339,69 +339,94 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 </body>
 <script>
 
-$('#id_message_validacion').hide();
+	$('#id_message_validacion').hide();
+	var indice = 0;
 
-$.ajax({
-    type: 'GET',
-    url : 'obtenerDetallePedidoPorId.php',
-    data: {'idPedido': $('#txtIdPedido').val() },
+	$.ajax({
+	    type: 'GET',
+	    url : 'obtenerDetallePedidoPorId.php',
+	    data: {'idPedido': $('#txtIdPedido').val() },
 
-    success: function(data){
+	    success: function(data){
 
-        var datosDetallePedido = JSON.parse(data);
-        //console.log(datosDetallePedido);
+	        var datosDetallePedido = JSON.parse(data);
+	        //console.log(datosDetallePedido);
 
-        for (var x=0; datosDetallePedido[x] ; x+=1) {
+	        for (var x=0; datosDetallePedido[x] ; x+=1) {
 
-          	//console.log(datosDetallePedido[x]);
+	          	//console.log(datosDetallePedido[x]);
 
-            let subtotal = calcularSubtotal(datosDetallePedido[x]._cantidad, datosDetallePedido[x].item['_precio']);
+	            let subtotal = calcularSubtotal(datosDetallePedido[x]._cantidad, datosDetallePedido[x].item['_precio']);
 
-           	let items = {}; //items del detalle
+	           	let items = {}; //items del detalle
 
-            items['idItem'] = datosDetallePedido[x].item['_idItem'];
-            items['cantidad'] = datosDetallePedido[x]._cantidad;
+	           	items['indice'] = indice;
+	            items['id'] = datosDetallePedido[x].item['_idItem'];
+	            items['cantidad'] = datosDetallePedido[x]._cantidad;
 
-            //console.log(items);
-        	detallePedido.push(items); //armando detalle para el envio
-        	//console.log(detallePedido);
+	            //console.log(items);
+	        	detallePedido.push(items); //armando detalle para el envio
+	        	//console.log(detallePedido);
 
-            $('#tabla_detalle tr:last').after('<tr id=' + datosDetallePedido[x].item['_idItem'] +'><td>' + datosDetallePedido[x].item['_idItem'] + '</td><td>' + datosDetallePedido[x].item['_descripcion'] + '</td><td>$' + datosDetallePedido[x].item['_precio'] + '</td><td>' + datosDetallePedido[x]._cantidad + '</td><td>$' + subtotal + '</td><td> <button type="button" onclick="eliminarArticulo(' + datosDetallePedido[x]._idPedido + ')" class="btn btn-danger"><i class="far fa-trash-alt"></i></button></td></tr>');
-        }
-    }
-})
+	            $('#tabla_detalle tr:last').after('<tr id=' + indice +'><td>' + datosDetallePedido[x].item['_idItem'] + '</td><td>' + datosDetallePedido[x].item['_descripcion'] + '</td><td>$' + datosDetallePedido[x].item['_precio'] + '</td><td>' + datosDetallePedido[x]._cantidad + '</td><td>$' + subtotal + '</td><td> <button type="button" onclick="eliminarItem(' + indice + ')" class="btn btn-danger"><i class="far fa-trash-alt"></i></button></td></tr>');
 
-
-function guardarFormVentas(){
-
-	let idPedido = $('#txtIdPedido').val();
-	let usuario = $('#cboUsuario').val();
-	let tipoEnvio = $('#idTipoEnvio').val();
-	let estadoPedido = $('#cboEstado').val();
-	let fechaCreacion = $('#txtFechaCreacion').val();
-	let fechaEntrega = $('#txtFechaEntrega').val();
-
-	if (detallePedido.length > 0){
-	    $.ajax({
-	        type: 'post',
-	        url: 'procesar/modificar.php',
-	        data: {  
-	        	'idPedido': idPedido,
-	        	'usuario': usuario,             
-	        	'tipoEnvio': tipoEnvio,
-	        	'fechaCreacion': fechaCreacion,
-	        	'fechaEntrega': fechaEntrega,
-	        	'item': detallePedido,
-	        	'estadoPedido' : estadoPedido
-	        },
-	        success: function(data){
-	            console.log(data)
+	            indice ++;
 	        }
-	    })
-    }else{
-        $('#id_message_validacion').show();
-    }
-}
+	    }
+	})
+
+	//console.log(detallePedido);
+
+	function eliminarItem(indiceDelete){
+			let respuesta=[];
+			for (let index = 0; index < detallePedido.length; index++){
+				if(detallePedido[index].indice !== indiceDelete){
+					respuesta.push(detallePedido[indice])
+					//console.log(respuesta[index]);
+				} else {
+					console.log('borra este id');
+					console.log(index);
+					$('#' + detallePedido[index].indice).remove();
+					//restarSubTotal(detallePedido[index].subtotal);
+					//respuesta.splice(index, 1);
+				}
+			}
+			//console.log(respuesta);
+			detallePedido = respuesta;
+			console.log(detallePedido);
+			return detallePedido;		
+	}
+	
+	function guardarFormVentas(){
+
+		let idPedido = $('#txtIdPedido').val();
+		let usuario = $('#cboUsuario').val();
+		let tipoEnvio = $('#idTipoEnvio').val();
+		let estadoPedido = $('#cboEstado').val();
+		let fechaCreacion = $('#txtFechaCreacion').val();
+		let fechaEntrega = $('#txtFechaEntrega').val();
+
+		if (detallePedido.length > 0){
+		    $.ajax({
+		        type: 'post',
+		        url: 'procesar/modificar.php',
+		        data: {  
+		        	'idPedido': idPedido,
+		        	'usuario': usuario,             
+		        	'tipoEnvio': tipoEnvio,
+		        	'fechaCreacion': fechaCreacion,
+		        	'fechaEntrega': fechaEntrega,
+		        	'item': detallePedido,
+		        	'estadoPedido' : estadoPedido
+		        },
+		        success: function(data){
+		            console.log(data)
+		        }
+		    })
+	    }else{
+	        $('#id_message_validacion').show();
+	    }
+	}
 
 </script>
 

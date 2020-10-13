@@ -52,15 +52,17 @@ $pedido->setLugarEntrega($lugarEntrega);
 
 $pedido->actualizar($idPedido);
 
-$detallePedido = DetallePedido::obtenerPorId($idPedido);
+DetallePedido::eliminar($idPedido);
 
 foreach ($arrItem as $item) {
 	
+	$detallePedido = new DetallePedido;
+
 	$detallePedido->setIdPedido($idPedido);
-	$detallePedido->setIdItem($item['idItem']);
+	$detallePedido->setIdItem($item['id']);
 	$detallePedido->setCantidad($item['cantidad']);
 
-	$detallePedido->actualizar();
+	$detallePedido->guardar();
 }
 
 //header("location: /grigri/modulos/pedidos/listado.php");
