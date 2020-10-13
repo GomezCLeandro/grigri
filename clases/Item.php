@@ -5,10 +5,10 @@ require_once 'Item.php';
 
 class Item {
 
-	protected $_idItem;
+	public $_idItem;
 	protected $_idImagen;
 	protected $_nombre;
-	protected $_precio;
+	public $_precio;
 
 	public $arrImagen;
 
