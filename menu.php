@@ -85,16 +85,34 @@ if (is_null($imagen)) {
             <div>
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
-                            <?php foreach ($usuario->perfil->getModulos() as $modulo): ?>
+                        
+                        <?php foreach ($usuario->perfil->getModulos() as $modulo): ?>
+                            
+                            <?php if ($modulo == 'Catalogo') : ?>
+                                <li>
+                                    <a href="#" class="js-arrow"><i class="fa fa-circle"></i>Catalogo<span class="fa arrow"></span></a>
+                                    <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                                        <li>
+                                            <a href="/grigri/modulos/catalogo/inicio.php">Inicio</a>
+                                        </li>
+                                        <li>
+                                            <a href="/grigri/modulos/catalogo/catalogoDisenio.php">Diseños</a>
+                                        </li>
+                                        <li>
+                                            <a href="/grigri/modulos/catalogo/catalogoServicio.php">Servicios</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php else: ?>
+                            <li>
+    							<a href="/grigri/modulos/<?php echo $modulo->getDirectorio()?>/listado.php">
+    								
+                                    <i class="fa fa-circle"></i><?php echo utf8_encode($modulo); ?></a>
+                            </li>
+                            <?php endif ?>
+						
+						<?php endforeach ?>
 
-							<a href="/grigri/modulos/<?php echo $modulo->getDirectorio()?>/listado.php">
-								
-                                <i class="fa fa-circle"></i><?php echo utf8_encode($modulo); ?></a>
-							
-							<?php endforeach ?>
-
-                        </li>
                     </ul>
                 </nav>
             </div>
