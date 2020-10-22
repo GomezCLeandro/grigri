@@ -25,6 +25,12 @@ function setCantidad(id, nombre, precio){
     items['cantidad'] = cantidad;
 
     detallePedido.push(items); // armando mi detalle para el envio
+    console.log(detallePedido);
 
-    $('#tabla_detalle tr:last').after('<tr><td>' + id + '</td><td>' + nombre + '</td><td>' + precio +'</td><td>' + cantidad + '</td><td>' + subtotal + '</td> <td class="text-right"> <i class="mr-2" data-feather="trash"></i></td></tr>')
+    $('#tabla_detalle tr:last').after('<tr><td>' + id + '</td><td>' + nombre + '</td><td>' + precio +'</td><td>' + cantidad + '</td><td>' + subtotal + 
+        '</td><td> <button type="button" onclick="eliminarItem(' + indice + ')" class="btn btn-danger"><i class="far fa-trash-alt"></i></button></td></tr>');
+
+    indice ++;
 }
+
+//console.log(detallePedido);

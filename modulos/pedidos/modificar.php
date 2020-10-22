@@ -29,8 +29,10 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 	<title>Modificar Pedido</title>
 
 	<script type="text/javascript" src="../../js/validaciones/validacionModulos.js"></script>
-	<script type="text/javascript" src="../../js/pedido/setCantidad.js"></script>
+	<script type="text/javascript" src="../../js/pedido/guardarModificar.js"></script>
+	<!--<script type="text/javascript" src="../../js/pedido/setCantidad.js"></script>-->
 	<script type="text/javascript" src="../../js/pedido/calcularSubtotal.js"></script>
+	<script type="text/javascript" src="../../js/pedido/eliminarItem.js"></script>
 
 </head>
 <body>
@@ -194,7 +196,7 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 											<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalServicio">
                                             	<i class="fa fa-list-ol" ></i>&nbsp; Listado de Servicios</button>
 
-				                            <button onclick="guardarFormVentas()" class="btn btn-success has-icon ml-sm-1 mt-1 mt-sm-0" type="button">
+				                            <button onclick="guardarModificar()" class="btn btn-success has-icon ml-sm-1 mt-1 mt-sm-0" type="button">
 				                            <i class="fa fa-save" data-feather="printer"></i> Guardar
 				                            </button>
                                             <!--
@@ -340,7 +342,9 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 <script>
 
 	$('#id_message_validacion').hide();
+	var total = 0.0;
 	var indice = 0;
+	var detallePedido = []; // array
 
 	$.ajax({
 	    type: 'GET',
@@ -363,10 +367,13 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 	           	items['indice'] = indice;
 	            items['id'] = datosDetallePedido[x].item['_idItem'];
 	            items['cantidad'] = datosDetallePedido[x]._cantidad;
+			    items['precio'] = datosDetallePedido[x]._precio;
+				items['subtotal'] = subtotal;
+
 
 	            //console.log(items);
 	        	detallePedido.push(items); //armando detalle para el envio
-	        	//console.log(detallePedido);
+	        	console.log(detallePedido);
 
 	            $('#tabla_detalle tr:last').after('<tr id=' + indice +'><td>' + datosDetallePedido[x].item['_idItem'] + '</td><td>' + datosDetallePedido[x].item['_descripcion'] + '</td><td>$' + datosDetallePedido[x].item['_precio'] + '</td><td>' + datosDetallePedido[x]._cantidad + '</td><td>$' + subtotal + '</td><td> <button type="button" onclick="eliminarItem(' + indice + ')" class="btn btn-danger"><i class="far fa-trash-alt"></i></button></td></tr>');
 
@@ -375,8 +382,80 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 	    }
 	})
 
-	//console.log(detallePedido);
+	function setCantidad(id, nombre, precio){
+	    /*
+	      cargar detalle de venta
+	    */
 
+		let cantidad = prompt('Ingrese la cantidad')
+
+		//console.log(nombre, cantidad, precio, id);
+
+		//console.log(isNaN(cantidad));
+
+		if (cantidad == null || cantidad == "") {
+			return false;
+		}
+
+	    let subtotal = calcularSubtotal(cantidad, precio);
+	    let items = {}; // items del detalle
+	    
+	    items['indice'] = indice;
+	    items['id'] = id;
+	    items['cantidad'] = cantidad;
+	    items['precio'] = precio;
+		items['subtotal'] = subtotal;
+
+	    detallePedido.push(items); // armando mi detalle para el envio
+	    console.log(detallePedido);
+
+	    $('#tabla_detalle tr:last').after('<tr id=' + indice + ' ><td >' + id + '</td><td>' + nombre + '</td><td>$' + precio +'</td><td>' + cantidad + '</td><td>$' + subtotal + 
+	        '</td><td> <button type="button" onclick="eliminarItem(' + indice + ')" class="btn btn-danger"><i class="far fa-trash-alt"></i></button></td></tr>');
+
+	    indice ++;
+	}
+
+	function eliminarItem(indiceDelete){
+		let respuesta=[];
+
+		//console.log('muestro lo que voy a borrar');
+		//console.log(indiceDelete);
+
+		for (let index = 0; detallePedido[index]; index++){
+
+			if(detallePedido[index].indice !== indiceDelete){
+
+				respuesta.push(detallePedido[index])
+				//console.log(detallePedido);
+				//console.log(respuesta[index]);
+
+			} else {
+
+				//console.log('borra este indice');
+				//console.log(index);
+				$('#' + detallePedido[index].indice).remove();
+				restarSubtotal(detallePedido[index].subtotal);
+				//respuesta.splice(index, 1);
+			}
+			//console.log(detallePedido[index]);
+		}
+		//console.log(respuesta);
+		detallePedido = respuesta;
+		console.log(detallePedido);
+		return detallePedido;
+	}
+
+	function restarSubtotal(precio){
+	    let resultado = precio;
+	    total -= resultado; //restar cantidad
+	    $('#id_total').text('$' + total);
+	    console.log(resultado);
+	    return total;
+
+	}
+
+	//console.log(detallePedido);
+	/*
 	function eliminarItem(indiceDelete){
 		let respuesta=[];
 		for (let index = 0; index < detallePedido.length; index++){
@@ -397,7 +476,7 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 		return detallePedido;		
 	}
 	
-	function guardarFormVentas(){
+	function guardarModificar(){
 
 		let idPedido = $('#txtIdPedido').val();
 		let usuario = $('#cboUsuario').val();
@@ -427,7 +506,7 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 	        $('#id_message_validacion').show();
 	    }
 	}
-
+	*/
 </script>
 
 </body>

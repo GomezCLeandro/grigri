@@ -19,8 +19,10 @@ $listadoServicio = Servicio::obtenerTodos();
 	<title>Alta Pedido</title>
 
 	<script type="text/javascript" src="../../js/validaciones/validacionItem.js"></script>
+	<script type="text/javascript" src="../../js/pedido/guardarAlta.js"></script>
 	<script type="text/javascript" src="../../js/pedido/setCantidad.js"></script>
 	<script type="text/javascript" src="../../js/pedido/calcularSubtotal.js"></script>
+	<script type="text/javascript" src="../../js/pedido/eliminarItem.js"></script>
 
 </head>
 <body>
@@ -141,7 +143,7 @@ $listadoServicio = Servicio::obtenerTodos();
 														<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalServicio">
 			                                            	<i class="fa fa-list-ol" ></i>&nbsp; Listado de Servicios</button>
 
-							                            <button onclick="guardarFormVentas()" class="btn btn-success has-icon ml-sm-1 mt-1 mt-sm-0" type="button">
+							                            <button onclick="guardarAlta()" class="btn btn-success has-icon ml-sm-1 mt-1 mt-sm-0" type="button">
 							                            <i class="fa fa-save" data-feather="printer"></i> Guardar
 							                            </button>
 			                                            <!--
@@ -290,7 +292,8 @@ $listadoServicio = Servicio::obtenerTodos();
 <script>
 
 $('#id_message_validacion').hide();
-function guardarFormVentas(){
+/*
+function guardarAlta(){
 
 	let usuario = $('#cboUsuario').val();
 	let tipoEnvio = $('#idTipoEnvio').val();	
@@ -316,7 +319,7 @@ function guardarFormVentas(){
         $('#id_message_validacion').show();
     }
 }
-
+*/
 </script>
 <!--
 
