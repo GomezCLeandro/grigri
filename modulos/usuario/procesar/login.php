@@ -15,7 +15,7 @@ if ($usuario->estaLogueado()) {
 	$_SESSION['usuario'] = $usuario;
 
 	if ($idPerfil == 1) {
-		header("location: ../../../dashboard.php");
+		header("location: ../../dashboard/dashboard.php");
 	} else {
 		header("location: ../../../inicio.php");	
 	}

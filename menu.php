@@ -89,7 +89,7 @@ if (is_null($imagen)) {
             <div>
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        
+
                         <?php foreach ($usuario->perfil->getModulos() as $modulo): ?>
                             
                             <?php if ($modulo == 'Catalogo') : ?>
@@ -107,14 +107,21 @@ if (is_null($imagen)) {
                                         </li>
                                     </ul>
                                 </li>
-                            <?php else: ?>
-                            <li>
-    							<a href="/grigri/modulos/<?php echo $modulo->getDirectorio()?>/listado.php">
-    								
-                                    <i class="fa fa-circle"></i><?php echo utf8_encode($modulo); ?></a>
-                            </li>
+                            <?php elseif ($modulo == 'Dashboard') : ?>
+                                <li>
+                                    <a href="/grigri/modulos/<?php echo $modulo->getDirectorio() . '/' . 'dashboard.php'?>">
+                                        
+                                        <i class="fa fa-circle"></i><?php echo utf8_encode($modulo); ?></a>
+                                </li>
+                            <?php else : ?>
+                            
+                                <li>
+        							<a href="/grigri/modulos/<?php echo $modulo->getDirectorio()?>/listado.php">
+        								
+                                        <i class="fa fa-circle"></i><?php echo utf8_encode($modulo); ?></a>
+                                </li>
+
                             <?php endif ?>
-						
 						<?php endforeach ?>
 
                     </ul>
