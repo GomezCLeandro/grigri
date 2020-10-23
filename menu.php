@@ -59,6 +59,10 @@ if (is_null($imagen)) {
     <!-- Main CSS-->
     <link href="/grigri/css/theme.css" rel="stylesheet" media="all">
 
+    <!-- FullCalendar -->
+    <link href='/grigri/vendor/fullcalendar-3.10.0/fullcalendar.css' rel='stylesheet' media="all" />
+    
+
 </head>
 
 <body class="animsition">
@@ -207,8 +211,9 @@ if (is_null($imagen)) {
     <script src="/grigri/vendor/circle-progress/circle-progress.min.js"></script>
     <script src="/grigri/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="/grigri/vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="/grigri/vendor/select2/select2.min.js">
-    </script>
+    <script src="/grigri/vendor/select2/select2.min.js"></script>
+    <script src="/grigri/vendor/fullcalendar-3.10.0/lib/moment.min.js"></script>
+    <script src="/grigri/vendor/fullcalendar-3.10.0/fullcalendar.js"></script>
 
     <!-- Main JS-->
     <script src="/grigri/js/main 2.js"></script>
