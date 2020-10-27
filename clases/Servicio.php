@@ -100,20 +100,6 @@ class Servicio extends Item {
         return $servicio;
     }
 
-    public static function obtenerPorIdItem($idItem) {
-
-        $sql = "SELECT * FROM servicio JOIN item ON item.id_item = servicio.id_item WHERE item.id_item= ".$idItem;
-
-        $mysql = new MySQL();
-        $datos = $mysql->consulta($sql);
-        $mysql->desconectar();
-
-        $registro = $datos->fetch_assoc();
-
-        $servicio = self::_generarServicio($registro);
-        return $servicio;
-    }
-
     public function guardar() {
         parent::guardar();
 

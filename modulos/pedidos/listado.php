@@ -28,14 +28,9 @@ $listadoPedidos = Pedido::obtenerTodos();
             <div class="section__content section__content--p30">
                 <div>
                     <div>
-                        <a class="au-btn au-btn-icon au-btn--blue" href="alta.php">
-                            <i class="zmdi zmdi-plus"></i>Pedido</a>
-
-                        <a class="btn btn-info" href="../informe/informePedidosPendientes.php">Pedidos Pendientes</a>
-
-                        <a class="btn btn-info" href="../informe/informePedidosSenados.php">Pedidos Señados</a>
-
-                    </div> 
+                    <a class="au-btn au-btn-icon au-btn--blue" href="alta.php">
+                        <i class="zmdi zmdi-plus"></i>Pedido</a>
+                    </div>
                     <div class="row m-t-30">
                         <div>
                             <div class="table-responsive m-b-40">

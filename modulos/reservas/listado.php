@@ -53,9 +53,6 @@ exit;
 
 <script>
 
-
-    var $info = 0;
-
     $('#calendar').fullCalendar({
         locale: 'es',
         height: 650,
@@ -65,11 +62,9 @@ exit;
             right: 'month,agendaWeek,agendaDay,listWeek'
         },
         events: '/grigri/modulos/reservas/eventos.php',
-        eventClick: function(evento) {
-            window.location.href = "modificar.php?id=" + evento._id;
-        }
+        
     });
-/**/
+
 </script>
 
 </body>

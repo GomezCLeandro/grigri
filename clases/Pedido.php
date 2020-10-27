@@ -194,29 +194,6 @@ class Pedido {
         $mysql->desconectar();        
     }
 
-    public static function pendientes() {
-        $sql = "SELECT * FROM pedido WHERE id_estado_pedido = 1";
-        
-        $mysql = new MySQL();
-        $datos = $mysql->consulta($sql);
-        $mysql->desconectar();  
-
-        $listado = self::_generarListadoPedidos($datos);
-
-        return $listado;
-    }
-
-    public static function senados() {
-        $sql = "SELECT * FROM pedido WHERE id_estado_pedido = 8";
-        
-        $mysql = new MySQL();
-        $datos = $mysql->consulta($sql);
-        $mysql->desconectar();  
-
-        $listado = self::_generarListadoPedidos($datos);
-
-        return $listado;
-    }
 
     public static function obtenerTodos(){
         $sql = "SELECT * FROM pedido";

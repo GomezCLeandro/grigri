@@ -13,13 +13,6 @@ class Reserva {
 	public $notacion;
 	public $titulo;
 
-    const ACTIVO = 1;
-
-    public function __construct() {
-
-        $this->idEstadoReserva = self::ACTIVO;
-    }
-
     /**
      * @return mixed
      */
@@ -160,7 +153,7 @@ class Reserva {
         return $this;
     }
 
-    public static function obtenerTodos(){
+    public static function obtenerFecha(){
         //$sql = "SELECT fecha_reserva FROM reserva";
 
     	$sql = "SELECT reserva.id_reserva, reserva.id_usuario, servicio.id_servicio, servicio.id_item, servicio.descripcion, "
@@ -192,55 +185,6 @@ class Reserva {
             $listado[] = $reserva;
         }
         return $listado;
-    }
-
-    public static function obtenerPorId($idReserva){
-    	$sql = "SELECT reserva.id_reserva, reserva.id_usuario, servicio.id_servicio, servicio.id_item, servicio.descripcion, "
-    		. "reserva.id_estado_reserva, reserva.fecha_reserva, reserva.lugar_reserva, reserva.notacion "
-    		. "FROM `reserva` "
-    		. "INNER JOIN servicio on servicio.id_servicio = reserva.id_servicio WHERE reserva.id_reserva =" . $idReserva;
-
-        $mysql = new MySQL();
-        $datos = $mysql->consulta($sql);
-        $mysql->desconectar();
-
-        $data = $datos->fetch_assoc();
-        $reserva = null;
-
-        if ($datos->num_rows > 0) {
-
-            $reserva = new Reserva();
-            $reserva->idReserva = $data['id_reserva'];
-            $reserva->idUsuario = $data['id_usuario'];
-            $reserva->idServicio = $data['id_servicio'];
-            $reserva->idEstadoReserva = $data['id_estado_reserva'];
-            $reserva->fechaReserva = $data['fecha_reserva'];
-            $reserva->lugarReserva = $data['lugar_reserva'];
-            $reserva->notacion = $data['notacion'];
-        }
-        return $reserva;
-    }
-
-    public function guardar() {
-        $sql = "INSERT INTO reserva (id_reserva, id_usuario, id_servicio, id_estado_reserva, fecha_reserva, lugar_reserva) "
-        . "VALUES (NULL, '$this->idUsuario', '$this->idServicio', '$this->idEstadoReserva', '$this->fechaReserva', '$this->lugarReserva')";
-
-        $mysql = new MySQL();
-        $idInsertado = $mysql->insertar($sql);
-        $mysql->desconectar();
-
-        $this->idReserva = $idInsertado;
-    }
-
-    public function actualizar($idReserva) {
-
-        $sql = "UPDATE reserva SET id_usuario = '$this->idUsuario', id_servicio = '$this->idServicio', id_estado_reserva = '$this->idEstadoReserva',"
-        . " fecha_reserva = '$this->fechaReserva', lugar_reserva = '$this->lugarReserva'"
-        . " WHERE id_reserva = " . $idReserva;
-
-        $mysql = new MySQL();
-        $mysql->actualizar($sql);
-        $mysql->desconectar();
     }
 
     /**
