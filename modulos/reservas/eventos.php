@@ -2,16 +2,17 @@
 
 require_once "../../clases/Reserva.php";
 
-$reserva = Reserva::obtenerFecha();
+$reserva = Reserva::obtenerTodos();
 
 //print json_encode($reserva);
 
 $eventos = [];
 $i = 0;
 
-foreach ($reserva as $fecha) {
-	$eventos[$i]['title'] = $fecha->getTitulo();
-	$eventos[$i]['start'] = $fecha->getFechaReserva();
+foreach ($reserva as $evento) {
+	$eventos[$i]['title'] = $evento->getTitulo();
+	$eventos[$i]['start'] = $evento->getFechaReserva();
+	$eventos[$i]['_id'] = $evento->getIdReserva();
 	$i += 1;
 }
 
