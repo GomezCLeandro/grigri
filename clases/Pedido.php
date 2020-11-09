@@ -194,6 +194,19 @@ class Pedido {
         $mysql->desconectar();        
     }
 
+    public static function masVendido() {
+        $sql = "SELECT  item.descripcion, SUM(detallepedido.cantidad) AS cantidad FROM pedido"
+            . " INNER JOIN detallepedido ON detallepedido.id_pedido = pedido.id_pedido"
+            . " INNER JOIN item ON item.id_item = detallepedido.id_item"
+            . " GROUP BY item.descripcion ORDER BY cantidad DESC";
+
+        $mysql = new MySQL();
+        $datos = $mysql->consulta($sql);
+        $mysql->desconectar();
+
+        return $datos;
+    }
+
     public static function pendientes() {
         $sql = "SELECT * FROM pedido WHERE id_estado_pedido = 1";
         

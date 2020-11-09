@@ -48,31 +48,19 @@ if (isset($fechaDesde) && isset($fechaHasta)) {
                                 <div>
                                     <div >
                                         <div >
-                                            <a href="../informe/informePedidosPendientes.php">
+                                            <a href="../informe/PedidosPendientes.php">
                                                 <input type="button" class="btn btn-info" value="Informe Pedidos Pendientes">
                                             </a>
-                                            <a href="../informe/informePedidosSenados.php">
+                                            <a href="../informe/PedidosSenados.php">
                                                 <input type="button"class="btn btn-info" value="Informe Pedidos Señados">
+                                            </a>
+                                            <a href="../informe/DisenosMasVendido.php">
+                                                <input type="button"class="btn btn-info" value="Diseños Mas Vendido">
                                             </a>
                                         </div>  
                                     </div>  
                                 </div>
-                                <div>
-                                    <div >
-                                        <div>
-                                            <label>Fecha Desde</label>
-                                            <input type='date' name='txtFechaDesde'>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <label>Fecha Hasta</label>  
-                                            <input type='date' name='txtFechaHasta'>
-                                        </div>
-                                    </div>
-                                </div>
                             </section>
-                            <input type='submit' value='Consultar'>
                         </form>
                         <br>
                         <?php if (!is_null($datos)): ?>

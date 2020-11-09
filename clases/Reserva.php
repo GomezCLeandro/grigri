@@ -13,7 +13,7 @@ class Reserva {
 	public $notacion;
 	public $titulo;
 
-    const ACTIVO = 1;
+    const ACTIVO = 2;
 
     public function __construct() {
 

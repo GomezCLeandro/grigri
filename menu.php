@@ -101,7 +101,7 @@ if (is_null($imagen)) {
                                     <a href="#" class="js-arrow"><i class="fa fa-circle"></i>Catalogo<span class="fa arrow"></span></a>
                                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                         <li>
-                                            <a href="/grigri/inicioCatalogo.php">Inicio</a>
+                                            <a href="/grigri/modulos/catalogo/inicioCatalogo.php">Inicio</a>
                                         </li>
                                         <li>
                                             <a href="/grigri/modulos/catalogo/catalogoDisenios.php">Diseños</a>
