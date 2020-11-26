@@ -90,13 +90,12 @@ $listadoModulos = Modulo::obtenerTodos();
                                         </div>
                                     </div>
 
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-dot-circle-o"></i> Modificar
-                                    </button>
-                                </div>
                                 </form>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-sm" onclick="validarDatos()">
+                                    <i class="fa fa-dot-circle-o"></i> Guardar
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -104,6 +103,6 @@ $listadoModulos = Modulo::obtenerTodos();
             </div>
         </div>
     </div>
-    
+
 </body>
 </html>

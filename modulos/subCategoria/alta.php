@@ -69,14 +69,13 @@ $listadoCategoria = Categoria::obtenerTodos();
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-		                        <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-dot-circle-o"></i> Guardar
-                                    </button>
-                                </div>
-				            	</form>
-	                        </div>
+			                    </form>
+			                </div>
+			                <div class="card-footer">
+			                    <button class="btn btn-primary btn-sm" onclick="validarDatos()">
+			                        <i class="fa fa-dot-circle-o"></i> Guardar
+			                    </button>
+			                </div>
 			            </div>
 		            </div>
 		        </div>

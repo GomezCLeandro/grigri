@@ -8,7 +8,6 @@ $password = $_POST['txtPassword'];
 $usuario = Usuario::login($username, $password);
 
 
-
 if ($usuario->estaLogueado()) {
 	$idPerfil = $usuario->perfil->getIdPerfil();	
 	session_start();
@@ -17,7 +16,7 @@ if ($usuario->estaLogueado()) {
 	if ($idPerfil == 1) {
 		header("location: ../../dashboard/dashboard.php");
 	} else {
-		header("location: ../../../inicio.php");	
+		header("location: ../../catalogo/inicioCatalogo.php");	
 	}
 
 } else {

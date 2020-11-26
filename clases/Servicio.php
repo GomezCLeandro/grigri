@@ -6,7 +6,7 @@ require_once 'Item.php';
 class Servicio extends Item {
 
 	private $_idServicio;
-	private $_descripcion;
+	public $_descripcion;
 
     /**
      * @return mixed
@@ -109,8 +109,11 @@ class Servicio extends Item {
         $mysql->desconectar();
 
         $registro = $datos->fetch_assoc();
-
-        $servicio = self::_generarServicio($registro);
+        $servicio = new Servicio($registro['descripcion']);
+            $servicio->_descripcion = $registro['descripcion'];
+            $servicio->_idServicio = $registro['id_servicio'];
+            $servicio->_idItem = $registro['id_item'];
+            $servicio->_precio = $registro['precio'];
         return $servicio;
     }
 

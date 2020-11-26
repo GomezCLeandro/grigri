@@ -9,6 +9,7 @@ class Reserva {
 	public $idServicio;
 	public $idEstadoReserva;
 	public $fechaReserva;
+    public $horaReserva;
 	public $lugarReserva;
 	public $notacion;
 	public $titulo;
@@ -160,11 +161,31 @@ class Reserva {
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getHoraReserva()
+    {
+        return $this->horaReserva;
+    }
+
+    /**
+     * @param mixed $horaReserva
+     *
+     * @return self
+     */
+    public function setHoraReserva($horaReserva)
+    {
+        $this->horaReserva = $horaReserva;
+
+        return $this;
+    }
+
     public static function obtenerTodos(){
         //$sql = "SELECT fecha_reserva FROM reserva";
 
     	$sql = "SELECT reserva.id_reserva, reserva.id_usuario, servicio.id_servicio, servicio.id_item, servicio.descripcion, "
-    		. "reserva.id_estado_reserva, reserva.fecha_reserva, reserva.lugar_reserva, reserva.notacion "
+    		. "reserva.id_estado_reserva, reserva.fecha_reserva, reserva.lugar_reserva, reserva.notacion, TIME_FORMAT(TIME(reserva.hora),'%H:%i') AS hora "
     		. "FROM `reserva` "
     		. "INNER JOIN servicio on servicio.id_servicio = reserva.id_servicio";
 
@@ -185,6 +206,7 @@ class Reserva {
 			$reserva->idServicio = $registro['id_servicio'];
 			$reserva->idEstadoReserva = $registro['id_estado_reserva'];
 			$reserva->fechaReserva = $registro['fecha_reserva'];
+            $reserva->horaReserva = $registro['hora'];
 			$reserva->lugarReserva = $registro['lugar_reserva'];
 			$reserva->notacion = $registro['notacion'];
 			$reserva->titulo = $registro['descripcion'];
@@ -196,7 +218,7 @@ class Reserva {
 
     public static function obtenerPorId($idReserva){
     	$sql = "SELECT reserva.id_reserva, reserva.id_usuario, servicio.id_servicio, servicio.id_item, servicio.descripcion, "
-    		. "reserva.id_estado_reserva, reserva.fecha_reserva, reserva.lugar_reserva, reserva.notacion "
+    		. "reserva.id_estado_reserva, reserva.fecha_reserva, reserva.lugar_reserva, reserva.notacion, TIME_FORMAT(TIME(reserva.hora),'%H:%i') AS hora "
     		. "FROM `reserva` "
     		. "INNER JOIN servicio on servicio.id_servicio = reserva.id_servicio WHERE reserva.id_reserva =" . $idReserva;
 
@@ -215,6 +237,7 @@ class Reserva {
             $reserva->idServicio = $data['id_servicio'];
             $reserva->idEstadoReserva = $data['id_estado_reserva'];
             $reserva->fechaReserva = $data['fecha_reserva'];
+            $reserva->horaReserva = $data['hora'];
             $reserva->lugarReserva = $data['lugar_reserva'];
             $reserva->notacion = $data['notacion'];
         }
@@ -222,8 +245,8 @@ class Reserva {
     }
 
     public function guardar() {
-        $sql = "INSERT INTO reserva (id_reserva, id_usuario, id_servicio, id_estado_reserva, fecha_reserva, lugar_reserva) "
-        . "VALUES (NULL, '$this->idUsuario', '$this->idServicio', '$this->idEstadoReserva', '$this->fechaReserva', '$this->lugarReserva')";
+        $sql = "INSERT INTO reserva (id_reserva, id_usuario, id_servicio, id_estado_reserva, fecha_reserva, hora, lugar_reserva) "
+        . "VALUES (NULL, '$this->idUsuario', '$this->idServicio', '$this->idEstadoReserva', '$this->fechaReserva', '$this->horaReserva', '$this->lugarReserva')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
@@ -235,7 +258,7 @@ class Reserva {
     public function actualizar($idReserva) {
 
         $sql = "UPDATE reserva SET id_usuario = '$this->idUsuario', id_servicio = '$this->idServicio', id_estado_reserva = '$this->idEstadoReserva',"
-        . " fecha_reserva = '$this->fechaReserva', lugar_reserva = '$this->lugarReserva'"
+        . " fecha_reserva = '$this->fechaReserva', hora = '$this->horaReserva', lugar_reserva = '$this->lugarReserva'"
         . " WHERE id_reserva = " . $idReserva;
 
         $mysql = new MySQL();
@@ -262,6 +285,7 @@ class Reserva {
 
         return $this;
     }
+
 }
 
 ?>

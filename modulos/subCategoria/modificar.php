@@ -83,71 +83,19 @@ $listadoCategoria = Categoria::obtenerTodos();
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-		                        <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-dot-circle-o"></i> Guardar
-                                    </button>
-                                </div>
-				            	</form>
-	                        </div>
-			            </div>
+			                    </form>
+			                </div>
+			                <div class="card-footer">
+			                    <button class="btn btn-primary btn-sm" onclick="validarDatos()">
+			                        <i class="fa fa-dot-circle-o"></i> Guardar
+			                    </button>
+			                </div>	
+                        </div>
 		            </div>
-		        </div>
-		    </div>
-		</div>
+	            </div>
+	        </div>
+	    </div>
 	</div>
-
-<div align="center">
-
-        <?php if (isset($_SESSION['mensaje_error'])) : ?>
-
-            <font color="red"> 
-              	<?php echo $_SESSION['mensaje_error']; ?>
-            </font>
-            <br><br>
-
-        <?php
-                unset($_SESSION['mensaje_error']);
-            endif;
-        ?>
-        <div id="mensajeError"></div>
-
-		<form name="frmDatos" id="frmDatos" method="POST" action="procesar/modificar.php">
-
-			<input type="hidden" name="idSubCategoria" value="<?php echo $subCategoria->getIdSubCategoria(); ?>">
-
-		    <label>Sub Categoria</label>
-		    <input type="text" id="txtSubCategoria" name="txtSubCategoria" value="<?php echo utf8_encode($subCategoria); ?>">
-		    <br><br>
-
-			<label>Categorias:</label>
-			<select name="idCategoria" id="idCategoria">
-			    <option value="0">Seleccionar</option>
-
-				<?php
-				foreach ($listadoCategoria as $categoria):
-					$selected = '';
-					if ($subCategoria->getIdCategoria() == $categoria->getIdCategoria()) {
-						$selected = "SELECTED";
-					}
-				?>
-					<option value="<?php echo $categoria->getIdCategoria(); ?>" <?php echo $selected; ?> >
-					    <?php echo $categoria; ?>
-					</option>
-
-				<?php endforeach ?>
-
-			</select>
-			<br><br>
-
-		    <input type="button" value="Guardar" onclick="validarDatos()">			
-
-		</form>
-
-</div>
-</body>
-</html>
 
 </body>
 </html>

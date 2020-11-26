@@ -2,6 +2,7 @@
 
 require_once '../../clases/Disenio.php';
 require_once '../../clases/Imagen.php';
+require_once "../../config.php";
 
 $listado = Disenio::obtenerTodos();
 
@@ -39,14 +40,14 @@ $listado = Disenio::obtenerTodos();
                                     <tr>
 										<th>Descripcion</th>
 										<th>Precio</th>
-										<th >Accion</th>
+										<th>Accion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 	<?php foreach ($listado as $disenio): ?>
                                     <tr>
                                     	<td> <?php echo $disenio; ?> </td>
-                                    	<td> <?php echo $disenio->getPrecio(); ?> </td>
+                                    	<td onclick="setAumento('<?php echo $disenio->getIdItem() ?>')"> <?php echo $disenio->getPrecio(); ?> </td>
                                         <td>
                                         	<a class="btn btn-secondary btn-sm" href="modificar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Modificar</a>
                                         	<a class="btn btn-warning btn-sm" href="eliminar.php?id=<?php echo $disenio->getIdDisenio(); ?>">Borrar</a>
@@ -61,6 +62,34 @@ $listado = Disenio::obtenerTodos();
             </div>
         </div>
     </div>
+
+<script>
     
+    function setAumento(id){
+
+        let precio = prompt('Ingrese el nuevo precio');
+
+        if (precio == null || precio == "") {
+            return false;
+        }
+
+        $.ajax({
+            type: 'GET',
+            url : 'procesar/cambiarPrecio.php',
+            data: {
+                'idItem': id,
+                'precio': precio
+            },
+            success: function(data){
+                if (data == true) {}
+                //console.log(data)
+                alert('Aumentado');
+            }
+        })
+        //location.reload();
+    }
+
+</script>
+
 </body>
 </html>

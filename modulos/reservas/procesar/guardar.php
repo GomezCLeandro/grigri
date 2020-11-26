@@ -7,6 +7,7 @@ require_once "../../../clases/Reserva.php";;
 $idUsuario = $_POST['idUsuario'];
 $idServicio = $_POST['idServicio'];
 $fechaEntrega = $_POST['txtFechaReserva'];
+$horaReserva = $_POST['txtHoraReserva'];
 $lugarReserva = $_POST['txtLugarReserva'];
 $notacion = $_POST['txtNotacion'];
 
@@ -36,6 +37,7 @@ $reserva = new Reserva();
 $reserva->setIdUsuario($idUsuario);
 $reserva->setIdServicio($idServicio);
 $reserva->setFechaReserva($fechaEntrega);
+$reserva->setHoraReserva($horaReserva);
 $reserva->setLugarReserva($lugarReserva);
 
 /*

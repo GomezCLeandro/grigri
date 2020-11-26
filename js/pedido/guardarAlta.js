@@ -14,10 +14,11 @@ function guardarAlta(){
 	        	'tipoEnvio': tipoEnvio,
 	        	'fechaCreacion': fechaCreacion,
 	        	'fechaEntrega': fechaEntrega,
-	        	'items': detallePedido
+	        	'items': detallePedido,
+	        	'total': total
 	        },
 	        success: function(data){
-	            console.log(data)
+	            console.log(data);
 	        }
 	    })
     }else{

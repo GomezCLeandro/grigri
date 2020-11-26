@@ -5,12 +5,11 @@ date_default_timezone_set("America/Argentina/Buenos_Aires");
 require_once "../../clases/Pedido.php";
 require_once "../../clases/EstadoPedido.php";
 
-/*
 require_once "../../clases/Usuario.php";
 
 require_once "../../clases/DetallePedido.php";
 require_once "../../clases/Disenio.php";
-*/
+/**/
 
 $listadoPedidos = Pedido::obtenerPedidoParaFacturar();
 
@@ -65,11 +64,16 @@ $listadoPedidos = Pedido::obtenerPedidoParaFacturar();
                                                         }
                                                     ?>
 
-                                                    <td class="text-center"> <?php echo $pedidos->calcularTotal(); ?> </td>
+                                                    <td class="text-center"> <?php echo $pedidos->getTotal(); ?> </td>
                                                     <td>
-                                                        <a class="btn btn-success btn-sm" href="../detallePedido/detallePedido.php?id=<?php echo $pedidos->getIdPedido(); ?>">Detalle</a>
-                                                    	<a class="btn btn-secondary btn-sm" href="modificar.php?id=<?php echo $pedidos->getIdPedido(); ?>">Modificar</a>
+                                                        <a class="btn btn-success btn-sm" href="detalle.php?id=<?php echo $pedidos->getIdPedido(); ?>">Detalle</a>
                                                     	<a class="btn btn-warning btn-sm" href="eliminar.php?id=<?php echo $pedidos->getIdPedido(); ?>">Borrar</a>
+
+                                                        <?php if ($estado->getIdEstadoPedido() == 6) : ?>
+
+                                                            <a class="btn btn-outline-success btn-sm" href="detalle.php?id=<?php echo $pedidos->getIdPedido(); ?>">Facturar</a>
+
+                                                        <?php endif; ?>
                                                     </td>
                                                 </tr>
                                                 <?php endforeach ?>	

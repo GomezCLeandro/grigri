@@ -110,15 +110,14 @@ $idLlamada = $_GET['idLlamada'];
 						                    <small class="help-block form-text">pequeña descipcion que queira agregar</small>
 						                </div>
 						            </div>
-						        </div>
-		                        <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary btn-sm" onclick="validarDatos()">
-                                        <i class="fa fa-dot-circle-o"></i> Guardar
-                                    </button>
-                                </div>
-                            	</form>
+						        </form>
 						    </div>
-						</div>
+	                        <div class="card-footer">
+                                <button class="btn btn-primary btn-sm" onclick="validarDatos()">
+                                    <i class="fa fa-dot-circle-o"></i> Guardar
+                                </button>
+                            </div>
+					    </div>
 					</div>
 				</div>
 			</div>

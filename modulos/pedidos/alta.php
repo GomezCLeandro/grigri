@@ -19,10 +19,6 @@ $listadoServicio = Servicio::obtenerTodos();
 	<title>Alta Pedido</title>
 
 	<script type="text/javascript" src="../../js/validaciones/validacionItem.js"></script>
-	<script type="text/javascript" src="../../js/pedido/guardarAlta.js"></script>
-	<script type="text/javascript" src="../../js/pedido/setCantidad.js"></script>
-	<script type="text/javascript" src="../../js/pedido/calcularSubtotal.js"></script>
-	<script type="text/javascript" src="../../js/pedido/eliminarItem.js"></script>
 
 </head>
 <body>
@@ -292,7 +288,71 @@ $listadoServicio = Servicio::obtenerTodos();
 <script>
 
 $('#id_message_validacion').hide();
-/*
+/**/
+var total = 0.0;
+var detallePedido = []; // array
+var indice = 0;
+
+function setCantidad(id, nombre, precio){
+    /*
+      cargar detalle de venta
+    */
+
+	let cantidad = prompt('Ingrese la cantidad')
+
+	
+
+	//console.log(isNaN(cantidad));
+
+	if (cantidad == null || cantidad == "") {
+		return false;
+	}
+
+    let subtotal = calcularSubtotal(cantidad, precio);
+    let items = {}; // items del detalle
+    
+    //console.log(total);
+    
+    items['indice'] = indice;
+    items['id'] = id;
+    items['cantidad'] = cantidad;
+
+    detallePedido.push(items); // armando mi detalle para el envio
+    console.log(detallePedido);
+
+    $('#tabla_detalle tr:last').after('<tr><td>' + id + '</td><td>' + nombre + '</td><td>' + precio +'</td><td>' + cantidad + '</td><td>' + subtotal + 
+        '</td><td> <button type="button" onclick="eliminarItem(' + indice + ')" class="btn btn-danger"><i class="far fa-trash-alt"></i></button></td></tr>');
+
+    indice ++;
+}
+
+function calcularSubtotal(cantidad, precio){
+    let resultado = parseFloat(cantidad) * parseFloat(precio);
+    total += resultado; //acumula cantidad
+    $('#id_total').text('$' + total);
+    return resultado;
+}
+
+function eliminarItem(indiceDelete, detallePedido){
+	let respuesta=[];
+	for (let index = 0; index < detallePedido.length; index++){
+		if(detallePedido[index].indice !== indiceDelete){
+			respuesta.push(detallePedido[indice])
+			//console.log(respuesta[index]);
+		} else {
+			console.log('borra este id');
+			console.log(index);
+			$('#' + detallePedido[index].indice).remove();
+			//restarSubTotal(detallePedido[index].subtotal);
+			//respuesta.splice(index, 1);
+		}
+	}
+	//console.log(respuesta);
+	detallePedido = respuesta;
+	console.log(detallePedido);
+	return detallePedido;		
+}
+
 function guardarAlta(){
 
 	let usuario = $('#cboUsuario').val();
@@ -309,59 +369,19 @@ function guardarAlta(){
 	        	'tipoEnvio': tipoEnvio,
 	        	'fechaCreacion': fechaCreacion,
 	        	'fechaEntrega': fechaEntrega,
-	        	'items': detallePedido
+	        	'items': detallePedido,
+	        	'total': total
 	        },
 	        success: function(data){
-	            console.log(data)
+	            console.log(data);
 	        }
 	    })
     }else{
         $('#id_message_validacion').show();
     }
 }
-*/
+
 </script>
-<!--
-
-var total = 0.0;
-var detalle_ventas = []; // array
-
-function setCantidad(id, nombre, precio){
-    /*
-      cargar detalle de venta
-    */
-
-	let cantidad = prompt('Ingrese la cantidad')
-
-
-	console.log(nombre, cantidad, precio, id);
-
-	console.log(isNaN(cantidad));
-
-	if (cantidad == null || cantidad == "") {
-		return false;
-	}
-
-    let subtotal = calcularSubtotal(cantidad, precio);
-    let items = {}; // items del detalle
-    
-    items['id'] = id;
-    items['cantidad'] = cantidad;
-
-    detalle_ventas.push(items); // armando mi detalle para el envio
-
-    $('#id_detalle_venta tr:last').after('<tr><td>' + id + '</td><td>' + nombre + '</td><td>' + cantidad + '</td><td>' + subtotal + '</td> <td class="text-right"> <i class="mr-2" data-feather="trash"></i></td></tr>')
-}
-
-function calcularSubtotal(cantidad, precio){
-    let resultado = parseFloat(cantidad) * parseFloat(precio);
-    total += resultado; //acumula cantidad
-    $('#id_total').text('$' + total);
-    return resultado;
-}
-
-
--->
 
 </body>
 </html>

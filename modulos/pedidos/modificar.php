@@ -354,7 +354,7 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 	    success: function(data){
 
 	        var datosDetallePedido = JSON.parse(data);
-	        //console.log(datosDetallePedido);
+	        console.log(datosDetallePedido);
 
 	        for (var x=0; datosDetallePedido[x] ; x+=1) {
 
@@ -370,10 +370,9 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 			    items['precio'] = datosDetallePedido[x]._precio;
 				items['subtotal'] = subtotal;
 
-
 	            //console.log(items);
 	        	detallePedido.push(items); //armando detalle para el envio
-	        	console.log(detallePedido);
+	        	//console.log(detallePedido);
 
 	            $('#tabla_detalle tr:last').after('<tr id=' + indice +'><td>' + datosDetallePedido[x].item['_idItem'] + '</td><td>' + datosDetallePedido[x].item['_descripcion'] + '</td><td>$' + datosDetallePedido[x].item['_precio'] + '</td><td>' + datosDetallePedido[x]._cantidad + '</td><td>$' + subtotal + '</td><td> <button type="button" onclick="eliminarItem(' + indice + ')" class="btn btn-danger"><i class="far fa-trash-alt"></i></button></td></tr>');
 
@@ -407,7 +406,7 @@ $listadoEstadoPedido = EstadoPedido::obtenerTodos();
 		items['subtotal'] = subtotal;
 
 	    detallePedido.push(items); // armando mi detalle para el envio
-	    console.log(detallePedido);
+	    //console.log(detallePedido);
 
 	    $('#tabla_detalle tr:last').after('<tr id=' + indice + ' ><td >' + id + '</td><td>' + nombre + '</td><td>$' + precio +'</td><td>' + cantidad + '</td><td>$' + subtotal + 
 	        '</td><td> <button type="button" onclick="eliminarItem(' + indice + ')" class="btn btn-danger"><i class="far fa-trash-alt"></i></button></td></tr>');

@@ -6,6 +6,7 @@ require_once "../../../clases/Reserva.php";;
 
 $idReserva = $_POST['idReserva'];
 $fechaReserva = $_POST['txtFechaReserva'];
+$horaReserva = $_POST['txtHoraReserva'];
 $lugarReserva = $_POST['txtLugarReserva'];
 $idServicio = $_POST['idServicio'];
 $idUsuario = $_POST['idUsuario'];
@@ -46,6 +47,7 @@ if (empty(trim($estadoReserva))) {
 $reserva = Reserva::obtenerPorId($idReserva);
 $reserva->setFechaReserva($fechaReserva);
 $reserva->setLugarReserva($lugarReserva);
+$reserva->setHoraReserva($horaReserva);
 $reserva->setIdEstadoReserva($estadoReserva);
 $reserva->setnotacion($notacion);
 $reserva->setIdUsuario($idUsuario);

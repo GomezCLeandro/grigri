@@ -59,6 +59,15 @@ $listadoEstadoReserva = EstadoReserva::obtenerTodos();
 						                </div>
 						            </div>
 
+			                        <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label class=" form-control-label">Hora de Reservacion</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                    <input type="time" id="txtHoraReserva" name="txtHoraReserva" class="form-control">
+						                </div>
+						            </div>
+
                                     <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label class=" form-control-label">Usuario</label>

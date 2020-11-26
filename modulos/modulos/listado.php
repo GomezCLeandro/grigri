@@ -26,7 +26,7 @@ $listadoModulos = Modulo::obtenerTodos();
             <br>                    
             <div class="container-fluid">
                 <div class="row">
-                    <div>
+                    <div >
                         <div class="table-responsive table--no-card m-b-30">
                             <table align="center" class="table table-borderless table-striped table-earning">
                                 <thead align="center">

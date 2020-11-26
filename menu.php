@@ -60,8 +60,7 @@ if (is_null($imagen)) {
     <link href="/grigri/css/theme.css" rel="stylesheet" media="all">
 
     <!-- FullCalendar -->
-    <link href='/grigri/vendor/fullcalendar-3.10.0/fullcalendar.css' rel='stylesheet' media="all" />
-    
+    <link href='/grigri/vendor/fullcalendar-3.10.0/fullcalendar.css' rel='stylesheet' media="all" />    
 
 </head>
 
@@ -161,7 +160,7 @@ if (is_null($imagen)) {
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
                                                 <div class="image">
-                                                    <a href="#"><img src="/grigri/images/fotoPerfil/<?php echo $imagen; ?>" /></a>
+                                                    <img src="/grigri/images/fotoPerfil/<?php echo $imagen; ?>" />
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
@@ -214,6 +213,7 @@ if (is_null($imagen)) {
     <script src="/grigri/vendor/select2/select2.min.js"></script>
     <script src="/grigri/vendor/fullcalendar-3.10.0/lib/moment.min.js"></script>
     <script src="/grigri/vendor/fullcalendar-3.10.0/fullcalendar.js"></script>
+    <script src="/grigri/vendor/fullcalendar-3.10.0/locale-all.js"></script>
 
     <!-- Main JS-->
     <script src="/grigri/js/main 2.js"></script>

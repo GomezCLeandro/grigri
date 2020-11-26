@@ -18,7 +18,8 @@ function guardarModificar(){
 	        	'fechaCreacion': fechaCreacion,
 	        	'fechaEntrega': fechaEntrega,
 	        	'item': detallePedido,
-	        	'estadoPedido' : estadoPedido
+	        	'estadoPedido' : estadoPedido,
+	        	'total': total
 	        },
 	        success: function(data){
 	            console.log(data)

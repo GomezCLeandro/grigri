@@ -60,7 +60,16 @@ $listadoEstadoRerserva = EstadoReserva::obtenerTodos();
 						                    <label class=" form-control-label">Fecha de Reserva</label>
 						                </div>
 						                <div class="col-12 col-md-9">
-						                    <input type="text" id="txtSubCategoria" name="txtFechaReserva" class="form-control" value="<?php echo $reserva->getFechaReserva(); ?>">
+						                    <input type="date" id="txtSubCategoria" name="txtFechaReserva" class="form-control" value="<?php echo $reserva->getFechaReserva(); ?>">
+						                </div>
+						            </div>
+
+			                        <div class="row form-group">
+						                <div class="col col-md-3">
+						                    <label class=" form-control-label">Hora de Reservacion</label>
+						                </div>
+						                <div class="col-12 col-md-9">
+						                    <input type="time" id="txtHoraReserva" name="txtHoraReserva" class="form-control" value="<?php echo $reserva->getHoraReserva(); ?>">
 						                </div>
 						            </div>
 

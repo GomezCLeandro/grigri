@@ -12,6 +12,7 @@ class Pedido {
 	private $_fechaEntrega;
     private $_fechaCreacion;
 	private $_lugarEntrega;
+    private $_total;
 
     private $_arrDetallePedido;
     const ACTIVO = 1;
@@ -173,9 +174,29 @@ class Pedido {
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTotal()
+    {
+        return $this->_total;
+    }
+
+    /**
+     * @param mixed $_total
+     *
+     * @return self
+     */
+    public function setTotal($_total)
+    {
+        $this->_total = $_total;
+
+        return $this;
+    }
+
     public function guardar() {
-        $sql = "INSERT INTO pedido (id_pedido, id_usuario, id_envio, id_estado_pedido, fecha_entrega, lugar_entrega, fecha_creacion) "
-        . "VALUES (NULL, '$this->_idUsuario', '$this->_idEnvio', '$this->_idEstadoPedido', '$this->_fechaEntrega', '$this->_lugarEntrega', '$this->_fechaCreacion')";
+        $sql = "INSERT INTO pedido (id_pedido, id_usuario, id_envio, id_estado_pedido, fecha_entrega, lugar_entrega, fecha_creacion, total) "
+        . "VALUES (NULL, '$this->_idUsuario', '$this->_idEnvio', '$this->_idEstadoPedido', '$this->_fechaEntrega', '$this->_lugarEntrega', '$this->_fechaCreacion', '$this->_total')";
 
         $mysql = new MySQL();
         $idInsertado = $mysql->insertar($sql);
@@ -186,25 +207,12 @@ class Pedido {
 
     public function actualizar($idPedido) {
         $sql = "UPDATE pedido SET id_usuario = '$this->_idUsuario',id_envio = '$this->_idEnvio',id_estado_pedido = '$this->_idEstadoPedido', "
-        . "fecha_entrega = '$this->_fechaEntrega',lugar_entrega = '$this->_lugarEntrega', fecha_creacion = '$this->_fechaCreacion' "
+        . "fecha_entrega = '$this->_fechaEntrega',lugar_entrega = '$this->_lugarEntrega', fecha_creacion = '$this->_fechaCreacion', total = '$this->_total'"
         . "WHERE id_pedido =" . $idPedido;
         
         $mysql = new MySQL();
         $mysql->actualizar($sql);
         $mysql->desconectar();        
-    }
-
-    public static function masVendido() {
-        $sql = "SELECT  item.descripcion, SUM(detallepedido.cantidad) AS cantidad FROM pedido"
-            . " INNER JOIN detallepedido ON detallepedido.id_pedido = pedido.id_pedido"
-            . " INNER JOIN item ON item.id_item = detallepedido.id_item"
-            . " GROUP BY item.descripcion ORDER BY cantidad DESC";
-
-        $mysql = new MySQL();
-        $datos = $mysql->consulta($sql);
-        $mysql->desconectar();
-
-        return $datos;
     }
 
     public static function pendientes() {
@@ -254,6 +262,7 @@ class Pedido {
     		$pedido->_fechaEntrega = $registro['fecha_entrega'];
             $pedido->_fechaCreacion = $registro['fecha_creacion'];
     		$pedido->_lugarEntrega = $registro['lugar_entrega'];
+            $pedido->_total = $registro['total'];
             $pedido->setArrDetallePedido();
 
     		$listado[] = $pedido;
@@ -278,6 +287,7 @@ class Pedido {
     		$pedido->_fechaEntrega = $registro['fecha_entrega'];
             $pedido->_fechaCreacion = $registro['fecha_creacion'];
     		$pedido->_lugarEntrega = $registro['lugar_entrega'];
+            $pedido->_total = $registro['total'];
             $pedido->setArrDetallePedido();
         return $pedido;
     }
@@ -302,6 +312,7 @@ class Pedido {
             $pedido->_idPedido = $registro['id_pedido'];
             $pedido->_idUsuario = $registro['id_usuario'];
             $pedido->_idEstadoPedido = $registro['id_estado_pedido'];
+            $pedido->_total = $registro['total'];
             $pedido->setArrDetallePedido();
 
             $listado[] = $pedido;
@@ -312,9 +323,11 @@ class Pedido {
     public function calcularTotal() {
         $total = 0;
         foreach ($this->_arrDetallePedido as $detallePedido) {
-            $total = $total+$detallePedido->calcularSubTotal();
+            $total = $total + $detallePedido->calcularSubTotal();
         }
-        return $total;
+        $this->_total = $total;
+
+        return $this;
     }
 }
 

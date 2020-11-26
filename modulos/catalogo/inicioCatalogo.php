@@ -1,3 +1,14 @@
+<?php
+
+require_once "../../clases/Servicio.php";
+require_once "../../clases/Disenio.php";
+require_once "../../config.php";
+
+$listadoServicio = Servicio::obtenerTodos();
+$listadoDisenios = Disenio::obtenerTodos();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +31,8 @@
 
   <body>
 
-    <!-- Navigation -->
+    <?php require_once '../../menuArriba.php'; ?>
+    <!-- Navigation 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">Start Bootstrap</a>
@@ -47,7 +59,7 @@
         </div>
       </div>
     </nav>
-
+-->
     <header>
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -90,14 +102,39 @@
     </header>
 
     <!-- Page Content -->
-    <section class="py-5">
-      <div class="container">
-        <h1>Full Slider by Start Bootstrap</h1>
-        <p>The background images for the slider are set directly in the HTML using inline CSS. The rest of the styles for this template are contained within the
-          <code>full-slider.css</code>
-          file.</p>
+    <div class="container">
+
+      <h1 class="my-4 text-center text-lg-left">Galeria</h1>
+
+      <div class="row text-center text-lg-left">
+
+        <?php foreach ($listadoServicio as $imagenServicio) : ?>
+          <?php foreach ($imagenServicio->arrImagen as $imagen) : ?>
+            
+            <div class="col-lg-3 col-md-4 col-xs-6">
+              <a href="../servicio/modificar.php?id=<?php echo $imagenServicio->getIdServicio(); ?>" class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" src="<?php echo DIR_GALERIA ?>/<?php echo $imagen ?>" alt="">
+              </a>
+            </div>
+
+          <?php endforeach ?>
+        <?php endforeach ?>
+
+        <?php foreach ($listadoDisenios as $imagenDisenio) : ?>
+          <?php foreach ($imagenDisenio->arrImagen as $imagen) : ?>
+            
+            <div class="col-lg-3 col-md-4 col-xs-6">
+              <a href="../disenio/modificar.php?id=<?php echo $imagenDisenio->getIdDisenio(); ?>" class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" src="<?php echo DIR_GALERIA ?>/<?php echo $imagen ?>" alt="">
+              </a>
+            </div>
+
+          <?php endforeach ?>
+        <?php endforeach ?>
+        
       </div>
-    </section>
+    </div>
+    <!-- /.container -->
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">

@@ -2,6 +2,7 @@
 
 require_once 'MySQL.php';
 require_once 'Disenio.php';
+require_once 'Servicio.php';
 
 class DetallePedido {
 	
@@ -166,14 +167,16 @@ class DetallePedido {
     }
 
     public function obtenerItemPorIdItem($idItem) {
-        return Disenio::obtenerPorIdItem($idItem);
+        $itemDisenio = Disenio::obtenerPorIdItem($idItem);
+        
+        return $itemDisenio;
     }
 
     public function calcularSubTotal() {
-        $item = Disenio::obtenerPorIdItem($this->_idItem);
-
-        $subTotal = $item->getPrecio() * $this->_cantidad;
-
+        $itemDisenio = Disenio::obtenerPorIdItem($this->_idItem);
+        
+        $subTotal = $itemDisenio->getPrecio() * $this->_cantidad;
+        
         return $subTotal;
     }
 

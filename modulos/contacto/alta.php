@@ -27,7 +27,7 @@ $listadoTipoContacto = TipoContacto::obtenerTodos();
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Diseño</strong>
+                                <strong>Contacto</strong>
                             </div>
                             <div class="card-body card-block">
                                     <?php if (isset($_SESSION['mensaje_error'])) : ?>
@@ -75,13 +75,12 @@ $listadoTipoContacto = TipoContacto::obtenerTodos();
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-dot-circle-o"></i> Guardar
-                                    </button>
-                                </div>
                                 </form>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary btn-sm" onclick="validarDatos()">
+                                    <i class="fa fa-dot-circle-o"></i> Guardar
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -13,6 +13,7 @@ $fechaEntrega = $_POST['fechaEntrega'];
 $idEstado = $_POST['estadoPedido'];
 $arrItem = $_POST['item'];
 $fechaCreacion = $_POST['fechaCreacion'];
+$total = $_POST['total'];
 
 if (empty($idUsuario)) {
 	$_SESSION['mensaje_error'] = "Debe ingresar para quien es el pedido";
@@ -49,6 +50,7 @@ $pedido->setIdEstadoPedido($idEstado);
 $pedido->setFechaEntrega($fechaEntrega);
 $pedido->setFechaCreacion($fechaCreacion);
 $pedido->setLugarEntrega($lugarEntrega);
+$pedido->setTotal($total);
 
 $pedido->actualizar($idPedido);
 

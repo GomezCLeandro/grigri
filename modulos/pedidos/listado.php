@@ -30,11 +30,6 @@ $listadoPedidos = Pedido::obtenerTodos();
                     <div>
                         <a class="au-btn au-btn-icon au-btn--blue" href="alta.php">
                             <i class="zmdi zmdi-plus"></i>Pedido</a>
-
-                        <a class="btn btn-info" href="../informe/informePedidosPendientes.php">Pedidos Pendientes</a>
-
-                        <a class="btn btn-info" href="../informe/informePedidosSenados.php">Pedidos Señados</a>
-
                     </div> 
                     <div class="row m-t-30">
                         <div>
@@ -106,7 +101,7 @@ $listadoPedidos = Pedido::obtenerTodos();
                                                     <td> <?php echo $pedidos->getFechaCreacion(); ?> </td>
                                                 	<td> <?php echo $pedidos->getFechaEntrega(); ?> </td>
                                                     <td> <?php echo $fechaEntrega; ?> </td>
-                                                    <td> <?php echo $pedidos->calcularTotal(); ?> </td>
+                                                    <td> <?php echo $pedidos->getTotal(); ?> </td>
                                                     <td>
                                                         <a class="btn btn-success btn-sm" href="../detallePedido/detallePedido.php?id=<?php echo $pedidos->getIdPedido(); ?>">Detalle</a>
                                                     	<a class="btn btn-secondary btn-sm" href="modificar.php?id=<?php echo $pedidos->getIdPedido(); ?>">Modificar</a>

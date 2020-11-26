@@ -37,13 +37,13 @@
 	                            <label for="exampleInputName2" class="pr-1  form-control-label">nombre</label>
 	                            <input type="text" id="txtCategoria" name="txtCategoria" placeholder="" required="" class="form-control">
 	                        </div>
-	                    </form>
-	                </div>
-	                <div class="card-footer">
-	                    <button type="submit" class="btn btn-primary btn-sm" onclick="validarDatos()">
-	                        <i class="fa fa-dot-circle-o"></i> Guardar
-	                    </button>
-	                </div>
+                    	</form>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary btn-sm" onclick="validarDatos()">
+                            <i class="fa fa-dot-circle-o"></i> Guardar
+                        </button>
+                    </div>
 	            </div>
             </div>
         </div>

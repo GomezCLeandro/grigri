@@ -21,7 +21,7 @@ if (strlen(trim($nombreRecurso)) < 3) {
 $recurso = Recurso::obtenerPorId($idRecurso);
 $recurso->setDescripcion($nombreRecurso);
 
-$recurso->actualizar($idRecurso);
+$recurso->actualizar();
 
 header("location: /grigri/modulos/recurso/listado.php?id=$idRecurso");
 

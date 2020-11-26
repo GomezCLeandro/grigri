@@ -9,7 +9,7 @@ function setCantidad(id, nombre, precio){
 
 	let cantidad = prompt('Ingrese la cantidad')
 
-	//console.log(nombre, cantidad, precio, id);
+	
 
 	//console.log(isNaN(cantidad));
 
@@ -19,6 +19,8 @@ function setCantidad(id, nombre, precio){
 
     let subtotal = calcularSubtotal(cantidad, precio);
     let items = {}; // items del detalle
+    
+    //console.log(total);
     
     items['indice'] = indice;
     items['id'] = id;
@@ -32,5 +34,6 @@ function setCantidad(id, nombre, precio){
 
     indice ++;
 }
+
 
 //console.log(detallePedido);

@@ -51,7 +51,7 @@ $categoria = Categoria::obtenerPorId($id);
 	                    </form>
 	                </div>
 	                <div class="card-footer">
-	                    <button type="submit" class="btn btn-primary btn-sm" onclick="validarDatos()">
+	                    <button class="btn btn-primary btn-sm" onclick="validarDatos()">
 	                        <i class="fa fa-dot-circle-o"></i> Guardar
 	                    </button>
 	                </div>

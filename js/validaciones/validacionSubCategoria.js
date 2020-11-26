@@ -11,7 +11,7 @@ function validarDatos() {
 		divMensajeError.innerHTML = "<font color='red'> El nombre debe contener al menos 3 caracteres js</font><br><br>";
 		return;
 	}
-	if (categoria != null) {
+	if (categoria = null || categoria == 0) {
 		divMensajeError.innerHTML = "<font color='red'> Debe seleccionar la categoria js</font><br><br>";
 		return;
 	}

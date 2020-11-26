@@ -17,7 +17,7 @@ if (strlen(trim($descripcion)) < 5) {
 	header("location: /grigri/modulos/subCategoria/alta.php");
 	exit;
 }
-if (empty($categoria)) {
+if (empty($categoria || $categoria == 0)) {
 	$_SESSION['mensaje_error'] = "Debe seleccionar categoria";
 	header("location: /grigri/modulos/subCategoria/alta.php");
 	exit;

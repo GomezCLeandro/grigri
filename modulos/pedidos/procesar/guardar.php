@@ -13,6 +13,7 @@ $idTipoEnvio = $_POST['tipoEnvio'];
 $fechaEntrega = $_POST['fechaEntrega'];
 $arrItems = $_POST['items'];
 $fechaCreacion = $_POST['fechaCreacion'];
+$total = $_POST['total'];
 
 if (empty($idUsuario)) {
 	$_SESSION['mensaje_error'] = "Debe ingresar para quien es el pedido";
@@ -26,6 +27,11 @@ if (empty($idTipoEnvio)) {
 }
 if (empty($fechaEntrega)) {
 	$_SESSION['mensaje_error'] = "Debe ingresar la fecha de entrega";
+	header("location: /grigri/modulos/pedidos/alta.php");
+	exit;
+}
+if (empty($total)) {
+	$_SESSION['mensaje_error'] = "No hay total";
 	header("location: /grigri/modulos/pedidos/alta.php");
 	exit;
 }
@@ -46,6 +52,7 @@ $pedido->setIdEnvio($idTipoEnvio);
 $pedido->setFechaEntrega($fechaEntrega);
 $pedido->setLugarEntrega($lugarEntrega);
 $pedido->setFechaCreacion($fechaCreacion);
+$pedido->setTotal($total);
 
 $pedido->guardar();
 

@@ -31,7 +31,7 @@ $listado = Servicio::obtenerTodos();
                                     <tr>
 										<th>Descripcion</th>
 										<th>Precio</th>
-										<th >Accion</th>
+										<th>Accion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
