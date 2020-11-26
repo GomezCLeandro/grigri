@@ -136,9 +136,6 @@ $listadoServicio = Servicio::obtenerTodos();
 														<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalDisenio">
 															<i class="fa fa-list-ol" ></i>&nbsp; Listado de Diseños</button>
 
-														<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalServicio">
-			                                            	<i class="fa fa-list-ol" ></i>&nbsp; Listado de Servicios</button>
-
 							                            <button onclick="guardarAlta()" class="btn btn-success has-icon ml-sm-1 mt-1 mt-sm-0" type="button">
 							                            <i class="fa fa-save" data-feather="printer"></i> Guardar
 							                            </button>
@@ -245,45 +242,6 @@ $listadoServicio = Servicio::obtenerTodos();
 		</div>
 	</div>
 	<!-- end modal large disenio -->
-	
-	<!-- modal large servicio -->
-	<div class="modal fade" id="modalServicio" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="largeModalLabel">Listado de Servicios</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<!-- Boton para buscar
-		            <input id="id_txt_buscar" class="form-control" placeholder="Buscar producto" >
-		            <button onclick="buscarProductos()" class="btn btn-info">Buscar</button>
-		            -->
-		            <table class="table table-striped table-sm" id="id_tabla_productos">
-	                    <thead>
-	                        <tr class="text-center">
-		                        <th>Codigo</th>
-		                        <th>Servicio</th>
-		                        <th>precio</th>
-	                        </tr>
-	                    </thead>
-	                    <tbody>
-	                    	<?php foreach ($listadoServicio as $servicio) :?>
-	                        <tr class="text-center" onclick="setCantidad('<?php echo $servicio->getIdItem(); ?>' , '<?php echo $servicio; ?>' , '<?php echo $servicio->getPrecio(); ?>')">
-	                        	<td> <?php echo $servicio->getIdItem(); ?> </td>
-	                        	<td> <?php echo $servicio; ?> </td>
-	                        	<td> <?php echo $servicio->getPrecio(); ?> </td>
-	                        </tr>
-	                        <?php endforeach; ?>
-	                    </tbody>
-	                </table>
-		        </div>
-			</div>
-		</div>
-	</div>
-	<!-- end modal large servicio -->
 </div>
 <script>
 
